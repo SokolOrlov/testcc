@@ -1,0 +1,13 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+   tbody tr:hover {
+    background-color: blue;
+  }
+  
+   tbody tr:focus {
+    background-color: red;
+    outline: 0; 
+  }
