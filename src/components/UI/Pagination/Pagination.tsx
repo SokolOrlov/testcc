@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { getPagesArray } from "../../../utils/pages";
 import cl from "./Pagination.module.css";
 
 const Pagination = ({ totalPages, page, onChange }: { totalPages: number; page: number; onChange: (arg0: any) => void; }) => {
   console.log("Pagination");
+
+ // const [currentPage, setPage] = useState(page);
 
   let pagesArray = getPagesArray(totalPages);
   return (

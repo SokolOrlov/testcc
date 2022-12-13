@@ -1,60 +1,73 @@
-import React, { useEffect, useMemo, useState } from "react";
-import AllObjectsService, { StatesResult } from "../../API/AllObjectsService";
+import React, { useEffect, useMemo, useReducer } from "react";
+import AllObjectsService from "../../API/AllObjectsService";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import Table, { TableRow } from "../../components/UI/Table/Table";
-import { useFetching } from "../../hooks/useFetching";
-import { getPageCount } from "../../utils/pages";
+import {reducer,initialState} from "../../reducers/ObjectPageReducer"
+
 import cl from "./Objects.module.css";
 
-interface Post {
-  ObjectId: number;
-  ObjectName: string;
-  ObjectAddress: string;
-  ObjectCoordinates: string;
-  DomainId: number;
-  Domain: string;
-  ServiceCompany: string;
-  DeviceGatewayName: string;
-  DeviceGatewayId: number;
-  IsOnline: boolean;
-  AlarmsCount: number;
-  AllDeviceCount: number;
-  OfflineDeviceCount: number;
-}
-
 const Objects = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [states, setStates] = useState<StatesResult[]>([{id:0,name:''}]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [filter, setFilter] = useState("");
-  const [selectedState, setSelectedState] = useState<number>();
+  console.log("Objects");
 
-  const [fetchPosts, isPostsLoading, postError] = useFetching(
-    async (limit: number, page: number, filter: string, state: number) => {
-      const response = await AllObjectsService.getAll(
-        limit,
-        page,
-        filter,
-        state
-      );
-     setPosts(response.data);
-    setTotalPages(getPageCount(response.total, limit));
-    }
-  );
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    AllObjectsService.getStates().then((result) => {
-      setStates(result);
+     Promise.all([
+      AllObjectsService.getObjectStates(), 
+      AllObjectsService.getObjectsWithGateways( state.pageLimit, state.pageNumber, state.filter, state.stateNumber )])
+      .then(result=> {
+       console.log(result);
+      
+        dispatch({
+        type:"init",
+        payload:{
+          s:result[0],
+          o:result[1]
+        }
+      })
     });
   }, []);
 
-  useEffect(() => {
-    fetchPosts(limit, page, filter, selectedState);
-  }, [page, limit, filter, selectedState]);
+  const changePage = (selectedPage: number) => {
+    AllObjectsService.getObjectsWithGateways( state.pageLimit, selectedPage, state.filter, state.stateNumber )
+    .then(res=>{
+      dispatch({
+        type:"change_page",
+        payload:{
+          num: selectedPage,
+          o: res
+        }
+      })
+    })
+  };
+
+  const changeFilter = (filterText: string) => {
+    AllObjectsService.getObjectsWithGateways( state.pageLimit, 1, filterText, state.stateNumber )
+    .then(res=>{
+      dispatch({
+        type:"change_filter",
+        payload:{
+          str: filterText,
+          o: res
+        }
+      })
+    })
+  };
+
+  const changeState = (selectedState: number) => {
+    AllObjectsService.getObjectsWithGateways( state.pageLimit, 1, state.filter, selectedState )
+    .then(res=>{
+      dispatch({
+        type:"change_state",
+        payload:{
+          num:selectedState,
+          o: res
+        }
+      })
+    })
+  };
 
   const headers = [
     "Domain",
@@ -65,7 +78,7 @@ const Objects = () => {
     "AlarmsCount",
   ];
 
-  const rows2: TableRow[] = posts.map((post) => {
+  const rows2: TableRow[] = state.posts.map((post) => {
     return {
       cells: [
         { data: post.Domain, href: `/domain/${post.DomainId}` },
@@ -76,26 +89,12 @@ const Objects = () => {
         { data: post.AlarmsCount },
       ],
     };
-  });
-
-  const changePage = (currentPage: number) => {
-    setPage(currentPage);
-  };
-
-  const changeFilter = (text: string) => {
-    setPage(1);
-    setFilter(text);
-  };
-
-  const changeState = (state: number) => {
-    setPage(1);
-    setSelectedState(state);
-  };
+  });  
 
   const _filter = useMemo(()=> <FindInput onChange={changeFilter} />,[]);
-  const _dropdown = useMemo(()=><DropDown data={states} onSelect={changeState} filter={true} firstElement={FirstElement.FirstElement}/>,[states]);
-  const _table = useMemo(()=><Table headers={headers} rows={rows2} />,[posts])
-  const _pagination = useMemo(()=><Pagination page={page} totalPages={totalPages} onChange={changePage} />,[page, totalPages])
+  const _dropdown = useMemo(()=><DropDown data={state.states} onSelect={changeState} filter={true} firstElement={FirstElement.FirstElement}/>,[state.states]);
+  const _table = useMemo(()=><Table headers={headers} rows={rows2} />,[state.posts])
+  const _pagination = useMemo(()=><Pagination page={state.pageNumber} totalPages={state.totalPages} onChange={changePage} />,[state.pageNumber, state.totalPages])
 
   return (
     <>
