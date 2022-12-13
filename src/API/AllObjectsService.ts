@@ -1,9 +1,26 @@
 import { DropDownItem } from "../components/UI/DropDown/DropDown";
+import { TableRow } from "../components/UI/Table/Table";
 import { _objects, _states } from "../data";
 
 export interface ObjectsResult {
   total: number;
-  data: any[];
+  data: Post[];
+}
+
+export interface Post {
+  ObjectId: number;
+  ObjectName: string;
+  ObjectAddress: string;
+  ObjectCoordinates: string;
+  DomainId: number;
+  Domain: string;
+  ServiceCompany: string;
+  DeviceGatewayName: string;
+  DeviceGatewayId: number;
+  IsOnline: boolean;
+  AlarmsCount: number;
+  AllDeviceCount: number;
+  OfflineDeviceCount: number;
 }
 
 /** Состояние объекта */
@@ -62,5 +79,38 @@ export default class AllObjectsService {
    */
   static async getObjectStates(): Promise<ObjectState[]> {
     return await _states;
+  }
+
+ 
+/**
+ * Получить данные для таблицы
+ * @param posts Массив объектов с гейтвеями
+ * @returns Заголовки и строки таблиц
+ */
+  static getTableData(posts: Post[]):[string[], TableRow[] ]{
+    console.log('getTableData');
+    
+    const headers = [
+      "Domain",
+      "ObjectName",
+      "ObjectAddress",
+      "ServiceCompany",
+      "DeviceGatewayName",
+      "AlarmsCount",
+    ];
+    const rows = posts.map((post) => {
+      return {
+        cells: [
+          { data: post.Domain, href: `/domain/${post.DomainId}` },
+          { data: post.ObjectName },
+          { data: post.ObjectAddress },
+          { data: post.ServiceCompany },
+          { data: post.DeviceGatewayName },
+          { data: post.AlarmsCount },
+        ],
+      };
+    }) 
+
+    return [headers, rows]
   }
 }
