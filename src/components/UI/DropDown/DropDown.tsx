@@ -41,7 +41,7 @@ const DropDown = ({
   firstElement = FirstElement.FirstElement,
   emptyText = "",
 }: DropDownProps) => {
-  console.log("DropDown");
+  // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
   const [item, setSelectedItem] = useState<DropDownItem>(null);

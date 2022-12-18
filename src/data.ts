@@ -1214,3 +1214,9 @@ export const _states = [
 	{id:3, name:'в сети'},
 	{id:4, name:'не в сети'},
 ]
+
+export const _limits = [
+	{id:1, name:'Показать 10 записей', value:10},
+	{id:2, name:'Показать 25 записей', value:25},
+	{id:3, name:'Показать 50 записей', value:50}
+]

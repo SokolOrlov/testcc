@@ -1,6 +1,7 @@
 .find_input{
     box-sizing: border-box;
     height: 30px;
+    /* width: 100%; */
     padding: 4px 9px;
     font-size: 14px;
     line-height: 1.42857143;

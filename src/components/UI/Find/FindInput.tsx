@@ -6,8 +6,8 @@ type FindInputProps = {
   style?: string;
 };
 
-const FindInput = ({ onChange }: FindInputProps) => {
-  console.log("FindInput");
+const FindInput = ({ onChange}: FindInputProps) => {
+   //console.log("FindInput");
 
   const [text, setText] = useState("");
   const changeFilter = (event: any) => {
@@ -25,4 +25,4 @@ const FindInput = ({ onChange }: FindInputProps) => {
   );
 };
 
-export default FindInput;
+export default (FindInput);

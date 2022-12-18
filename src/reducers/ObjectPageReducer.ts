@@ -1,71 +1,77 @@
-import { ObjectsResult, ObjectState, Post } from "../API/AllObjectsService";
+import {PageSize,  ObjectsResult,  ObjectState,  Post,} from "../API/AllObjectsService";
 import { getPageCount } from "../utils/pages";
 
-interface s {
+export interface ObjectPageState {
   posts: Post[];
   states: ObjectState[];
-  stateNumber: number;
-  pageLimit: number;
+  pageSizes: PageSize[];
+  stateId: number;
+  pageSizeId: number;
   pageNumber: number;
   totalPages: number;
   filter: string;
 }
 
-export const initialState: s = {
+export const initialState: ObjectPageState = {
   posts: [],
   states: [],
-  stateNumber: 0,
-  pageLimit: 10,
+  pageSizes: [],
+  stateId: 1,
+  pageSizeId: 1,
   totalPages: 0,
   pageNumber: 1,
   filter: "",
 };
 
-interface payload{
-  num?:number,
-  str?:string,
-  o?:ObjectsResult,
-  s?:ObjectState[]
+interface payload {
+  num?: number;
+  str?: string;
+  o?: ObjectsResult;
+  s?: ObjectState[];
+  l?: PageSize[];
 }
 
-export const reducer = (state: s, action: { type: string; payload: payload}): s => {
+export const reducer = (state: ObjectPageState, action: { type: string; payload: payload }): ObjectPageState => {
   switch (action.type) {
-    case "init":{
+    case "init":
       return {
-        ...state, 
-        posts: action.payload.o.data, 
+        ...state,
+        posts: action.payload.o.data,
         states: action.payload.s,
-        totalPages: getPageCount(action.payload.o.total, state.pageLimit) 
-      }
-    }
-    case "change_page":{
-      return {...state, 
-        pageNumber:action.payload.num,
-        posts: action.payload.o.data
-      }
-    }
-    case "change_filter":{
+        pageSizes: action.payload.l,
+        totalPages: getPageCount(action.payload.o.total, action.payload.l.find((l) => l.id == 1).value),
+      };
+    case "change_page":
       return {
-        ...state, 
-        filter:action.payload.str, 
-        pageNumber:1,
+        ...state,
+        pageNumber: action.payload.num,
         posts: action.payload.o.data,
-        totalPages: getPageCount(action.payload.o.total, state.pageLimit)
-      }
-    }
+      };
+    case "change_filter":
+      return {
+        ...state,
+        filter: action.payload.str,
+        pageNumber: 1,
+        posts: action.payload.o.data,
+        totalPages: getPageCount(action.payload.o.total, state.pageSizes.find((l) => l.id == state.pageSizeId).value),
+      };
     case "change_limit":
-      break;
-    case "change_state":{
       return {
-        ...state, 
-        stateNumber:action.payload.num, 
-        pageNumber:1,
+        ...state,
+        pageSizeId: action.payload.num,
+        pageNumber: 1,
         posts: action.payload.o.data,
-        totalPages: getPageCount(action.payload.o.total, state.pageLimit)
-      }
-    }
+        totalPages: getPageCount(action.payload.o.total, state.pageSizes.find((l) => l.id == action.payload.num).value),
+      };
+    case "change_state":
+      return {
+        ...state,
+        stateId: action.payload.num,
+        pageNumber: 1,
+        posts: action.payload.o.data,
+        totalPages: getPageCount(action.payload.o.total, state.pageSizes.find((l) => l.id == state.pageSizeId).value),
+      };
     default:
-      return state;
-      break;
+      throw new Error();
   }
 };
