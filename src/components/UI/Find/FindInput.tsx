@@ -7,7 +7,7 @@ type FindInputProps = {
 };
 
 const FindInput = ({ onChange}: FindInputProps) => {
-   //console.log("FindInput");
+   console.log("FindInput");
 
   const [text, setText] = useState("");
   const changeFilter = (event: any) => {

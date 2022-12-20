@@ -1,7 +1,7 @@
 import { DropDownItem } from "../components/UI/DropDown/DropDown";
 import { TableRow } from "../components/UI/Table/Table";
-import { _limits, _objects, _states } from "../data";
 import { ObjectPageState } from "../reducers/ObjectPageReducer";
+import { api } from "../API/api";
 
 export interface ObjectsResult {
   total: number;
@@ -20,8 +20,8 @@ export interface Post {
   DeviceGatewayId: number;
   IsOnline: boolean;
   AlarmsCount: number;
-  AllDeviceCount: number;
-  OfflineDeviceCount: number;
+  AllDeviceCount?: number;
+  OfflineDeviceCount?: number;
 }
 
 /** Состояние объекта */
@@ -45,56 +45,30 @@ export default class AllObjectsService {
    * @param objectState Состояние объекта
    * @returns Список объектов с гейтвеями
    */
-  static async getObjectsWithGateways(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {    
-    let pageSize = _limits.find((l) => l.id == pageSizeId).value
-    const start = pageNumber === 1 ? 0 : (pageNumber - 1) * pageSize;
-    let total = _objects.aaData.length;
-    let data = _objects.aaData.slice(start, start + pageSize);
+  static async getObjectsWithGateways(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
 
-    if (filter || objectStateId) {
-      let filtered = _objects.aaData.filter(
-        (val) => val.ObjectName.toLowerCase().indexOf(filter) > -1
-      );
+    const pageSize = api.getRecorsOnPageLimits().find((l) => l.id == pageSizeId)?.value;
 
-      if (objectStateId) {
-        switch (objectStateId) {
-          case 2:
-            filtered = filtered.filter((val) => val.AlarmsCount > 0);
-            break;
-          case 3:
-            filtered = filtered.filter((val) => val.IsOnline);
-            break;
-          case 4:
-            filtered = filtered.filter((val) => !val.IsOnline);
-            break;
-
-          default:
-            break;
-        }
-      }
-
-      total = filtered.length;
-      data = filtered.slice(start, start + pageSize);
+    const objects = await api.getAllObjects(pageSize, pageNumber, filter, objectStateId);
+ 
+    return {
+      total: 100,
+      data: objects.aaData 
     }
-
-    return await {
-      total: total,
-      data: data,
-    };
   }
 
   /**Получить состояния объекта
    * @returns Состояния объекта
    */
   static async getObjectStates(): Promise<ObjectState[]> {
-    return await _states;
+    return await api.getObjectsStates();
   }
 
   /**Получить список кол-ва записей в таблице
    * @returns Список лимитов
    */
   static async getLimits(): Promise<PageSize[]> {
-    return await _limits;
+    return await api.getRecorsOnPageLimits();
   }
 
   /** Получить данные для таблицы
@@ -142,5 +116,4 @@ export default class AllObjectsService {
   static setState(st: ObjectPageState){
     AllObjectsService._state = st
   }
-
 }

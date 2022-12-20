@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer } from "react";
-import AllObjectsService from "../../API/AllObjectsService";
+import AllObjectsService from "../../Services/AllObjectsService";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
@@ -9,10 +9,10 @@ import { reducer, initialState } from "../../reducers/ObjectPageReducer";
 import cl from "./Objects.module.css";
 
 const Objects = () => {
-  //  console.log("Objects");
+  console.log("Objects");
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  AllObjectsService.setState(state)
+  AllObjectsService.setState(state);
 
   /**Загрузка начальных данных */
   useEffect(() => {
@@ -20,13 +20,13 @@ const Objects = () => {
       AllObjectsService.getObjectStates(),
       AllObjectsService.getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId),
       AllObjectsService.getLimits(),
-    ]).then((result) => {
+    ]).then((result) => {      
       dispatch({
         type: "init",
         payload: {
-          s: result[0],
-          o: result[1],
-          l: result[2],
+          objectStates: result[0],
+          objectsOnPage: result[1],
+          objectLimits: result[2],
         },
       });
     });
@@ -42,8 +42,8 @@ const Objects = () => {
       dispatch({
         type: "change_page",
         payload: {
-          num: selectedPage,
-          o: res,
+          intValue: selectedPage,
+          objectsOnPage: res,
         },
       });
     });
@@ -54,15 +54,13 @@ const Objects = () => {
    * @param filterText Текст фильтра
    */
   const changeFilter = (filterText: string) => {
-    const st = AllObjectsService.getState();
-    console.log('changeFilter', st);
-    
+    const st = AllObjectsService.getState();    
     AllObjectsService.getObjectsWithGateways(st.pageSizeId, 1, filterText, st.stateId).then((res) => {
       dispatch({
         type: "change_filter",
         payload: {
-          str: filterText,
-          o: res,
+          strValue: filterText,
+          objectsOnPage: res,
         },
       });
     });
@@ -78,8 +76,8 @@ const Objects = () => {
       dispatch({
         type: "change_state",
         payload: {
-          num: selectedStateId,
-          o: res,
+          intValue: selectedStateId,
+          objectsOnPage: res,
         },
       });
     });
@@ -95,8 +93,8 @@ const Objects = () => {
       dispatch({
         type: "change_limit",
         payload: {
-          num: selectedPageSizeId,
-          o: res,
+          intValue: selectedPageSizeId,
+          objectsOnPage: res,
         },
       });
     });
@@ -121,9 +119,10 @@ const Objects = () => {
         </div>
 
         {_table}
+
         <div style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px",}}>
-          {_pagination}
           {_dropdown_limits}
+          {_pagination}          
         </div>
       </div>
     </>
