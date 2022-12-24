@@ -4,7 +4,7 @@ interface ComboBoxProps{header:string, data:any, value?:string, defaultValue?:st
 
 
 const ComboBox = ({header, data, value, defaultValue, onChange}:ComboBoxProps) => {
-    console.log(data);
+   // console.log(data);
     
     return (
         <select

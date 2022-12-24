@@ -9,7 +9,7 @@ import { reducer, initialState } from "../../reducers/ObjectPageReducer";
 import cl from "./Objects.module.css";
 
 const Objects = () => {
-  console.log("Objects");
+  // console.log("Objects");
 
   const [state, dispatch] = useReducer(reducer, initialState);
   AllObjectsService.setState(state);

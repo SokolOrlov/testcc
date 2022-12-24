@@ -1,5 +1,5 @@
 import { _limits, _objects, _states } from "../data";
-import { IAllObjects } from "./apiTypes";
+import { AllObjectsTableData } from "./types";
 
 const API_URL = "https://test.cloud-control.ru/api/api/";
 
@@ -7,7 +7,7 @@ const waait = async () =>
   new Promise((resolve) => setTimeout(() => resolve(1), 3000));
 
 export const api = Object.freeze({
-  async getAllObjects(pageSize: number, pageNumber: number, filter: string, objectStateId: number):Promise<IAllObjects> {
+  async getAllObjects(pageSize: number, pageNumber: number, filter: string, objectStateId: number):Promise<AllObjectsTableData> {
     
     const response = await fetch(`${API_URL}/objects/getObjectDeviceGateways`, {
         method: "POST",

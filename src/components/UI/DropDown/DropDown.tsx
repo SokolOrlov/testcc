@@ -22,7 +22,7 @@ export enum FirstElement {
  */
 type DropDownProps = {
   data: DropDownItem[];
-  onSelect: (arg: any) => void;
+  onSelect: (arg: number) => void;
   filter?: boolean;
   selectedItemId?: number;
   firstElement?: FirstElement;
@@ -34,14 +34,8 @@ type DropDownProps = {
  * @param param0 props
  * @returns
  */
-const DropDown = ({
-  data,
-  onSelect,
-  filter = false,
-  firstElement = FirstElement.FirstElement,
-  emptyText = "",
-}: DropDownProps) => {
-  console.log("DropDown");
+const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.FirstElement, emptyText = "",}: DropDownProps) => {
+  // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
   const [item, setSelectedItem] = useState<DropDownItem>(null);

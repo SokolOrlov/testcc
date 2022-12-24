@@ -9,11 +9,11 @@ const Login = () => {
   const [passw, setPassw] = useState<string>(")P(O8i&U");
   const authContext = useContext(AuthContext);
 
-  const loginRequest = (event: any) => {
+  const loginRequest =   async (event: any) => {
     event.preventDefault();
 
     try {
-      authService.login(login, passw);
+      await authService.login(login, passw);
       authContext.setIsAuth(true);
     } catch (error) {
       console.log(error);

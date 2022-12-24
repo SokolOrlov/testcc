@@ -1,14 +1,14 @@
-h2 {
+.login-form-wrap h2 {
     font-weight: 300;
     text-align: center;
   }
   
-  p {
+.login-form-wrapp {
     position: relative;
     padding: 10px 0px;
   }
   
-  a,
+  .login-form-wrap a,
   a:link,
   a:visited,
   a:active {
@@ -16,7 +16,7 @@ h2 {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
-  a:focus, a:hover,
+  .login-form-wrap a:focus, a:hover,
   a:link:focus,
   a:link:hover,
   a:visited:focus,
@@ -42,7 +42,7 @@ h2 {
     padding: 0 60px;
   }
   
-  input {
+  .login-form-wrap input {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -52,7 +52,7 @@ h2 {
     border-radius: 4px;
   }
   
-  input[type="password"],
+  .login-form-wrap input[type="password"],
   input[type="email"] {
     width: 100%;
     padding: 0 10px;

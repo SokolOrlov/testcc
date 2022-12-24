@@ -1,4 +1,4 @@
-interface IAllObjectsData{
+interface AllobjectsRow{
     ObjectId: number,
     ObjectName: string,
     ObjectAddress: string,
@@ -14,9 +14,9 @@ interface IAllObjectsData{
     OfflineDeviceCount?: number
 }
 
-export interface IAllObjects{
+export interface AllObjectsTableData{
     sEcho:string, 
     iTotalRecords: number, 
     iTotalDisplayRecords: number,
-    aaData: IAllObjectsData[]
+    aaData: AllobjectsRow[]
 }

@@ -3,7 +3,7 @@ import { getPagesArray } from "../../../utils/pages";
 import cl from "./Pagination.module.css";
 
 const Pagination = ({ totalPages, page, onChange }: { totalPages: number; page: number; onChange: (arg0: any) => void; }) => {
-console.log("Pagination");
+//console.log("Pagination");
 
   let pagesArray = getPagesArray(totalPages);
   return (

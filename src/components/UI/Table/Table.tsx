@@ -13,7 +13,7 @@ export interface TableRow {
 }
 
 const Table = ({ headers, rows }: { headers: string[]; rows: TableRow[] }) => {
-  console.log('Table');
+//  console.log('Table');
   
   return (
     <table>
