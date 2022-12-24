@@ -7,7 +7,7 @@ const waait = async () =>
   new Promise((resolve) => setTimeout(() => resolve(1), 3000));
 
 export const api = Object.freeze({
-  async getAllObjects(pageSize: number, pageNumber: number, filter: string, objectStateId: number):Promise<AllObjectsTableData> {
+  async getAllObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
     
     const response = await fetch(`${API_URL}/objects/getObjectDeviceGateways`, {
         method: "POST",
@@ -18,15 +18,15 @@ export const api = Object.freeze({
         body: JSON.stringify({
             "iDisplayStart": pageSize*pageNumber,
             "iDisplayLength": pageSize,
-            "Data.State": "", 
+            "Data.State": objectState, 
             "sSearch": filter
         }),
       });
       return await response.json();
   },
 
-  async getObjectsStates() {
-    return await _states;
+  getObjectsStates() {
+    return _states;
   },
 
   getRecorsOnPageLimits() {

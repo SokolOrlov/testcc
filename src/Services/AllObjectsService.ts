@@ -48,8 +48,9 @@ export default class AllObjectsService {
   static async getObjectsWithGateways(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
 
     const pageSize = api.getRecorsOnPageLimits().find((l) => l.id == pageSizeId)?.value;
+    const objectState = api.getObjectsStates().find((s) => s.id == objectStateId)?.value;
 
-    const objects = await api.getAllObjects(pageSize, pageNumber, filter, objectStateId);
+    const objects = await api.getAllObjects(pageSize, pageNumber, filter, objectState);
  
     return {
       total: 100,
