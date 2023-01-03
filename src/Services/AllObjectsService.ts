@@ -50,11 +50,11 @@ export default class AllObjectsService {
     const pageSize = api.getRecorsOnPageLimits().find((l) => l.id == pageSizeId)?.value;
     const objectState = api.getObjectsStates().find((s) => s.id == objectStateId)?.value;
 
-    const objects = await api.getAllObjects(pageSize, pageNumber, filter, objectState);
+    const result = await api.getAllObjects(pageSize, pageNumber, filter, objectState);
  
     return {
-      total: 100,
-      data: objects.aaData 
+      total: result.iTotalRecords,
+      data: result.aaData 
     }
   }
 
