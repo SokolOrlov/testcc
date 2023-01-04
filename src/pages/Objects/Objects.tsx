@@ -16,20 +16,18 @@ const Objects = () => {
 
   /**Загрузка начальных данных */
   useEffect(() => {
-    Promise.all([
-      AllObjectsService.getObjectStates(),
-      AllObjectsService.getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId),
-      AllObjectsService.getLimits(),
-    ]).then((result) => {      
+    AllObjectsService
+    .getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId)
+    .then(res=>{
       dispatch({
         type: "init",
         payload: {
-          objectStates: result[0],
-          objectsOnPage: result[1],
-          objectLimits: result[2],
+          objectStates: AllObjectsService.getObjectStates(),
+          objectsOnPage: res,
+          objectLimits: AllObjectsService.getLimits(),
         },
       });
-    });
+    })
   }, []);
 
   /**

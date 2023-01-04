@@ -25,7 +25,9 @@ export interface Post {
 }
 
 /** Состояние объекта */
-export interface ObjectState extends DropDownItem {}
+export interface ObjectState extends DropDownItem {
+  value: string
+}
 
 /** Лимит записей на странице */
 export interface PageSize extends DropDownItem {
@@ -50,7 +52,7 @@ export default class AllObjectsService {
     const pageSize = api.getRecorsOnPageLimits().find((l) => l.id == pageSizeId)?.value;
     const objectState = api.getObjectsStates().find((s) => s.id == objectStateId)?.value;
 
-    const result = await api.getAllObjects(pageSize, pageNumber, filter, objectState);
+    const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
  
     return {
       total: result.iTotalRecords,
@@ -61,15 +63,15 @@ export default class AllObjectsService {
   /**Получить состояния объекта
    * @returns Состояния объекта
    */
-  static async getObjectStates(): Promise<ObjectState[]> {
-    return await api.getObjectsStates();
+  static getObjectStates(): ObjectState[] {
+    return api.getObjectsStates();
   }
 
   /**Получить список кол-ва записей в таблице
    * @returns Список лимитов
    */
-  static async getLimits(): Promise<PageSize[]> {
-    return await api.getRecorsOnPageLimits();
+  static getLimits(): PageSize[] {
+    return api.getRecorsOnPageLimits();
   }
 
   /** Получить данные для таблицы

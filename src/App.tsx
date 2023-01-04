@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import { AuthContext } from "./context";
 import "./App.module.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -14,12 +15,17 @@ const App = () => {
     }
     setIsLoading(false);
   }, []);
+
+  const qclient = new QueryClient();
+
   return (
-    <AuthContext.Provider value={{ isAuth, isLoading, setIsAuth }}>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-    </AuthContext.Provider>
+    <QueryClientProvider client={qclient}> 
+      <AuthContext.Provider value={{ isAuth, isLoading, setIsAuth }}>
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+      </AuthContext.Provider>
+    </QueryClientProvider>
   );
 };
 

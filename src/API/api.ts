@@ -3,9 +3,6 @@ import { AllObjectsTableData } from "./types";
 
 const API_URL = "https://test.cloud-control.ru/api/api/";
 
-const sleep = async (sec: number) =>
-  new Promise((resolve) => setTimeout(() => resolve(1), sec));
-
   /**
    * Отправить запрос
    * @param urn Метод API 
@@ -13,27 +10,26 @@ const sleep = async (sec: number) =>
    * @param rbody Данные запроса
    * @returns Данные
    */
-const fetchData = async (urn:string, rmethod:string, rbody: any) => {
-  const response = await fetch(`${API_URL}${urn}`, {
+const fetchData = async (API_URN:string, rmethod:string, rbody: any) => {
+  return await fetch(`${API_URL}${API_URN}`, {
     method: rmethod,
     headers: {
       "Content-Type": "application/json",
       "Authorization":`Bearer ${localStorage.getItem("accessToken")}`
     },
     body: JSON.stringify(rbody),
-  });
-  return await response.json();  
+  }).then(res=>res.json());  
 }
 
 export const api = Object.freeze({
-  async getAllObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
+  async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
     const data = {
       "iDisplayStart": pageSize*pageNumber,
       "iDisplayLength": pageSize,
       "Data.State": objectState, 
       "sSearch": filter
     };
-    return await fetchData("/objects/getObjectDeviceGateways", "POST", data);
+    return await fetchData("objects/getObjectDeviceGateways", "POST", data);
   },
 
   getObjectsStates() {
