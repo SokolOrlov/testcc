@@ -16,9 +16,19 @@ const uselogin = () => {
     refetchOnWindowFocus: false ,
     retry: false,
     enabled: false,
-    onSuccess:()=>{
-      localStorage.setItem("auth",null);
-      authContext.setIsAuth(true);
+    onSuccess:data=>{
+      console.log('data',data);
+      if (data.status === 401) {
+        console.log("не правильные логин/пароль");        
+      }
+      else{
+        localStorage.setItem("auth",null);
+        authContext.setIsAuth(true);
+      }
+
+    },
+    onError: error=>{
+      console.log('error',error);      
     }
   });
   // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
@@ -37,7 +47,6 @@ const uselogin = () => {
     }
   }
 }
-
 
 const Login = () => {
   const {clientState, serverState} = uselogin();
@@ -67,10 +76,3 @@ const Login = () => {
 };
 
 export default Login;
-	
-	    // authService.login(login, passw)
-    // .then(res=>{
-    //   localStorage.setItem("auth",null);
-    //   authContext.setIsAuth(true);
-    // })
-    // .catch(error=>{console.log('error',error)})

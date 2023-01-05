@@ -19,15 +19,18 @@ const fetchData = async (API_URN:string, rmethod:string, rbody: any) => {
     },
     body: JSON.stringify(rbody),
   })
-  .then(res=>{
+  .then(res=>{    
+    // если придет 401 - разлогинимся
     if (res.status === 401) {
-      localStorage.removeItem("auth");
-      location.href = '/login';
+      // если запрос со страницы логина, то просто отдадим ответ
+      if (localStorage.getItem("auth")) {
+        localStorage.removeItem("auth");
+        window.location.reload(); 
+      }
+
+      return res
     }
     return res.json()})
-  .catch(err=>{
-    console.log('err',err);
-  });  
 }
 
 // АПИ
