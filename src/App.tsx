@@ -6,21 +6,19 @@ import "./App.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false); 
 
-  useEffect(() => {
+  useEffect(() => { 
     if (localStorage.getItem("auth")) {
       setIsAuth(true);
-    }
-    setIsLoading(false);
+    } 
   }, []);
 
   const qclient = new QueryClient();
 
   return (
     <QueryClientProvider client={qclient}> 
-      <AuthContext.Provider value={{ isAuth, isLoading, setIsAuth }}>
+      <AuthContext.Provider value={{ isAuth, setIsAuth }}>
           <BrowserRouter>
             <AppRouter />
           </BrowserRouter>

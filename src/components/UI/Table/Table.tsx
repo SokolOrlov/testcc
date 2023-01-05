@@ -25,7 +25,8 @@ const Table = ({ headers, rows }: { headers: string[]; rows: TableRow[] }) => {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row, rowIndex) => {
+        {!rows ? <tr><td>no data</td></tr> :
+        rows.map((row, rowIndex) => {
           return (
             <tr tabIndex={rowIndex} key={rowIndex}>
               {row.cells.map((cell,cellIndex) => (

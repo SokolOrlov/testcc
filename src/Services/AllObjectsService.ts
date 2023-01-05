@@ -53,7 +53,7 @@ export default class AllObjectsService {
     const objectState = api.getObjectsStates().find((s) => s.id == objectStateId)?.value;
 
     const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
- 
+    
     return {
       total: result.iTotalRecords,
       data: result.aaData 
@@ -78,7 +78,7 @@ export default class AllObjectsService {
    * @param posts Массив объектов с гейтвеями
    * @returns Заголовки и строки таблиц
    */
-  static getTableData(posts: Post[]): [string[], TableRow[]] {
+  static getTableData(posts: Post[]): [string[], TableRow[]] {    
     const headers = [
       "Domain",
       "ObjectName",
@@ -88,7 +88,7 @@ export default class AllObjectsService {
       "AlarmsCount",
     ];
 
-    const rows = posts.map((post) => {
+    const rows = !posts ? null : posts.map((post) => {
       return {
         cells: [
           { data: post.Domain, href: `/domain/${post.DomainId}` },

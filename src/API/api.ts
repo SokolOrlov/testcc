@@ -18,10 +18,21 @@ const fetchData = async (API_URN:string, rmethod:string, rbody: any) => {
       "Authorization":`Bearer ${localStorage.getItem("accessToken")}`
     },
     body: JSON.stringify(rbody),
-  }).then(res=>res.json());  
+  })
+  .then(res=>{
+    if (res.status === 401) {
+      localStorage.removeItem("auth");
+      location.href = '/login';
+    }
+    return res.json()})
+  .catch(err=>{
+    console.log('err',err);
+  });  
 }
 
+// АПИ
 export const api = Object.freeze({
+  //Получить Объекты для страницы "Все объекты"
   async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
     const data = {
       "iDisplayStart": pageSize*pageNumber,
@@ -32,14 +43,17 @@ export const api = Object.freeze({
     return await fetchData("objects/getObjectDeviceGateways", "POST", data);
   },
 
+  //Получить состояния объектов
   getObjectsStates() {
     return _states;
   },
 
+  //Получить размеры стриниц таблицы
   getRecorsOnPageLimits() {
     return _limits;
   },
 
+  //Отправить команду Логин
   async login(user: string, passw: string) {
     const data = {
       Login: user,
