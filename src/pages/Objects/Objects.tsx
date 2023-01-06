@@ -89,7 +89,7 @@ const Objects = () => {
   const _filter = useMemo(() => <FindInput onChange={changeFilter} />, []);
   const _dropdown_states = useMemo(() => (<DropDown data={clientState.state.states} onSelect={changeState} filter={true} firstElement={FirstElement.FirstElement}/>), [clientState.state.states]);
   const _table = useMemo(() => <Table headers={headers} rows={rows} />,[serverState.data?.data]);
-  const _pagination = <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.data?.total} countOnPage={pageSize} onChange={changePage}/>;
+  const _pagination = useMemo(() => (<Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.data?.total} countOnPage={pageSize} onChange={changePage}/>),[clientState.state.pageNumber, serverState.data?.total, pageSize]);
   const _dropdown_limits = useMemo(() => (<DropDown data={clientState.state.pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>), [clientState.state.pageSizes]);
 
   return (
