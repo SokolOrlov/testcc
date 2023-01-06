@@ -1,52 +1,14 @@
-import React, { useMemo, useReducer } from "react";
+import React, { useMemo } from "react";
 import AllObjectsService from "../../Services/AllObjectsService";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import Table from "../../components/UI/Table/Table";
-import { reducer, initialState } from "../../reducers/ObjectPageReducer";
 
 import cl from "./Objects.module.css";
-import { useQuery } from "@tanstack/react-query";
+import { useObjects } from "./useObjects";
 
-
-const useObjects = ()=>{
-  const [state, dispatch] = useReducer(reducer, {
-    ...initialState,
-    states: AllObjectsService.getObjectStates(),
-    pageSizes: AllObjectsService.getLimits()
-  });
-
-  // console.log('clientState', state);
-  
-  const { data, isLoading, isFetching, status } = useQuery({
-  queryKey: ["allObjects", state],
-  queryFn : () =>{ return AllObjectsService.getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId)},
-  refetchOnWindowFocus: false ,
-  retry: false,
-  keepPreviousData: true,
-  // initialData:{
-  //   total: 0,
-  //   data: []
-  // }
-  });
-
-  // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
-    
-
-  return {
-    clientState:{
-      state,
-      dispatch
-    },
-    serverState:{
-      data,
-      loading: isLoading || isFetching
-    }
-  }
-}
-
-const Objects = () => {
+ const Objects = () => {
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
