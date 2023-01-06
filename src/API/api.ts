@@ -38,7 +38,7 @@ export const api = Object.freeze({
   //Получить Объекты для страницы "Все объекты"
   async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
     const data = {
-      "iDisplayStart": pageSize*pageNumber,
+      "iDisplayStart": pageNumber===1? 0: pageSize*(pageNumber-1)+1,
       "iDisplayLength": pageSize,
       "Data.State": objectState, 
       "sSearch": filter

@@ -55,7 +55,7 @@ export default class AllObjectsService {
     const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
     
     return {
-      total: result.iTotalRecords,
+      total: result.iTotalDisplayRecords,
       data: result.aaData 
     }
   }
