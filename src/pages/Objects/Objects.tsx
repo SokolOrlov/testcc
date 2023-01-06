@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useMemo, useReducer } from "react";
 import AllObjectsService from "../../Services/AllObjectsService";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import Table from "../../components/UI/Table/Table";
-import { reducer, initialState, ObjectPageState } from "../../reducers/ObjectPageReducer";
+import { reducer, initialState } from "../../reducers/ObjectPageReducer";
 
 import cl from "./Objects.module.css";
 import { useQuery } from "@tanstack/react-query";
@@ -23,7 +23,12 @@ const useObjects = ()=>{
   queryKey: ["allObjects", state],
   queryFn : () =>{ return AllObjectsService.getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId)},
   refetchOnWindowFocus: false ,
-  retry: false
+  retry: false,
+  keepPreviousData: true,
+  initialData:{
+    total: 0,
+    data: []
+  }
   });
 
   // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
@@ -41,114 +46,50 @@ const useObjects = ()=>{
   }
 }
 
-
-
-
-
-
 const Objects = () => {
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
 
-
-  // AllObjectsService.setState(state);
-
-  /**Загрузка начальных данных */
-  useEffect(() => {
-    // AllObjectsService
-    // .getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId)
-    // .then(res=>{
-    //   dispatch({
-    //     type: "init",
-    //     payload: {
-    //       objectStates: AllObjectsService.getObjectStates(),
-    //       objectsOnPage: res,
-    //       objectLimits: AllObjectsService.getLimits(),
-    //     },
-    //   });
-    // })
-  }, []);
-
-  /**
-   * Изменить страницу
-   * @param selectedPage Номер выбранной страницы
-   */
+  //Изменить страницу
   const changePage = (selectedPage: number) => {
-    // const st = AllObjectsService.getState();
-    // AllObjectsService.getObjectsWithGateways(st.pageSizeId, selectedPage, st.filter, st.stateId).then((res) => {
-    //   dispatch({
-    //     type: "change_page",
-    //     payload: {
-    //       intValue: selectedPage,
-    //       objectsOnPage: res,
-    //     },
-    //   });
-    // });
+    clientState.dispatch({
+      type: "change_page",
+      payload: {intValue: selectedPage}
+    });
   };
 
-  /**
-   * Изменить фильтр
-   * @param filterText Текст фильтра
-   */
+  //Изменить фильтр
   const changeFilter = (filterText: string) => {
     clientState.dispatch({
       type: "change_filter",
       payload: {strValue: filterText}
-    })
-    // qclient.refetchQueries(["random"])
-    // const st = AllObjectsService.getState();    
-    // AllObjectsService.getObjectsWithGateways(st.pageSizeId, 1, filterText, st.stateId).then((res) => {
-    //   dispatch({
-    //     type: "change_filter",
-    //     payload: {
-    //       strValue: filterText,
-    //       objectsOnPage: res,
-    //     },
-    //   });
-    // });
+    });
   };
 
-  /**
-   * Изменить фильтр по состояниям
-   * @param selectedStateId Id выбранного состояния
-   */
+  //Изменить фильтр по состояниям
   const changeState = (selectedStateId: number) => {
-    // const st = AllObjectsService.getState();
-    // AllObjectsService.getObjectsWithGateways(st.pageSizeId, 1, st.filter, selectedStateId).then((res) => {
-    //   dispatch({
-    //     type: "change_state",
-    //     payload: {
-    //       intValue: selectedStateId,
-    //       objectsOnPage: res,
-    //     },
-    //   });
-    // });
+    clientState.dispatch({
+      type: "change_state",
+      payload: {intValue: selectedStateId}
+    });
   };
 
-  /**
-   * Изменить фильтр по состояниям
-   * @param selectedLimitId Id выбранного состояния
-   */
+  //Изменить фильтр по состояниям
   const changePageSize = (selectedPageSizeId: number) => {
-    // const st = AllObjectsService.getState();
-    // AllObjectsService.getObjectsWithGateways(selectedPageSizeId, 1, st.filter, st.stateId).then((res) => {
-    //   dispatch({
-    //     type: "change_limit",
-    //     payload: {
-    //       intValue: selectedPageSizeId,
-    //       objectsOnPage: res,
-    //     },
-    //   });
-    // });
+    clientState.dispatch({
+      type: "change_limit",
+      payload: {intValue: selectedPageSizeId}
+    });
   };
 
   const [headers, rows] = AllObjectsService.getTableData(serverState.data?.data);
+  const pageSize = clientState.state.pageSizes.find((l) => l.id == clientState.state.pageSizeId)?.value;
 
   const _filter = useMemo(() => <FindInput onChange={changeFilter} />, []);
   const _dropdown_states = useMemo(() => (<DropDown data={clientState.state.states} onSelect={changeState} filter={true} firstElement={FirstElement.FirstElement}/>), [clientState.state.states]);
   const _table = useMemo(() => <Table headers={headers} rows={rows} />,[serverState.data?.data]);
-  // const _pagination = useMemo(() => (<Pagination page={clientState.state.pageNumber} totalPages={clientState.state.totalPages} onChange={changePage}/> ),[clientState.state.pageNumber, clientState.state.totalPages]);
+  const _pagination = <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.data.total} countOnPage={pageSize} onChange={changePage}/>;
   const _dropdown_limits = useMemo(() => (<DropDown data={clientState.state.pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>), [clientState.state.pageSizes]);
 
   return (
@@ -165,7 +106,7 @@ const Objects = () => {
 
         <div style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px",}}>
           {_dropdown_limits}
-          {/* {_pagination}           */}
+          {_pagination}
         </div>
       </div>
     </>

@@ -1,15 +1,24 @@
-import React, { useState } from "react";
-import { getPagesArray } from "../../../utils/pages";
+import React from "react";
+import { getPageCount, getPagesArray } from "../../../utils/pages";
 import cl from "./Pagination.module.css";
 
-const Pagination = ({ totalPages, page, onChange }: { totalPages: number; page: number; onChange: (arg0: any) => void; }) => {
-//console.log("Pagination");
+type PaginationProps = {
+  pageNumber: number
+  totalCount: number
+  countOnPage: number
+  onChange: (arg0: any) => void
+}
 
-  let pagesArray = getPagesArray(totalPages);
+const Pagination = ({ pageNumber, totalCount, countOnPage, onChange }: PaginationProps) => {
+//console.log("Pagination");
+console.log(pageNumber, totalCount, countOnPage);
+
+  const total = getPageCount(totalCount, countOnPage)
+  let pagesArray = getPagesArray(total);
   return (
     <div className={cl.page__wrapper}>
       {pagesArray.map((p) => (
-        <span onClick={() => onChange(p)} key={p} className={ page === p ? `${cl.page} ${cl.page__current}` : `${cl.page}` }>
+        <span onClick={() => onChange(p)} key={p} className={ pageNumber === p ? `${cl.page} ${cl.page__current}` : `${cl.page}` }>
           {p}
         </span>
       ))}

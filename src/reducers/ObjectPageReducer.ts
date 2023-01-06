@@ -1,25 +1,20 @@
 
-import { Post, ObjectState, PageSize, ObjectsResult } from "../Services/AllObjectsService";
-import { getPageCount } from "../utils/pages";
+import { ObjectState, PageSize, ObjectsResult } from "../Services/AllObjectsService";
 
 export interface ObjectPageState {
-  //posts: Post[];
   states: ObjectState[];
   pageSizes: PageSize[];
   stateId: number;
   pageSizeId: number;
   pageNumber: number;
-  totalPages: number;
   filter: string;
 }
 
 export const initialState: ObjectPageState = {
-  //posts: [],
   states: [],
   pageSizes: [],
   stateId: 1,
   pageSizeId: 1,
-  totalPages: 0,
   pageNumber: 1,
   filter: "",
 };
@@ -37,40 +32,31 @@ export const reducer = (state: ObjectPageState, action: { type: string; payload:
     case "init":
       return {
        ...state,
-       // posts: action.payload.objectsOnPage.data,
         states: action.payload.objectStates,
-        pageSizes: action.payload.objectLimits,
-       // totalPages: getPageCount(action.payload.objectsOnPage.total, action.payload.objectLimits.find((l) => l.id == 1).value)
+        pageSizes: action.payload.objectLimits
       };
     case "change_page":
       return {
         ...state,
-        pageNumber: action.payload.intValue,
-       // posts: action.payload.objectsOnPage.data,
+        pageNumber: action.payload.intValue
       };
     case "change_filter":
       return {
         ...state,
         filter: action.payload.strValue,
-        pageNumber: 1,
-       // posts: action.payload.objectsOnPage.data,
-      //  totalPages: getPageCount(action.payload.objectsOnPage.total, state.pageSizes.find((l) => l.id == state.pageSizeId).value),
+        pageNumber: 1
       };
     case "change_limit":
       return {
         ...state,
         pageSizeId: action.payload.intValue,
-        pageNumber: 1,
-    //    posts: action.payload.objectsOnPage.data,
-      //  totalPages: getPageCount(action.payload.objectsOnPage.total, state.pageSizes.find((l) => l.id == action.payload.intValue).value),
+        pageNumber: 1
       };
     case "change_state":
       return {
         ...state,
         stateId: action.payload.intValue,
-        pageNumber: 1,
-      //  posts: action.payload.objectsOnPage.data,
-      //  totalPages: getPageCount(action.payload.objectsOnPage.total, state.pageSizes.find((l) => l.id == state.pageSizeId).value),
+        pageNumber: 1
       };
     default:
       throw new Error();
