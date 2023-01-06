@@ -1,4 +1,4 @@
-import { api } from "../API/api"
+import { api } from "../../API/api"
 
 
 export const authService = Object.freeze({

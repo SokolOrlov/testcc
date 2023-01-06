@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context";
-import { authService } from "../../Services/authService";
+import { authService } from "./service";
 
 export const uselogin = () => {
     const [login, setLogin] = useState<string>("superadmin@test.ru");
@@ -15,9 +15,9 @@ export const uselogin = () => {
       retry: false,
       enabled: false,
       onSuccess:data=>{
-        console.log('data',data);
+        // console.log('data',data);
         if (data.status === 401) {
-          console.log("не правильные логин/пароль");        
+          console.log("неправильные логин/пароль");        
         }
         else{
           localStorage.setItem("auth",null);

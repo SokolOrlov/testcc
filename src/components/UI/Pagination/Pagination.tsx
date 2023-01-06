@@ -1,5 +1,4 @@
-import React from "react";
-import { getPageCount, getPagesArray } from "../../../utils/pages";
+import React from "react"; 
 import cl from "./Pagination.module.css";
 
 type PaginationProps = {
@@ -8,6 +7,18 @@ type PaginationProps = {
   countOnPage: number;
   onChange: (arg0: any) => void;
 };
+
+const getPageCount = (totalCount: number, limit: number) => {
+  return Math.ceil(totalCount / limit)
+}
+
+const getPagesArray = (totalPages: number) => {
+  let result = [];
+  for (let i = 0; i < totalPages; i++) {
+      result.push(i + 1)
+  }
+  return result;
+}
 
 const Pagination = ({pageNumber, totalCount, countOnPage, onChange,}: PaginationProps) => {
   //console.log("Pagination");
@@ -27,10 +38,7 @@ const Pagination = ({pageNumber, totalCount, countOnPage, onChange,}: Pagination
         <span
           onClick={() => onChange(val)}
           key={val}
-          className={
-            pageNumber === val ? `${cl.page} ${cl.page__current}` : `${cl.page}`
-          }
-        >
+          className={pageNumber === val ? `${cl.page} ${cl.page__current}` : `${cl.page}`}>
           {val}
         </span>
       );

@@ -1,44 +1,9 @@
-import { DropDownItem } from "../components/UI/DropDown/DropDown";
-import { TableRow } from "../components/UI/Table/Table";
-import { ObjectPageState } from "../reducers/ObjectPageReducer";
-import { api } from "../API/api";
-
-export interface ObjectsResult {
-  total: number;
-  data: Post[];
-}
-
-export interface Post {
-  ObjectId: number;
-  ObjectName: string;
-  ObjectAddress: string;
-  ObjectCoordinates: string;
-  DomainId: number;
-  Domain: string;
-  ServiceCompany: string;
-  DeviceGatewayName: string;
-  DeviceGatewayId: number;
-  IsOnline: boolean;
-  AlarmsCount: number;
-  AllDeviceCount?: number;
-  OfflineDeviceCount?: number;
-}
-
-/** Состояние объекта */
-export interface ObjectState extends DropDownItem {
-  value: string
-}
-
-/** Лимит записей на странице */
-export interface PageSize extends DropDownItem {
-  value: number
-}
+import { TableRow } from "../../components/UI/Table/Table";
+import { api } from "../../API/api";
+import { ObjectData, ObjectsResult, ObjectState, PageSize } from "./types";
 
 /**Сервис страницы "Все объекты" */
 export default class AllObjectsService {
-  
-  /**Состояние страницы 'Объекты' */
-  static _state: ObjectPageState;
 
   /**Получить список объектов с гейтвеями
    * @param pageSizeId Размер страницы
@@ -78,7 +43,7 @@ export default class AllObjectsService {
    * @param posts Массив объектов с гейтвеями
    * @returns Заголовки и строки таблиц
    */
-  static getTableData(posts: Post[]): [string[], TableRow[]] {    
+  static getTableData(data: ObjectData[]): [string[], TableRow[]] {    
     const headers = [
       "Domain",
       "ObjectName",
@@ -88,7 +53,7 @@ export default class AllObjectsService {
       "AlarmsCount",
     ];
 
-    const rows = !posts ? null : posts.map((post) => {
+    const rows = !data ? null : data.map((post) => {
       return {
         cells: [
           { data: post.Domain, href: `/domain/${post.DomainId}` },
@@ -102,21 +67,5 @@ export default class AllObjectsService {
     });
 
     return [headers, rows];
-  }
-
-  /**
-   * Получить состояние страницы 'Объекты'
-   * @returns Актуальное состояние страницы 'Объекты'
-   */
-  static getState(): ObjectPageState{
-    return AllObjectsService._state
-  }
-
-  /**
-   * Запомнить состояние страницы 'Объекты'
-   * @param st Актуальное состояние страницы 'Объекты'
-   */
-  static setState(st: ObjectPageState){
-    AllObjectsService._state = st
   }
 }

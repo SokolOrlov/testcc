@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import AllObjectsService from "../../Services/AllObjectsService";
+import AllObjectsService from "./service";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";

@@ -1,6 +1,6 @@
+import { ObjectState, PageSize } from "./types";
 
-import { ObjectState, PageSize, ObjectsResult } from "../Services/AllObjectsService";
-
+/**Состояние страницы "Все объекты" */
 export interface ObjectPageState {
   states: ObjectState[];
   pageSizes: PageSize[];
@@ -10,6 +10,7 @@ export interface ObjectPageState {
   filter: string;
 }
 
+/**Начальное состояние */
 export const initialState: ObjectPageState = {
   states: [],
   pageSizes: [],
@@ -19,22 +20,14 @@ export const initialState: ObjectPageState = {
   filter: "",
 };
 
+/**Данные для редуцера */
 interface payload {
   intValue?: number;
   strValue?: string;
-  objectsOnPage?: ObjectsResult;
-  objectStates?: ObjectState[];
-  objectLimits?: PageSize[];
 }
 
 export const reducer = (state: ObjectPageState, action: { type: string; payload: payload }): ObjectPageState => {
   switch (action.type) {
-    case "init":
-      return {
-       ...state,
-        states: action.payload.objectStates,
-        pageSizes: action.payload.objectLimits
-      };
     case "change_page":
       return {
         ...state,

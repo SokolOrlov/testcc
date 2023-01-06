@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
-import { initialState, reducer } from "../../reducers/ObjectPageReducer";
-import AllObjectsService from "../../Services/AllObjectsService";
+import { initialState, reducer } from "./reducer";
+import AllObjectsService from "./service";
 
 export const useObjects = ()=>{
     const [state, dispatch] = useReducer(reducer, {
