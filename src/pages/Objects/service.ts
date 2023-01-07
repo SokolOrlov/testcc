@@ -1,6 +1,6 @@
 import { TableRow } from "../../components/UI/Table/Table";
 import { api } from "../../API/api";
-import { ObjectData, ObjectsResult, ObjectState, PageSize } from "./types";
+import { Domain, ObjectData, ObjectsResult, ObjectState, PageSize, SCompany } from "./types";
 
 /**Сервис страницы "Все объекты" */
 export default class AllObjectsService {
@@ -12,10 +12,10 @@ export default class AllObjectsService {
    * @param objectState Состояние объекта
    * @returns Список объектов с гейтвеями
    */
-  static async getObjectsWithGateways(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
+  static async getObjects(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
 
-    const pageSize = api.getRecorsOnPageLimits().find((l) => l.id == pageSizeId)?.value;
-    const objectState = api.getObjectsStates().find((s) => s.id == objectStateId)?.value;
+    const pageSize = api.getPageLimits().find((l) => l.Id == pageSizeId)?.value;
+    const objectState = api.getObjectsStates().find((s) => s.Id == objectStateId)?.value;
 
     const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
     
@@ -23,6 +23,14 @@ export default class AllObjectsService {
       total: result.iTotalDisplayRecords,
       data: result.aaData 
     }
+  }
+
+  static async getDomains(): Promise<Domain[]>{
+    return await api.getDomains();
+  }
+
+  static async getSCompanies(): Promise<SCompany[]>{
+    return api.getSCompanies();
   }
 
   /**Получить состояния объекта
@@ -36,7 +44,7 @@ export default class AllObjectsService {
    * @returns Список лимитов
    */
   static getLimits(): PageSize[] {
-    return api.getRecorsOnPageLimits();
+    return api.getPageLimits();
   }
 
   /** Получить данные для таблицы

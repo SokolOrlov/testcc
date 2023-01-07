@@ -15,13 +15,21 @@ export const api = Object.freeze({
     return await fetchData("objects/getObjectDeviceGateways", "POST", data);
   },
 
+  async getDomains(){
+    return await fetchData("domains/getListOfDomains", "GET");
+  },
+
+  async getSCompanies(){
+    return await fetchData("serviceCompanies/getListOfServiceCompanies", "GET");
+  },
+
   //Получить состояния объектов
   getObjectsStates() {
     return _states;
   },
 
   //Получить размеры стриниц таблицы
-  getRecorsOnPageLimits() {
+  getPageLimits() {
     return _limits;
   },
 

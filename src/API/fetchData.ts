@@ -7,7 +7,7 @@
    * @param rbody Данные запроса
    * @returns Данные
    */
-  export const fetchData = async (API_URN:string, rmethod:string, rbody: any) => {
+  export const fetchData = async (API_URN:string, rmethod:string, rbody?: any) => {
     return await fetch(`${API_URL}${API_URN}`, {
       method: rmethod,
       headers: {

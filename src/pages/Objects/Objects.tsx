@@ -30,7 +30,21 @@ import { useObjects } from "./useObjects";
   };
 
   //Изменить фильтр по состояниям
-  const changeState = (selectedStateId: number) => {
+  const filterByState = (selectedStateId: number) => {
+    clientState.dispatch({
+      type: "change_state",
+      payload: {intValue: selectedStateId}
+    });
+  };
+
+  const filterByDomains = (selectedStateId: number) => {
+    clientState.dispatch({
+      type: "change_state",
+      payload: {intValue: selectedStateId}
+    });
+  };
+
+  const filetBySCompanies = (selectedStateId: number) => {
     clientState.dispatch({
       type: "change_state",
       payload: {intValue: selectedStateId}
@@ -45,13 +59,15 @@ import { useObjects } from "./useObjects";
     });
   };
 
-  const [headers, rows] = AllObjectsService.getTableData(serverState.data?.data);
-  const pageSize = clientState.state.pageSizes.find((l) => l.id == clientState.state.pageSizeId)?.value;
+  const [headers, rows] = AllObjectsService.getTableData(serverState.objectsQeuryData?.data);
+  const pageSize = clientState.state.pageSizes.find((l) => l.Id == clientState.state.pageSizeId)?.value;
 
   const _filter = useMemo(() => <FindInput onChange={changeFilter} />, []);
-  const _dropdown_states = useMemo(() => (<DropDown data={clientState.state.states} onSelect={changeState} filter={true} firstElement={FirstElement.FirstElement}/>), [clientState.state.states]);
-  const _table = useMemo(() => <Table headers={headers} rows={rows} />,[serverState.data?.data]);
-  const _pagination = useMemo(() => (<Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.data?.total} countOnPage={pageSize} onChange={changePage}/>),[clientState.state.pageNumber, serverState.data?.total, pageSize]);
+  const _dropdown_states = useMemo(() => (<DropDown data={clientState.state.states} onSelect={filterByState} filter={true} firstElement={FirstElement.FirstElement}/>), [clientState.state.states]);
+  const _dropdown_domains = useMemo(() => (<DropDown data={serverState.domainsQeuryData} onSelect={filterByDomains} filter={true} firstElement={FirstElement.Text} emptyText={"Все"}/>), [serverState.domainsQeuryData]);
+  const _dropdown_scompanies = useMemo(() => (<DropDown data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} filter={true} firstElement={FirstElement.Text} emptyText={"Все"} />), [serverState.scompaniesQeuryData]);
+  const _table = useMemo(() => <Table headers={headers} rows={rows} />,[serverState.objectsQeuryData?.data]);
+  const _pagination = useMemo(() => (<Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsQeuryData?.total} countOnPage={pageSize} onChange={changePage}/>),[clientState.state.pageNumber, serverState.objectsQeuryData?.total, pageSize]);
   const _dropdown_limits = useMemo(() => (<DropDown data={clientState.state.pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>), [clientState.state.pageSizes]);
 
   return (
@@ -61,6 +77,8 @@ import { useObjects } from "./useObjects";
 
         <div style={{display: "flex", justifyContent: "space-between", margin: "10px 0px",}}>
           {_dropdown_states}
+          {_dropdown_domains}
+          {_dropdown_scompanies}
           {_filter}
         </div>
 

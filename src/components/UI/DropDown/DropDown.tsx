@@ -7,8 +7,8 @@ import FindInput from "../Find/FindInput";
  * Элемент списка
  */
 export interface DropDownItem {
-  id: number;
-  name: string;
+  Id: number;
+  Name: string;
 }
 
 export enum FirstElement {
@@ -49,13 +49,13 @@ const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.F
     let firstItem: DropDownItem;
     switch (firstElement) {
       case FirstElement.Empty:
-        firstItem = {id:-1,name:''}
+        firstItem = {Id:-1, Name:''}
         break;
       case FirstElement.FirstElement:
         firstItem = data[0]
         break;
       case FirstElement.Text:
-        firstItem = {id:-1,name:emptyText}
+        firstItem = {Id:-1, Name:emptyText}
         break;
     }
 
@@ -74,20 +74,20 @@ const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.F
    * @param selectedItem Выбранный элемент
    */
   const onSelectClick = (selectedItem: DropDownItem) => {
-    onSelect(selectedItem.id);
+    onSelect(selectedItem.Id);
     setOpen(false);
     setSelectedItem(selectedItem);
   };
 
   const filterData = (value: string) => {
-    let fiter = data.filter((item) => item.name.indexOf(value) > -1);
+    let fiter = data.filter((item) => item.Name.indexOf(value) > -1);
     setFilteredList(fiter);
   };
 
   return (
     <div className={`${cl.dropdown} ${cl.width_280}`}>
       <button className={cl.button} onClick={onOpenClick}>
-        <div>{item ? item.name : ""}</div>
+        <div>{item ? item.Name : ""}</div>
         <img
           src={caret}
           alt="caret"
@@ -99,13 +99,13 @@ const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.F
           {filter && <FindInput onChange={filterData} />}
           {filteredList.map((item) => (
             <li
-              key={item.id}
+              key={item.Id}
               className={cl.li}
               onClick={() => {
                 onSelectClick(item);
               }}
             >
-              {item.name}
+              {item.Name}
             </li>
           ))}
         </ul>

@@ -12,14 +12,32 @@ export const useObjects = ()=>{
   
     // console.log('clientState', state);
     
-    const { data, isLoading, isFetching, status } = useQuery({
+    const objectsQeury = useQuery({
     queryKey: ["allObjects", state],
-    queryFn : () =>{ return AllObjectsService.getObjectsWithGateways(state.pageSizeId, state.pageNumber, state.filter, state.stateId)},
+    queryFn : () =>{ return AllObjectsService.getObjects(state.pageSizeId, state.pageNumber, state.filter, state.stateId)},
     refetchOnWindowFocus: false ,
     retry: false,
     keepPreviousData: true
     });
-  
+
+    const domainsQeury = useQuery({
+      queryKey: ["domains"],
+      queryFn : () =>{ return AllObjectsService.getDomains()},
+      refetchOnWindowFocus: false ,
+      retry: false,
+      keepPreviousData: true,
+      initialData:[]
+    });
+
+    const scompaniesQeury = useQuery({
+      queryKey: ["scompanies"],
+      queryFn : () =>{ return AllObjectsService.getSCompanies()},
+      refetchOnWindowFocus: false ,
+      retry: false,
+      keepPreviousData: true,
+      initialData:[]
+    });
+        
     // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
       
   
@@ -29,8 +47,12 @@ export const useObjects = ()=>{
         dispatch
       },
       serverState:{
-        data,
-        loading: isLoading || isFetching
+        objectsQeuryData: objectsQeury.data,
+        objectsQeuryLoading: objectsQeury.isLoading || objectsQeury.isFetching,
+        domainsQeuryData: domainsQeury.data,
+        domainsQeuryLoading: domainsQeury.isLoading || domainsQeury.isFetching,
+        scompaniesQeuryData: scompaniesQeury.data,
+        scompaniesQeuryLoading: scompaniesQeury.isLoading || scompaniesQeury.isFetching
       }
     }
   }
