@@ -4,7 +4,7 @@ import cl from "./Pagination.module.css";
 type PaginationProps = {
   pageNumber: number;
   totalCount: number;
-  countOnPage: number;
+  pageSize: number;
   onChange: (arg0: any) => void;
 };
 
@@ -20,13 +20,13 @@ const getPagesArray = (totalPages: number) => {
   return result;
 }
 
-const Pagination = ({pageNumber, totalCount, countOnPage, onChange,}: PaginationProps) => {
+const Pagination = ({pageNumber, totalCount, pageSize, onChange,}: PaginationProps) => {
   //console.log("Pagination");
 
-  const totalPages = getPageCount(totalCount, countOnPage);
+  const totalPages = getPageCount(totalCount, pageSize);
   let pagesArray = getPagesArray(totalPages);
 
-  console.log(pageNumber, totalCount, countOnPage, totalPages);
+  // console.log(pageNumber, totalCount, pageSize, totalPages);
 
   if (totalCount == undefined || null) {
     return null;

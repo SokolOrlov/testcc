@@ -1,6 +1,5 @@
-import { TableRow } from "../../components/UI/Table/Table";
 import { api } from "../../API/api";
-import { Domain, ObjectData, ObjectsResult, ObjectState, PageSize, SCompany } from "./types";
+import { Domain, ObjectsResult, ObjectState, PageSize, SCompany } from "./types";
 
 /**Сервис страницы "Все объекты" */
 export default class AllObjectsService {
@@ -25,10 +24,12 @@ export default class AllObjectsService {
     }
   }
 
+  /**Получить список компаний */
   static async getDomains(): Promise<Domain[]>{
     return await api.getDomains();
   }
 
+  /**Получить список сервисных компаний */
   static async getSCompanies(): Promise<SCompany[]>{
     return api.getSCompanies();
   }
@@ -45,35 +46,5 @@ export default class AllObjectsService {
    */
   static getLimits(): PageSize[] {
     return api.getPageLimits();
-  }
-
-  /** Получить данные для таблицы
-   * @param posts Массив объектов с гейтвеями
-   * @returns Заголовки и строки таблиц
-   */
-  static getTableData(data: ObjectData[]): [string[], TableRow[]] {    
-    const headers = [
-      "Domain",
-      "ObjectName",
-      "ObjectAddress",
-      "ServiceCompany",
-      "DeviceGatewayName",
-      "AlarmsCount",
-    ];
-
-    const rows = !data ? null : data.map((post) => {
-      return {
-        cells: [
-          { data: post.Domain, href: `/domain/${post.DomainId}` },
-          { data: post.ObjectName },
-          { data: post.ObjectAddress },
-          { data: post.ServiceCompany },
-          { data: post.DeviceGatewayName },
-          { data: post.AlarmsCount },
-        ],
-      };
-    });
-
-    return [headers, rows];
   }
 }

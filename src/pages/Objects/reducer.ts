@@ -8,6 +8,7 @@ export interface ObjectPageState {
   pageSizeId: number;
   pageNumber: number;
   filter: string;
+  pageSize: number;
 }
 
 /**Начальное состояние */
@@ -18,6 +19,7 @@ export const initialState: ObjectPageState = {
   pageSizeId: 1,
   pageNumber: 1,
   filter: "",
+  pageSize: 1
 };
 
 /**Данные для редуцера */
@@ -43,7 +45,8 @@ export const reducer = (state: ObjectPageState, action: { type: string; payload:
       return {
         ...state,
         pageSizeId: action.payload.intValue,
-        pageNumber: 1
+        pageNumber: 1,
+        pageSize: state.pageSizes.find((l) => l.Id == action.payload.intValue)?.value
       };
     case "change_state":
       return {

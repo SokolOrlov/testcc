@@ -7,7 +7,8 @@ export const useObjects = ()=>{
     const [state, dispatch] = useReducer(reducer, {
       ...initialState,
       states: AllObjectsService.getObjectStates(),
-      pageSizes: AllObjectsService.getLimits()
+      pageSizes: AllObjectsService.getLimits(),
+      pageSize: AllObjectsService.getLimits().find((l) => l.Id == initialState.pageSizeId)?.value
     });
   
     // console.log('clientState', state);
@@ -48,11 +49,9 @@ export const useObjects = ()=>{
       },
       serverState:{
         objectsQeuryData: objectsQeury.data,
-        objectsQeuryLoading: objectsQeury.isLoading || objectsQeury.isFetching,
         domainsQeuryData: domainsQeury.data,
-        domainsQeuryLoading: domainsQeury.isLoading || domainsQeury.isFetching,
         scompaniesQeuryData: scompaniesQeury.data,
-        scompaniesQeuryLoading: scompaniesQeury.isLoading || scompaniesQeury.isFetching
+        loading: objectsQeury.isLoading || objectsQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching
       }
     }
   }
