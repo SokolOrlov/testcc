@@ -60,7 +60,6 @@ import TableSettings from "./tableSettings";
   };
 
   const [headers, rows] = TableSettings.getTableData(serverState.objectsQeuryData?.data);
-  // const pageSize = clientState.state.pageSizes.find((l) => l.Id == clientState.state.pageSizeId)?.value;
   const divProps={disabled: serverState.loading}
 
   const _filter = useMemo(() => <FindInput onChange={changeFilter} />, []);

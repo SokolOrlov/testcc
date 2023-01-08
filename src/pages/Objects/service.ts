@@ -11,9 +11,9 @@ export default class AllObjectsService {
    * @param objectState Состояние объекта
    * @returns Список объектов с гейтвеями
    */
-  static async getObjects(pageSizeId: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
+  static async getObjects(pageSize: number, pageNumber: number, filter: string, objectStateId: number): Promise<ObjectsResult> {
 
-    const pageSize = api.getPageLimits().find((l) => l.Id == pageSizeId)?.value;
+    // const pageSize = api.getPageLimits().find((l) => l.Id == pageSizeId)?.value;
     const objectState = api.getObjectsStates().find((s) => s.Id == objectStateId)?.value;
 
     const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
