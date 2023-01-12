@@ -8,7 +8,7 @@ table, th, td {
   }
 
    tbody tr:hover {
-    background-color: blue;
+    background-color: rgb(220, 218, 218);
   }
   
    tbody tr:focus {
@@ -54,11 +54,4 @@ table, th, td {
   tbody tr td{
     padding-left: 8px;
   }
-  
-  .danger{
-    background-color: rgba(226, 0, 15, 0.2);
-  }
 
-  .success{
-    background-color: rgba(0, 128, 0, 0.2);
-  }

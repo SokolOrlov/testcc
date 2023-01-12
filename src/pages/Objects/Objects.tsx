@@ -74,7 +74,6 @@ import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
         </div>
 
         <ObjectsTable rowsData={serverState.objectsQeuryData?.data}/>
-        {/* <Table headers={headers} rows={rows} /> */}
 
         <div {...divProps} style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px",}}>
           <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
