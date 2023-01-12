@@ -6,7 +6,7 @@ import FindInput from "../Find/FindInput";
 /**
  * Элемент списка
  */
-export interface DropDownItem {
+interface DropDownItem {
   Id: number;
   Name: string;
 }

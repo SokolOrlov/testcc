@@ -1,21 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
+import { _pageSizes } from "../../data";
 import { initialState, reducer } from "./reducer";
 import AllObjectsService from "./service";
 
 export const useObjects = ()=>{
     const [state, dispatch] = useReducer(reducer, {
       ...initialState,
-      states: AllObjectsService.getObjectStates(),
-      pageSizes: AllObjectsService.getLimits(),
-      pageSize: AllObjectsService.getLimits().find((l) => l.Id == initialState.pageSizeId)?.value
+      pageSize: _pageSizes[0].value
     });
   
     // console.log('clientState', state);
     
     const objectsQeury = useQuery({
     queryKey: ["allObjects", state],
-    queryFn : () =>{ return AllObjectsService.getObjects(state.pageSize, state.pageNumber, state.filter, state.stateId)},
+    queryFn : () =>{ return AllObjectsService.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState)},
     refetchOnWindowFocus: false ,
     retry: false,
     keepPreviousData: true

@@ -1,4 +1,3 @@
-import { _limits, _states } from "../data";
 import { fetchData } from "./fetchData";
 import { AllObjectsTableData } from "./types";
 
@@ -21,16 +20,6 @@ export const api = Object.freeze({
 
   async getSCompanies(){
     return await fetchData("serviceCompanies/getListOfServiceCompanies", "GET");
-  },
-
-  //Получить состояния объектов
-  getObjectsStates() {
-    return _states;
-  },
-
-  //Получить размеры стриниц таблицы
-  getPageLimits() {
-    return _limits;
   },
 
   //Отправить команду Логин

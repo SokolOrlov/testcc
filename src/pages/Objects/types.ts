@@ -1,15 +1,3 @@
-import { DropDownItem } from "../../components/UI/DropDown/DropDown";
-
-/** Состояние объекта */
-export interface ObjectState extends DropDownItem {
-  value: string;
-}
-
-/** Лимит записей на странице */
-export interface PageSize extends DropDownItem {
-  value: number;
-}
-
 /**Информация об объекте с сервера */
 export interface ObjectData {
   ObjectId: number;
