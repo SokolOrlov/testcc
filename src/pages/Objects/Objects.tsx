@@ -2,13 +2,11 @@ import React from "react";
 import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
 import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
-import Table from "../../components/UI/Table/Table";
-
 import cl from "./Objects.module.css";
-import { useObjects } from "./useObjects";
-import TableSettings from "./tableSettings";
+import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../data";
 import { actionType } from "./reducer";
+import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
 
  const Objects = () => {
   // console.log("Objects");
@@ -61,8 +59,7 @@ import { actionType } from "./reducer";
     });
   };
 
-  const [headers, rows] = TableSettings.getTableData(serverState.objectsQeuryData?.data);
-  const divProps={disabled: serverState.loading}
+  const divProps={disabled: serverState.loading};
 
   return (
     <>
@@ -76,7 +73,8 @@ import { actionType } from "./reducer";
           <FindInput onChange={changeFilter} />
         </div>
 
-        <Table headers={headers} rows={rows} />
+        <ObjectsTable rowsData={serverState.objectsQeuryData?.data}/>
+        {/* <Table headers={headers} rows={rows} /> */}
 
         <div {...divProps} style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px",}}>
           <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
