@@ -5,7 +5,9 @@ export interface ObjectPageState {
   pageNumber: number;
   filter: string;
   pageSize: number;
-  objectState: string
+  objectState: string;
+  selectedDomains: number[];
+  selectedSCompanies: number[];
 }
 
 /**Начальное состояние */
@@ -13,26 +15,29 @@ export const initialState: ObjectPageState = {
   pageNumber: 1,
   filter: "",
   pageSize: 10,
-  objectState: ""
+  objectState: "",
+  selectedDomains: [],
+  selectedSCompanies: []
 };
 
 /**Данные для редуцера */
 interface payload {
   intValue?: number;
   strValue?: string;
+  arrValue?: number[]
 }
 
 export enum actionType {
   CHANGE_PAGE = 1,
   CHANGE_FILTER = 2,
-  CHANGE_PAGESIZE = 3,
-  CHANGE_OBJECTSTATE = 4
+  CHANGE_PAGE_SIZE = 3,
+  CHANGE_OBJECT_STATE = 4,
+  CHANGE_BY_DOMAINS = 5,
+  CHANGE_BY_SCOMPANIES = 6
 
 }
 
 export const reducer = (state: ObjectPageState, action: { type: actionType; payload: payload }): ObjectPageState => {
-  console.log(state, action);
-  
   switch (action.type) {
     case actionType.CHANGE_PAGE:
       return {
@@ -45,16 +50,28 @@ export const reducer = (state: ObjectPageState, action: { type: actionType; payl
         filter: action.payload.strValue,
         pageNumber: 1
       };
-    case actionType.CHANGE_PAGESIZE:
+    case actionType.CHANGE_PAGE_SIZE:
       return {
         ...state, 
         pageNumber: 1,
         pageSize: _pageSizes.find((size) => size.Id == action.payload.intValue)?.value
       };
-    case actionType.CHANGE_OBJECTSTATE:
+    case actionType.CHANGE_OBJECT_STATE:
       return {
         ...state,
         objectState: _objectStates.find((oState) => oState.Id == action.payload.intValue)?.value,
+        pageNumber: 1
+      };
+    case actionType.CHANGE_BY_DOMAINS:
+      return {
+        ...state,
+        selectedDomains: action.payload.arrValue,
+        pageNumber: 1
+      };
+    case actionType.CHANGE_BY_SCOMPANIES:
+      return {
+        ...state,
+        selectedSCompanies: action.payload.arrValue,
         pageNumber: 1
       };
     default:
