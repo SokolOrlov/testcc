@@ -1,12 +1,13 @@
 import React from "react";
-import DropDown, { FirstElement } from "../../components/UI/DropDown/DropDown";
-import FindInput from "../../components/UI/Find/FindInput";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import cl from "./Objects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../data";
 import { actionType } from "./reducer";
 import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
+import DropDown from "../../components/UI/DropDown/DropDown";
+import { FirstElement } from "../../components/UI/DropDown/types";
+import FilterInput from "../../components/UI/Input/Filter/FilterInput";
 
  const Objects = () => {
   // console.log("Objects");
@@ -70,7 +71,7 @@ import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
           <DropDown data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
           <DropDown data={serverState.domainsQeuryData} onSelect={filterByDomains} filter={true} firstElement={FirstElement.Text} emptyText={"Все"}/>
           <DropDown data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} filter={true} firstElement={FirstElement.Text} emptyText={"Все"} />
-          <FindInput onChange={changeFilter} />
+          <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
         <ObjectsTable rowsData={serverState.objectsQeuryData?.data}/>

@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from "react";
-import cl from "./DropDown.module.css";
-import caret from "../../../assets/images/caret_light-grey.svg";
-import FindInput from "../Find/FindInput";
+import cl from "./DropDown.module.css"; 
+import { DropDownItem, FirstElement } from "./types";
+import FilterInput from "../Input/Filter/FilterInput";
+import ToggleButton from "./ToggleButton";
+import ListItem from "./ListItem";
+import List from "./List";
 
-/**
- * Элемент списка
- */
-interface DropDownItem {
-  Id: number;
-  Name: string;
-}
-
-export enum FirstElement {
-  Empty,
-  Text,
-  FirstElement,
-}
-
-/**
- * Пропсы
- */
-type DropDownProps = {
+type Props = {
   data: DropDownItem[];
   onSelect: (arg: number) => void;
   filter?: boolean;
@@ -34,18 +20,15 @@ type DropDownProps = {
  * @param param0 props
  * @returns
  */
-const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.FirstElement, emptyText = "",}: DropDownProps) => {
+const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElement.FirstElement, emptyText = "",}: Props) => {
   // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
   const [item, setSelectedItem] = useState<DropDownItem>(null);
-  const [filteredList, setFilteredList] = useState<DropDownItem[]>([]);
-  /**
-   * Обработка изменения входящего списка элеметов
-   */
-  useEffect(() => {
-    setFilteredList(data);
-    
+  const [filterText, setFilter] = useState<string>("");
+  
+  //Обработка изменения входящего списка элеметов
+  useEffect(() => {    
     let firstItem: DropDownItem;
     switch (firstElement) {
       case FirstElement.Empty:
@@ -62,54 +45,38 @@ const DropDown = ({data, onSelect, filter = false, firstElement = FirstElement.F
     setSelectedItem(firstItem);
   }, [data]);
 
-  /**
-   * Раскрытие списка элементов
-   */
+  //Раскрыть(скрыть) список
   const onOpenClick = () => {
     setOpen(!open);
   };
 
-  /**
-   * Обработка выбора элемента из списка
-   * @param selectedItem Выбранный элемент
-   */
+  //Выбрать элемент
   const onSelectClick = (selectedItem: DropDownItem) => {
     onSelect(selectedItem.Id);
     setOpen(false);
     setSelectedItem(selectedItem);
   };
 
+  //Фильтр списка
   const filterData = (value: string) => {
-    let fiter = data.filter((item) => item.Name.indexOf(value) > -1);
-    setFilteredList(fiter);
+    setFilter(value);
   };
+
+  const filteredList = data
+    .filter((item) => item.Name.indexOf(filterText) > -1)
+    .map((item) => (
+      <ListItem key={item.Id} handleClick={() => {onSelectClick(item)}}>
+        {item.Name}
+      </ListItem>
+    ))
 
   return (
     <div className={`${cl.dropdown} ${cl.width_280}`}>
-      <button className={cl.button} onClick={onOpenClick}>
-        <div>{item ? item.Name : ""}</div>
-        <img
-          src={caret}
-          alt="caret"
-          className={`${cl.list_caret} ${open ? cl.open : ""}`}
-        />
-      </button>
-      <div style={{ visibility: open ? "visible" : "hidden" }}>
-        <ul className={`${cl.list} ${cl.width_280}`}>
-          {filter && <FindInput onChange={filterData} />}
-          {filteredList.map((item) => (
-            <li
-              key={item.Id}
-              className={cl.li}
-              onClick={() => {
-                onSelectClick(item);
-              }}
-            >
-              {item.Name}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ToggleButton expanded={open} toggleExpanded={onOpenClick} ><div>{item?.Name}</div></ToggleButton>
+      <List expanded={open}>
+        {filter && <FilterInput value={filterText} onChange={filterData} />}
+        {filteredList}
+      </List>
     </div>
   );
 };

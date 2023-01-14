@@ -25,7 +25,9 @@ const ObjectsTable = ({rowsData}: Props)=>{
     const rows = rowsData && rowsData.length > 0 ? 
         rowsData.map(row =>{
             const sellStyle:React.CSSProperties ={
-                backgroundColor: row.IsOnline? row.AlarmsCount>0?'rgba(226, 0, 15, 0.2)':'rgba(0, 128, 0, 0.2)':'rgba(0, 0, 0, 0)'
+                backgroundColor: row.IsOnline ? 
+                    row.AlarmsCount > 0 ? 'rgba(226, 0, 15, 0.2)':'rgba(0, 128, 0, 0.2)'
+                    :'rgba(0, 0, 0, 0)'
             }
             return <TableRow {...{key: row.DeviceGatewayId, tabIndex: row.DeviceGatewayId}}> 
                 <TableCell sellStyle={sellStyle}><div>{row.Domain}</div></TableCell>

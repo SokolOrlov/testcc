@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import cl from "./FindInput.module.css";
+import cl from "./FilterInput.module.css";
 
-type FindInputProps = {
+type Props = {
   onChange: (arg0: any) => void;
-  style?: string;
+  value: string;
 };
 
-const FindInput = ({ onChange}: FindInputProps) => {
+const FilterInput = ({value, onChange}: Props) => {
    //console.log("FindInput");
-
-  const [text, setText] = useState("");
   const changeFilter = (event: any) => {
-    setText(event.target.value);
     onChange(event.target.value);
   };
   return (
@@ -19,10 +16,10 @@ const FindInput = ({ onChange}: FindInputProps) => {
       className={` ${cl.find_input} ${cl.search_input_icon}`}
       type="text"
       placeholder="поиск"
-      value={text}
+      value={value}
       onChange={changeFilter}
     />
   );
 };
 
-export default (FindInput);
+export default FilterInput;
