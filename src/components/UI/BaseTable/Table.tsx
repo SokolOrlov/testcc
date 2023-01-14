@@ -1,7 +1,7 @@
 import React from "react";
 import "./Table.module.css"; 
 
-const Table = ({ header, rows }: { header: JSX.Element; rows: JSX.Element|JSX.Element[] }) => {
+const Table = ({ header, rows }: { header: React.ReactNode; rows: React.ReactNode }) => {
   return (
     <table>
       <thead>

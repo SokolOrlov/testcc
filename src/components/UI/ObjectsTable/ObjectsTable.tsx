@@ -18,8 +18,6 @@ const headers = [
     "AlarmsCount",
   ];
 
-  //background-color: rgba(226, 0, 15, 0.2);
-  //background-color: rgba(0, 128, 0, 0.2);
 const ObjectsTable = ({rowsData}: Props)=>{
     const header = <TableRow>{headers.map(h=><TableHeaderCell {...{key: h}}><div>{h}</div></TableHeaderCell>)}</TableRow>
     const rows = rowsData && rowsData.length > 0 ? 
@@ -42,8 +40,6 @@ const ObjectsTable = ({rowsData}: Props)=>{
     return(
         <Table header={header} rows={rows} />
     )
-
-
 }
 
 

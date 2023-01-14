@@ -1,6 +1,6 @@
 import React from "react"
 type Props = { 
-    children: JSX.Element|JSX.Element[],
+    children: React.ReactNode,
     colspan?: number,
     sellStyle?: React.CSSProperties
   };

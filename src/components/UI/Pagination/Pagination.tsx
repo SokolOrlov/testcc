@@ -1,7 +1,8 @@
 import React from "react"; 
+import PageButton from "./PageButton";
 import cl from "./Pagination.module.css";
 
-type PaginationProps = {
+type Props = {
   pageNumber: number;
   totalCount: number;
   pageSize: number;
@@ -20,60 +21,39 @@ const getPagesArray = (totalPages: number) => {
   return result;
 }
 
-const Pagination = ({pageNumber, totalCount, pageSize, onChange,}: PaginationProps) => {
+const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: Props) => {
   //console.log("Pagination");
 
   const totalPages = getPageCount(totalCount, pageSize);
   let pagesArray = getPagesArray(totalPages);
 
-  // console.log(pageNumber, totalCount, pageSize, totalPages);
-
-  if (totalCount == undefined || null) {
-    return null;
-  }
-
-  const makeButton = (val: number):JSX.Element => {
-    if (val > 0)
-      return (
-        <span
-          onClick={() => onChange(val)}
-          key={val}
-          className={pageNumber === val ? `${cl.page} ${cl.page__current}` : `${cl.page}`}>
-          {val}
-        </span>
-      );
-    else
-      return (
-        <span key={Math.random()} className={`${cl.page}`}>
-          ...
-        </span>
-      );
-  };
-
   if (totalPages > 7) {
-    const pages = [makeButton(1)];
+    const pages = [<PageButton key={1} isSelected={ pageNumber===1} value={1} onSelect={onChange}/>];
 
     // |_1_|_2_|_3_|_4_|_5_|_..._|_n_|
     if (pageNumber < 5) {
-      let asd = pagesArray.filter((p) => p > 1 && p < 6).map((p) => makeButton(p));
+      let asd = pagesArray.filter((p) => p > 1 && p < 6).map((p) => 
+        <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
       pages.push(...asd);
-      pages.push(makeButton(-1));
-      pages.push(makeButton(totalPages));
+      pages.push(<PageButton/>);
+      pages.push(<PageButton isSelected={ pageNumber===totalPages} value={totalPages} onSelect={onChange}/>);
     }
 
     // |_1_|_..._|_4_|_5_|_6_|_..._|_n_|
     if (pageNumber > 4 && totalPages - pageNumber > 3) {
-      pages.push(makeButton(-1));
-      let asd = pagesArray.filter((p) => p > pageNumber - 2 && p < pageNumber + 2).map((p) => makeButton(p));
+      pages.push(<PageButton/>);
+      let asd = pagesArray.filter((p) => p > pageNumber - 2 && p < pageNumber + 2).map((p) => 
+        <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
       pages.push(...asd);
-      pages.push(makeButton(-1));
-      pages.push(makeButton(totalPages));
+      pages.push(<PageButton/>);
+      pages.push(<PageButton key={totalPages} isSelected={ pageNumber===totalPages} value={totalPages} onSelect={onChange}/>);
     }
 
     // |_1_|_..._|_9_|_10_|_11_|_12_|_13_|
     if (totalPages - pageNumber < 4) {
-      let asd = pagesArray.filter((p) => p > totalPages-5).map((p) => makeButton(p));
-      pages.push(makeButton(-1));
+      let asd = pagesArray.filter((p) => p > totalPages-5).map((p) => 
+        <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
+      pages.push(<PageButton/>);
       pages.push(...asd);
     }
 
@@ -81,7 +61,7 @@ const Pagination = ({pageNumber, totalCount, pageSize, onChange,}: PaginationPro
   } else
     return (
       <div className={cl.page__wrapper}>
-        {pagesArray.map((p) => makeButton(p))}
+        {pagesArray.map((p) => <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>)}
       </div>
     );
 };
