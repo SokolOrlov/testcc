@@ -8,8 +8,9 @@ type Props = {
 
 const List = ({expanded, children}:Props)=>{
 
+    if (!expanded) return null;
  return(
-    <div style={{ visibility: expanded ? "visible" : "hidden" }}>
+    <div >
         <ul className={`${cl.list} ${cl.width_280}`}>
             {children}
         </ul>

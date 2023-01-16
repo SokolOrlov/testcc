@@ -8,6 +8,7 @@ import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
 import DropDown from "../../components/UI/DropDown/DropDown";
 import { FirstElement } from "../../components/UI/DropDown/types";
 import FilterInput from "../../components/UI/Input/Filter/FilterInput";
+import DropDownMultiSelect from "../../components/UI/DropDown/DropDownMultiSelect";
 
  const Objects = () => {
   // console.log("Objects");
@@ -38,17 +39,17 @@ import FilterInput from "../../components/UI/Input/Filter/FilterInput";
     });
   };
 
-  const filterByDomains = (selectedStateId: number) => {
+  const filterByDomains = (ids: number[]) => {
     clientState.dispatch({
       type: actionType.CHANGE_BY_DOMAINS,
-      payload: {intValue: selectedStateId}
+      payload: {arrValue: ids}
     });
   };
 
-  const filetBySCompanies = (selectedStateId: number) => {
+  const filetBySCompanies = (ids: number[]) => {
     clientState.dispatch({
       type: actionType.CHANGE_BY_SCOMPANIES,
-      payload: {intValue: selectedStateId}
+      payload: {arrValue: ids}
     });
   };
 
@@ -67,10 +68,10 @@ import FilterInput from "../../components/UI/Input/Filter/FilterInput";
       <div className={cl.objects_page}>
         <div>Objects</div>
 
-        <div {...divProps} style={{display: "flex", justifyContent: "space-between", margin: "10px 0px",}}>
+        <div style={{display: "flex", justifyContent: "space-between", margin: "10px 0px",}}>
           <DropDown data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
-          <DropDown data={serverState.domainsQeuryData} onSelect={filterByDomains} filter={true} firstElement={FirstElement.Text} emptyText={"Все"}/>
-          <DropDown data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} filter={true} firstElement={FirstElement.Text} emptyText={"Все"} />
+          <DropDownMultiSelect data={serverState.domainsQeuryData} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
+          <DropDownMultiSelect data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 

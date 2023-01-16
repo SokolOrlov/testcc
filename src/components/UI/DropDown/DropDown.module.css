@@ -49,6 +49,7 @@
 }
 
 .li{
+    display: flex;
     padding: 5px 10px;
     color: rgba(0, 0, 0, 0.9);    
     line-height: 1.42857143;

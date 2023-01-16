@@ -72,7 +72,7 @@ const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElemen
 
   return (
     <div className={`${cl.dropdown} ${cl.width_280}`}>
-      <ToggleButton expanded={open} toggleExpanded={onOpenClick} ><div>{item?.Name}</div></ToggleButton>
+      <ToggleButton expanded={open} toggleExpanded={onOpenClick} >{item?.Name}</ToggleButton>
       <List expanded={open}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
         {filteredList}

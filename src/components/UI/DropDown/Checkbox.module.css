@@ -1,0 +1,31 @@
+
+.checkbox {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+.checkmark {
+    content: '';
+    display: inline-block;
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+    border: 2px solid rgba(134, 144, 152, 0.6);
+    min-width: 20px;
+    border-radius: 3px;
+    background-color: transparent;
+    transition: .4s;
+}
+
+.checkmark_checked{
+    background-color: #556172;
+    border-color: #556172;
+    background-size: cover;
+    background-image: url("http://localhost:8080/images/white_check.svg");
+}
+
+.asd{
+    display: block;
+}

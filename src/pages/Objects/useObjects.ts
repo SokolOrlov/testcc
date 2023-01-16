@@ -14,7 +14,7 @@ export const useObjects = ()=>{
     
     const objectsQeury = useQuery({
     queryKey: ["allObjects", state],
-    queryFn : () =>{ return AllObjectsService.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState)},
+    queryFn : () =>{ return AllObjectsService.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies)},
     refetchOnWindowFocus: false ,
     retry: false,
     keepPreviousData: true

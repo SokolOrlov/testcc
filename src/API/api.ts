@@ -4,13 +4,14 @@ import { AllObjectsTableData } from "./types";
 // АПИ
 export const api = Object.freeze({
   //Получить Объекты для страницы "Все объекты"
-  async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string):Promise<AllObjectsTableData> {
+  async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string, domains: number[], scompanies: number[]):Promise<AllObjectsTableData> {
     const data = {
-      "iDisplayStart": pageNumber===1? 0: pageSize*(pageNumber-1),
-      "iDisplayLength": pageSize,
-      "Data.State": objectState, 
-      "sSearch": filter
+      iDisplayStart: pageNumber===1? 0: pageSize*(pageNumber-1),
+      iDisplayLength: pageSize,
+      Data:{State: objectState, DomainIds: domains, ServiceCompanyIds: scompanies}, 
+      sSearch: filter
     };
+
     return await fetchData("objects/getObjectDeviceGateways", "POST", data);
   },
 

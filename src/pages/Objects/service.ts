@@ -9,10 +9,17 @@ export default class AllObjectsService {
    * @param pageNumber Номер страницы
    * @param filter Фильтр
    * @param objectState Состояние объекта
+   * @param domains фильтр по компаниям
    * @returns Список объектов с гейтвеями
    */
-  static async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string): Promise<ObjectsResult> {
-    const result = await api.getObjects(pageSize, pageNumber, filter, objectState);
+  static async getObjects(
+    pageSize: number, 
+    pageNumber: number, 
+    filter: string, 
+    objectState: string, 
+    domains: number[], 
+    scompanies: number[]): Promise<ObjectsResult> {
+    const result = await api.getObjects(pageSize, pageNumber, filter, objectState, domains, scompanies);
     
     return {
       total: result.iTotalDisplayRecords,
