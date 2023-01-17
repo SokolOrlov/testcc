@@ -5,6 +5,7 @@ import FilterInput from "../Input/Filter/FilterInput";
 import ToggleButton from "./ToggleButton";
 import ListItem from "./ListItem";
 import List from "./List";
+import useMousedownEvent from "./useMousedownEvent";
 
 type Props = {
   data: DropDownItem[];
@@ -26,6 +27,7 @@ const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElemen
   const [open, setOpen] = useState(false);
   const [item, setSelectedItem] = useState<DropDownItem>(null);
   const [filterText, setFilter] = useState<string>("");
+  const test = useMousedownEvent(open, ()=>setOpen(false));
   
   //Обработка изменения входящего списка элеметов
   useEffect(() => {    
@@ -71,7 +73,7 @@ const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElemen
     ))
 
   return (
-    <div className={`${cl.dropdown} ${cl.width_280}`}>
+    <div ref={test} className={`${cl.dropdown} ${cl.width_280}`}>
       <ToggleButton expanded={open} toggleExpanded={onOpenClick} >{item?.Name}</ToggleButton>
       <List expanded={open}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}

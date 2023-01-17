@@ -27,7 +27,7 @@ const ObjectsTable = ({rowsData}: Props)=>{
                     row.AlarmsCount > 0 ? 'rgba(226, 0, 15, 0.2)':'rgba(0, 128, 0, 0.2)'
                     :'rgba(0, 0, 0, 0)'
             }
-            return <TableRow {...{key: row.DeviceGatewayId, tabIndex: row.DeviceGatewayId}}> 
+            return <TableRow {...{key: `${row.DomainId}_${row.ObjectId}_${row.DeviceGatewayId}`}}> 
                 <TableCell sellStyle={sellStyle}>{row.Domain}</TableCell>
                 <TableCell sellStyle={sellStyle}>{row.ObjectName}</TableCell>
                 <TableCell sellStyle={sellStyle}>{row.ObjectAddress}</TableCell>
