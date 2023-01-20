@@ -1,15 +1,20 @@
 import React from "react";
-import "./Table.module.css"; 
+import "./Table.module.css";
 
-const Table = ({ header, rows }: { header: React.ReactNode; rows: React.ReactNode }) => {
+type Props = { 
+  header: React.ReactNode
+  colgroup?: React.ReactNode 
+  rows: React.ReactNode 
+}
+
+const Table = ({ header, colgroup, rows }: Props) => {
   return (
     <table>
-      <thead>
-        {header}
-      </thead>
-      <tbody>
-        {rows}
-      </tbody>
+      <thead>{header}</thead>
+      <colgroup>
+        {colgroup}
+      </colgroup>
+      <tbody>{rows}</tbody>
     </table>
   );
 };

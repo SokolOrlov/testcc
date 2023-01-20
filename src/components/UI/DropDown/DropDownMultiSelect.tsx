@@ -9,6 +9,7 @@ import Checkbox from "./Checkbox";
 import useMousedownEvent from "./useMousedownEvent";
 
 type Props = {
+  label?: string;
   data: DropDownItem[];
   selected: number[];
   onSelect: (arg: number[]) => void;
@@ -21,12 +22,12 @@ type Props = {
  * @param param0
  * @returns
  */
-const DropDownMultiSelect = ({ data = [], selected = [], onSelect, filter = false, emptyText = "" }: Props) => {
+const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter = false, emptyText = "" }: Props) => {
   // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
   const [filterText, setFilter] = useState<string>("");
-  const test = useMousedownEvent(open, ()=>setOpen(false));
+  const test = useMousedownEvent(open, () => setOpen(false));
 
   //Раскрыть(скрыть) список
   const onOpenClick = () => {
@@ -65,7 +66,8 @@ const DropDownMultiSelect = ({ data = [], selected = [], onSelect, filter = fals
   const selectedNames = selected.length === 0 ? emptyText : data.filter((item) => selected.indexOf(item.Id) > -1).reduce((s, i) => `${s}, ${i.Name}`, "");
 
   return (
-    <div ref={test} className={`${cl.dropdown} ${cl.width_280}`}>
+    <div ref={test} className={`${cl.dropdown}`}>
+      {label && <label>{label}</label>}
       <ToggleButton expanded={open} toggleExpanded={onOpenClick}>
         {selectedNames}
       </ToggleButton>

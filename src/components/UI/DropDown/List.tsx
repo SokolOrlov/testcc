@@ -10,12 +10,9 @@ const List = ({expanded, children}:Props)=>{
 
     if (!expanded) return null;
  return(
-    <div >
-        <ul className={`${cl.list} ${cl.width_280}`}>
+        <ul className={`${cl.list}`}>
             {children}
-        </ul>
-    </div>
-    
+        </ul>   
  )   
 }
 

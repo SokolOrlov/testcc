@@ -68,16 +68,16 @@ import DropDownMultiSelect from "../../components/UI/DropDown/DropDownMultiSelec
       <div className={cl.objects_page}>
         <div>Objects</div>
 
-        <div style={{display: "flex", justifyContent: "space-between", margin: "10px 0px",}}>
-          <DropDown data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
-          <DropDownMultiSelect data={serverState.domainsQeuryData} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
-          <DropDownMultiSelect data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />
+        <div style={{display: "flex", justifyContent: "space-between", margin: "10px 0px", alignItems:"flex-end"}}>
+          <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
+          <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domainsQeuryData} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
+          <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
         <ObjectsTable rowsData={serverState.objectsQeuryData?.data}/>
 
-        <div {...divProps} style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px",}}>
+        <div {...divProps} style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px", alignItems:"flex-end"}}>
           <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
           <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsQeuryData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
         </div>

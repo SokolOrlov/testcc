@@ -4,7 +4,7 @@ const useMousedownEvent = (open: boolean, callback:()=>void)=>{
     const test = useRef<HTMLDivElement>();
 
     useEffect(() => {
-        const close = (event: { target: any }) => {
+        const close = (event: MouseEvent) => {
           if (test.current && !test.current.contains(event.target as HTMLElement)) 
             callback();
         };

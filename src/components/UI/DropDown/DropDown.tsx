@@ -8,6 +8,7 @@ import List from "./List";
 import useMousedownEvent from "./useMousedownEvent";
 
 type Props = {
+  label?: string
   data: DropDownItem[];
   onSelect: (arg: number) => void;
   filter?: boolean;
@@ -21,7 +22,7 @@ type Props = {
  * @param param0 props
  * @returns
  */
-const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElement.FirstElement, emptyText = "",}: Props) => {
+const DropDown = ({label, data=[], onSelect, filter = false, firstElement = FirstElement.FirstElement, emptyText = "",}: Props) => {
   // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
@@ -73,7 +74,8 @@ const DropDown = ({data=[], onSelect, filter = false, firstElement = FirstElemen
     ))
 
   return (
-    <div ref={test} className={`${cl.dropdown} ${cl.width_280}`}>
+    <div ref={test} className={`${cl.dropdown} `}>
+      {label && <label>{label}</label>}
       <ToggleButton expanded={open} toggleExpanded={onOpenClick} >{item?.Name}</ToggleButton>
       <List expanded={open}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
