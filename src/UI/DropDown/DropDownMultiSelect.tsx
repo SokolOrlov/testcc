@@ -71,7 +71,7 @@ const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter
       <ToggleButton expanded={open} toggleExpanded={onOpenClick}>
         {selectedNames}
       </ToggleButton>
-      <List expanded={open}>
+      <List expanded={open} scrollable={filteredList.length > 10}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
         {filteredList}
       </List>
