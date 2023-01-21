@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "./DropDown.module.css";
+import cl from "./ToggleButton.module.css";
 import caret from "../../../assets/images/caret_light-grey.svg";
 
 type Props = {

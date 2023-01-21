@@ -1,6 +1,6 @@
 import React from "react";
 import cl from "./Checkbox.module.css"
-import check from '../../../assets/images/white_check.svg'
+import check from '../../assets/images/white_check.svg'
 
 type Props = {
     checked: boolean

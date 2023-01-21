@@ -32,3 +32,10 @@ export interface SCompany{
   Id: number
   Name: string
 }
+
+export interface AllObjectsTableData{
+  sEcho:string, 
+  iTotalRecords: number, 
+  iTotalDisplayRecords: number,
+  aaData: ObjectData[]
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import cl from "./FilterInput.module.css";
 
 type Props = {

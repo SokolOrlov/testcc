@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
-import { _pageSizes } from "../../data";
+import { _pageSizes } from "../../assets/data/data";
 import { initialState, reducer } from "./reducer";
 import AllObjectsService from "./service";
 

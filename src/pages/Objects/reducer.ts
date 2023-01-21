@@ -1,4 +1,4 @@
-import { _objectStates, _pageSizes } from "../../data";
+import { _objectStates, _pageSizes } from "../../assets/data/data";
 
 /**Состояние страницы "Все объекты" */
 export interface ObjectPageState {  

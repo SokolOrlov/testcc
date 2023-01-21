@@ -1,14 +1,14 @@
 import React from "react";
-import Pagination from "../../components/UI/Pagination/Pagination";
+import Pagination from "../../UI/Pagination/Pagination";
 import cl from "./Objects.module.css";
 import { useObjects } from "./useObjects"; 
-import { _objectStates, _pageSizes } from "../../data";
+import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import ObjectsTable from "../../components/UI/ObjectsTable/ObjectsTable";
-import DropDown from "../../components/UI/DropDown/DropDown";
-import { FirstElement } from "../../components/UI/DropDown/types";
-import FilterInput from "../../components/UI/Input/Filter/FilterInput";
-import DropDownMultiSelect from "../../components/UI/DropDown/DropDownMultiSelect";
+import ObjectsTable from "./ObjectsTable";
+import DropDown from "../../UI/DropDown/DropDown";
+import { FirstElement } from "../../UI/DropDown/types";
+import FilterInput from "../../UI/Input/Filter/FilterInput";
+import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
 
  const Objects = () => {
   // console.log("Objects");

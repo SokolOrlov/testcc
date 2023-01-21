@@ -1,4 +1,4 @@
-import { api } from "../../API/api";
+import Api from "./api";
 import { Domain, ObjectsResult, SCompany } from "./types";
 
 /**Сервис страницы "Все объекты" */
@@ -19,7 +19,7 @@ export default class AllObjectsService {
     objectState: string, 
     domains: number[], 
     scompanies: number[]): Promise<ObjectsResult> {
-    const result = await api.getObjects(pageSize, pageNumber, filter, objectState, domains, scompanies);
+    const result = await Api.getObjects(pageSize, pageNumber, filter, objectState, domains, scompanies);
     
     return {
       total: result.iTotalDisplayRecords,
@@ -29,11 +29,11 @@ export default class AllObjectsService {
 
   /**Получить список компаний */
   static async getDomains(): Promise<Domain[]>{
-    return await api.getDomains();
+    return await Api.getDomains();
   }
 
   /**Получить список сервисных компаний */
   static async getSCompanies(): Promise<SCompany[]>{
-    return api.getSCompanies();
+    return Api.getSCompanies();
   }
 }

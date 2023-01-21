@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./components/AppRouter";
-import { AuthContext } from "./context";
+import AppRouter from "../components/AppRouter";
+import { AuthContext } from "../store";
 import "./App.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

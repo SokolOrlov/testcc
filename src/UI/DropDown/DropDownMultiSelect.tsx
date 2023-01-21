@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import cl from "./DropDown.module.css";
 import { DropDownItem } from "./types";
 import FilterInput from "../Input/Filter/FilterInput";
-import ToggleButton from "./ToggleButton";
-import ListItem from "./ListItem";
-import List from "./List";
-import Checkbox from "./Checkbox";
+import ToggleButton from "../Button/ToggleButton/ToggleButton";
 import useMousedownEvent from "./useMousedownEvent";
+import List from "../List/List";
+import ListItem from "../List/ListItem";
+import Checkbox from "../Checkbox/Checkbox";
 
 type Props = {
   label?: string;

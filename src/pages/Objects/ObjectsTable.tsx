@@ -1,9 +1,9 @@
 import React from "react";
-import { ObjectData } from "../../../pages/Objects/types";
-import Table from "../BaseTable/Table";
-import { TableCell } from "../BaseTable/TableCell";
-import { TableHeaderCell } from "../BaseTable/TableHeaderCell";
-import { TableRow } from "../BaseTable/TableRow";
+import { ObjectData } from "./types";
+import Table from "../../UI/BaseTable/Table";
+import { TableCell } from "../../UI/BaseTable/TableCell";
+import { TableHeaderCell } from "../../UI/BaseTable/TableHeaderCell";
+import { TableRow } from "../../UI/BaseTable/TableRow";
 
 type Props = { 
     rowsData: ObjectData[]

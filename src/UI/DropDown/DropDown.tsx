@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import cl from "./DropDown.module.css"; 
 import { DropDownItem, FirstElement } from "./types";
 import FilterInput from "../Input/Filter/FilterInput";
-import ToggleButton from "./ToggleButton";
-import ListItem from "./ListItem";
-import List from "./List";
+import ToggleButton from "../Button/ToggleButton/ToggleButton";
 import useMousedownEvent from "./useMousedownEvent";
+import List from "../List/List";
+import ListItem from "../List/ListItem";
 
 type Props = {
   label?: string
