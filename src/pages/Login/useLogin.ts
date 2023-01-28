@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../store";
+import { AuthContext } from "../../context";
 import { authService } from "./service";
 
 export const uselogin = () => {

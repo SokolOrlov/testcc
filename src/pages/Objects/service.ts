@@ -2,7 +2,7 @@ import Api from "./api";
 import { Domain, ObjectsResult, SCompany } from "./types";
 
 /**Сервис страницы "Все объекты" */
-export default class AllObjectsService {
+export default class service {
 
   /**Получить список объектов с гейтвеями
    * @param pageSize Размер страницы
@@ -25,6 +25,10 @@ export default class AllObjectsService {
       total: result.iTotalDisplayRecords,
       data: result.aaData 
     }
+  }
+
+  static async addObject(): Promise<any>{
+    return null;
   }
 
   /**Получить список компаний */

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Pagination from "../../UI/Pagination/Pagination";
 import cl from "./Objects.module.css";
 import { useObjects } from "./useObjects"; 
@@ -9,6 +9,7 @@ import DropDown from "../../UI/DropDown/DropDown";
 import { FirstElement } from "../../UI/DropDown/types";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
+import Modal from "../../UI/Modal/Modal";
 
  const Objects = () => {
   // console.log("Objects");
@@ -62,7 +63,7 @@ import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
   };
 
   const divProps={disabled: serverState.loading};
-
+  const [show, setShow] = useState(false)
   return (
     <>
       <div className={cl.objects_page}>
@@ -82,6 +83,10 @@ import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
           <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsQeuryData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
         </div>
       </div>
+      <button onClick={() => setShow(true)}>Show Modal</button>
+      <Modal title="test" onClose={() => setShow(false)} show={show}>
+        <p>This is modal body</p>
+      </Modal>
     </>
   );
 };
