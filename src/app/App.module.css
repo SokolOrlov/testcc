@@ -3,6 +3,8 @@ body{
   overflow: hidden;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.9);
 }
 
 *{
@@ -15,4 +17,17 @@ div[disabled]
 {
   pointer-events: none;
   opacity: 0.7;
+}
+
+:root {
+  --success-color: #008000;
+  --primary-color: #528FCC;
+  --table-color: #556172;
+  --danger-color: #E2000F;
+  --gray-color: #869098;
+  --lightgray-color: #CCCCCC;
+  --yellow-color: #FFCC00;
+  --background-color: #f9f9fa;
+  --white-color: #fff;
+  --black-color: #000;
 }

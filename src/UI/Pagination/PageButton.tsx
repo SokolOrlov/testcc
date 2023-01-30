@@ -17,9 +17,9 @@ const PageButton =({value = -1, isSelected = false, onSelect}: Props)=>{
     <span key={Math.random()} className={`${cl.page}`}>...</span>
     
     return(
-        <div>
+        <>
         {btn}
-        </div>)
+        </>)
 }
 
 export default PageButton;

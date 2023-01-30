@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Pagination from "../../UI/Pagination/Pagination";
-import cl from "./Objects.module.css";
+import styles from "./Objects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
@@ -9,7 +9,9 @@ import DropDown from "../../UI/DropDown/DropDown";
 import { FirstElement } from "../../UI/DropDown/types";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
-import Modal from "../../UI/Modal/Modal";
+import ObjectModal from "../../modules/EditObjectModal/ObjectModal";
+import Button from "../../UI/Button/Base/Button";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
  const Objects = () => {
   // console.log("Objects");
@@ -20,7 +22,7 @@ import Modal from "../../UI/Modal/Modal";
   const changePage = (selectedPageId: number) => {
     clientState.dispatch({
       type: actionType.CHANGE_PAGE,
-      payload: {intValue: selectedPageId}
+      payload: selectedPageId
     });
   };
 
@@ -28,7 +30,7 @@ import Modal from "../../UI/Modal/Modal";
   const changeFilter = (filterText: string) => {
     clientState.dispatch({
       type: actionType.CHANGE_FILTER,
-      payload: {strValue: filterText}
+      payload: filterText
     });
   };
 
@@ -36,21 +38,21 @@ import Modal from "../../UI/Modal/Modal";
   const filterByState = (selectedStateId: number) => {
     clientState.dispatch({
       type: actionType.CHANGE_OBJECT_STATE,
-      payload: {intValue: selectedStateId}
+      payload: selectedStateId
     });
   };
 
   const filterByDomains = (ids: number[]) => {
     clientState.dispatch({
       type: actionType.CHANGE_BY_DOMAINS,
-      payload: {arrValue: ids}
+      payload: ids
     });
   };
 
   const filetBySCompanies = (ids: number[]) => {
     clientState.dispatch({
       type: actionType.CHANGE_BY_SCOMPANIES,
-      payload: {arrValue: ids}
+      payload: ids
     });
   };
 
@@ -58,35 +60,50 @@ import Modal from "../../UI/Modal/Modal";
   const changePageSize = (selectedPageSizeId: number) => {
     clientState.dispatch({
       type: actionType.CHANGE_PAGE_SIZE,
-      payload: {intValue: selectedPageSizeId}
+      payload: selectedPageSizeId
     });
   };
 
-  const divProps={disabled: serverState.loading};
-  const [show, setShow] = useState(false)
+  const showObjectModal = (show: boolean) =>{
+    clientState.dispatch({
+      type: actionType.SHOW_MODAL,
+      payload: show
+    });
+  }
+
+  const clearFilters = () =>{
+    clientState.dispatch({
+      type: actionType.CLEAR_FILTERS,
+      payload: null
+    });
+  }
+
   return (
     <>
-      <div className={cl.objects_page}>
-        <div>Objects</div>
+      <div className={styles.content}>
+        <PageHeader label="Главная"/>
 
-        <div style={{display: "flex", justifyContent: "space-between", margin: "10px 0px", alignItems:"flex-end"}}>
+        <div className={styles.row}>
           <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
-          <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domainsQeuryData} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
-          <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompaniesQeuryData} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />
+          <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domains} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
+          <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />   
+          <Button onClick={clearFilters}>ОЧИСТИТЬ ФИЛЬТРЫ</Button>
+        </div>
+
+        <div className={styles.row}>
+          <Button onClick={()=>showObjectModal(true)}>ДОБАВИТЬ ОБЪЕКТ</Button>
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
-        <ObjectsTable rowsData={serverState.objectsQeuryData?.data}/>
+        <ObjectsTable rowsData={serverState.objectsData?.data}/>
 
-        <div {...divProps} style={{display: "flex", justifyContent: "space-between",  margin: "10px 0px", alignItems:"flex-end"}}>
+        <div {...{disabled: serverState.loading}} className={styles.row}>
           <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
-          <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsQeuryData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
+          <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
         </div>
       </div>
-      <button onClick={() => setShow(true)}>Show Modal</button>
-      <Modal title="test" onClose={() => setShow(false)} show={show}>
-        <p>This is modal body</p>
-      </Modal>
+      
+      <ObjectModal onClose={() => showObjectModal(false)} callback={()=>{showObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/>
     </>
   );
 };

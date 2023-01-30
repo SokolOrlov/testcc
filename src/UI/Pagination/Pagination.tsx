@@ -57,10 +57,10 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
       pages.push(...asd);
     }
 
-    return <div className={cl.page__wrapper}>{pages}</div>;
+    return <div className={cl.pagination}>{pages}</div>;
   } else
     return (
-      <div className={cl.page__wrapper}>
+      <div className={cl.pagination}>
         {pagesArray.map((p) => <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>)}
       </div>
     );

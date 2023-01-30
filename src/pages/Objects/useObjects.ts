@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
 import { _pageSizes } from "../../assets/data/data";
 import { initialState, reducer } from "./reducer";
@@ -11,8 +11,6 @@ export const useObjects = ()=>{
     });
   
     // console.log('clientState', state);
-    // Создаем клиента
-    const queryClient = new QueryClient();
     
     const objectsQeury = useQuery({
     queryKey: ["allObjects", state],
@@ -39,17 +37,8 @@ export const useObjects = ()=>{
       keepPreviousData: true,
       initialData:[]
     });
-
-      // Мутация
-    const addObject = useMutation(service.addObject, {
-      onSuccess: () => {
-        // Инвалидация и обновление
-        objectsQeury.refetch();
-      },
-    });
           
-    // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
-      
+    // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);   
   
     return {
       clientState:{
@@ -57,9 +46,10 @@ export const useObjects = ()=>{
         dispatch
       },
       serverState:{
-        objectsQeuryData: objectsQeury.data,
-        domainsQeuryData: domainsQeury.data,
-        scompaniesQeuryData: scompaniesQeury.data,
+        refetch: objectsQeury.refetch,
+        objectsData: objectsQeury.data,
+        domains: domainsQeury.data,
+        scompanies: scompaniesQeury.data,
         loading: objectsQeury.isLoading || objectsQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching
       }
     }

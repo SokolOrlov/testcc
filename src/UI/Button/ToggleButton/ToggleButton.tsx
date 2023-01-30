@@ -12,7 +12,7 @@ const ToggleButton = ({expanded, toggleExpanded, children}:Props)=>{
 
     return(
         <button className={cl.button} onClick={toggleExpanded}>
-            {children}
+            <p>{children}</p>
             <img src={caret} alt="caret" className={`${cl.list_caret} ${expanded ? cl.open : ""}`}/>
         </button>
     )   
