@@ -28,7 +28,7 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
   let pagesArray = getPagesArray(totalPages);
 
   if (totalPages > 7) {
-    const pages = [<PageButton key={1} isSelected={ pageNumber===1} value={1} onSelect={onChange}/>];
+    const pages = [<PageButton key={1} isSelected={ pageNumber===1} isFirst value={1} onSelect={onChange}/>];
 
     // |_1_|_2_|_3_|_4_|_5_|_..._|_n_|
     if (pageNumber < 5) {
@@ -36,7 +36,7 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
         <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
       pages.push(...asd);
       pages.push(<PageButton key={Math.random()}/>);
-      pages.push(<PageButton key={totalPages} isSelected={ pageNumber===totalPages} value={totalPages} onSelect={onChange}/>);
+      pages.push(<PageButton key={totalPages} isLast value={totalPages} onSelect={onChange}/>);
     }
 
     // |_1_|_..._|_4_|_5_|_6_|_..._|_n_|
@@ -46,13 +46,13 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
         <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
       pages.push(...asd);
       pages.push(<PageButton key={Math.random()}/>);
-      pages.push(<PageButton key={totalPages} isSelected={ pageNumber===totalPages} value={totalPages} onSelect={onChange}/>);
+      pages.push(<PageButton key={totalPages} value={totalPages} isLast onSelect={onChange}/>);
     }
 
     // |_1_|_..._|_9_|_10_|_11_|_12_|_13_|
     if (totalPages - pageNumber < 4) {
-      let asd = pagesArray.filter((p) => p > totalPages-5).map((p) => 
-        <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>);
+      let asd = pagesArray.filter((p) => p > totalPages-5).map((p,i) => 
+        <PageButton key={p} isSelected={ pageNumber===p} isLast={p==totalPages} value={p} onSelect={onChange}/>);
       pages.push(<PageButton key={Math.random()}/>);
       pages.push(...asd);
     }
@@ -61,7 +61,7 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
   } else
     return (
       <div className={cl.pagination}>
-        {pagesArray.map((p) => <PageButton key={p} isSelected={ pageNumber===p} value={p} onSelect={onChange}/>)}
+        {pagesArray.map((p,i) => <PageButton key={p} isSelected={ pageNumber===p} isFirst={i==0} isLast={p==totalPages} value={p} onSelect={onChange}/>)}
       </div>
     );
 };
