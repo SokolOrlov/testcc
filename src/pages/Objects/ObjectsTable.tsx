@@ -21,16 +21,6 @@ const headers = [
 const ObjectsTable = ({rowsData}: Props)=>{
     const header = <TableRow>{headers.map(h=><TableHeaderCell {...{key: h}}>{h}</TableHeaderCell>)}</TableRow>
 
-    const colgroup = 
-    <>
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "80px" }} />
-    </>
-
     const rows = rowsData && rowsData.length > 0 ? 
         rowsData.map(row =>{
             const sellStyle:React.CSSProperties ={
@@ -56,7 +46,9 @@ const ObjectsTable = ({rowsData}: Props)=>{
         <TableRow><TableCell colspan={headers.length}>{"no data"}</TableCell></TableRow>
 
     return(
-        <Table colgroup={colgroup} header={header} rows={rows} />
+        <div style={{maxHeight: "400px", overflowX: "auto"}}>
+        <Table header={header} rows={rows} />
+        </div>
     )
 }
 

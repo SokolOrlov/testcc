@@ -13,7 +13,7 @@ export const useObjects = ()=>{
     // console.log('clientState', state);
     
     const objectsQeury = useQuery({
-    queryKey: ["allObjects", state],
+    queryKey: ["allObjects", state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies],
     queryFn : () =>{ return service.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies)},
     refetchOnWindowFocus: false ,
     retry: false,
