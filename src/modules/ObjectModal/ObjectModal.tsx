@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../../UI/Button/Base/Button";
 import DropDown from "../../UI/DropDown/DropDown";
 import { FirstElement } from "../../UI/DropDown/types";
@@ -7,14 +7,16 @@ import Modal from "../../UI/Modal/Modal";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
 import styles from "./ObjectModal.module.css"
+import { ObjectData } from "./types";
 
 type Props = {
   show: boolean;
+  data?: ObjectData;
   callback: (arg: any) => void;
   onClose: () => void;
 };
 
-const ObjectModal = ({ show, onClose, callback }: Props) => {
+const ObjectModal = ({ show, data, onClose, callback }: Props) => {
   const { clientState, serverState } = useObjectModal();
 
   const changeObjectName = (name: string) => {

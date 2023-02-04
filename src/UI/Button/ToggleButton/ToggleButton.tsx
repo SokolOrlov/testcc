@@ -1,21 +1,20 @@
 import React from "react";
-import cl from "./ToggleButton.module.css";
-import caret from "../../../assets/images/caret_light-grey.svg";
+import styles from "./ToggleButton.module.css";
+import Svg from "../../Svg";
 
 type Props = {
-    expanded: boolean
-    toggleExpanded: () => void
-    children: React.ReactNode
-}
+  expanded: boolean;
+  toggleExpanded: () => void;
+  children: React.ReactNode;
+};
 
-const ToggleButton = ({expanded, toggleExpanded, children}:Props)=>{
-
-    return(
-        <button className={cl.button} onClick={toggleExpanded}>
-            <p>{children}</p>
-            <img src={caret} alt="caret" className={`${cl.list_caret} ${expanded ? cl.open : ""}`}/>
-        </button>
-    )   
-}
+const ToggleButton = ({ expanded, toggleExpanded, children }: Props) => {
+  return (
+    <button className={`${styles.toggle} ${expanded ? styles.open : ""}`} onClick={toggleExpanded}>
+      <p>{children}</p>
+      <Svg id="caret" />
+    </button>
+  );
+};
 
 export default ToggleButton;

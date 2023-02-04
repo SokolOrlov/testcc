@@ -7,6 +7,8 @@ import { TableRow } from "../../UI/Table/TableRow";
 
 type Props = { 
     rowsData: ObjectData[]
+    onEdit:(arg: number)=>void
+    onDelete:(arg: number)=>void
 }
 
 const headers = [

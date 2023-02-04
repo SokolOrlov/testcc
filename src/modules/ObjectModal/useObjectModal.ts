@@ -2,8 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
 import reducer, { initialState } from "./reducer";
 import service from "./service";
+import { ObjectData } from "./types";
 
-const useObjectModal = () => {
+const useObjectModal = (data?: ObjectData) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const domainsQeury = useQuery({

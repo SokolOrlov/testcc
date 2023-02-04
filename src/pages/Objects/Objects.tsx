@@ -9,7 +9,7 @@ import DropDown from "../../UI/DropDown/DropDown";
 import { FirstElement } from "../../UI/DropDown/types";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
-import ObjectModal from "../../modules/EditObjectModal/ObjectModal";
+import ObjectModal from "../../modules/ObjectModal/ObjectModal";
 import Button from "../../UI/Button/Base/Button";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
@@ -64,13 +64,23 @@ import PageHeader from "../../components/PageHeader/PageHeader";
     });
   };
 
-  const showObjectModal = (show: boolean) =>{
+  //Добавить объект
+  const addObjectModal = (show: boolean) =>{
     clientState.dispatch({
       type: actionType.SHOW_MODAL,
       payload: show
     });
   }
 
+  const editObjectModal = (objectId: number) =>{
+
+  }
+
+  const deleteObjectModal = (objectId: number) =>{
+
+  }
+
+  //Очистить фильтры
   const clearFilters = () =>{
     clientState.dispatch({
       type: actionType.CLEAR_FILTERS,
@@ -91,11 +101,11 @@ import PageHeader from "../../components/PageHeader/PageHeader";
         </div>
 
         <div className={styles.row}>
-          <Button onClick={()=>showObjectModal(true)}>ДОБАВИТЬ ОБЪЕКТ</Button>
+          <Button onClick={()=>addObjectModal(true)}>ДОБАВИТЬ ОБЪЕКТ</Button>
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
-        <ObjectsTable rowsData={serverState.objectsData?.data}/>
+        <ObjectsTable rowsData={serverState.objectsData?.data} onEdit={editObjectModal} onDelete={deleteObjectModal}/>
 
         <div {...{disabled: serverState.loading}} className={styles.row}>
           <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
@@ -103,7 +113,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
         </div>
       </div>
       
-      <ObjectModal onClose={() => showObjectModal(false)} callback={()=>{showObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/>
+      <ObjectModal onClose={() => addObjectModal(false)} callback={()=>{addObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/>
     </>
   );
 };

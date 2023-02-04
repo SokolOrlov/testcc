@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
-import cross from '../../assets/images/cross.svg'
+import sprite from '../../assets/images/sprite.svg'
+import Svg from "../Svg";
 
 type Props = {
   title: string
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const Modal = ({title, children, show, onClose}: Props) => {
+  
   const closeOnEscapeKeyDown = (e: { charCode: any; keyCode: any; }) => {
     if ((e.charCode || e.keyCode) === 27) {
       onClose();
@@ -27,12 +29,12 @@ const Modal = ({title, children, show, onClose}: Props) => {
   if(!show) return null;
 
   return ReactDOM.createPortal( 
-    <div className={styles["modal-background"]}>
-      <div className={styles["modal"]}>
-        <header className={styles["modal-header"]}>
+    <div className={styles.background}>
+      <div className={styles.modal}>
+        <header className={styles.header}>
           <h4>{title}</h4>
           <button>
-            <img src={cross} alt="close" onClick={onClose} />
+            <Svg id="cross" onClick={onClose} />
           </button>
         </header>
         {children}
