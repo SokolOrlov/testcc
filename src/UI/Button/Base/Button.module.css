@@ -1,15 +1,16 @@
 .button {
-  border: 1px solid var(--table-color);
-  color: var(--table-color);
-  display: inline-block;
+  border: 1px solid var(--default);
+  color: var(--default);
   height: 30px;
   width: max-content;
   padding: 0 9px;
-  /* margin: 10px 0; */
   background-color: transparent;
   cursor: pointer;
   border-radius: 3px;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .button:hover {
@@ -22,4 +23,25 @@
   text-transform: uppercase;
   line-height: 1.5;
   margin-top: 1px;
+}
+
+.button > svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.success {
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.info {
+  color: var(--info);
+  border: 1px solid var(--info);
+}
+
+.danger {
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }

@@ -6,7 +6,6 @@ import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
 import ObjectsTable from "./ObjectsTable";
 import DropDown from "../../UI/DropDown/DropDown";
-import { FirstElement } from "../../UI/DropDown/types";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
 import ObjectModal from "../../modules/ObjectModal/ObjectModal";
@@ -94,21 +93,21 @@ import PageHeader from "../../components/PageHeader/PageHeader";
         <PageHeader label="Главная"/>
 
         <div className={styles.row}>
-          <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement={FirstElement.FirstElement}/>
+          <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement="FirstElement"/>
           <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domains} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
           <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />   
-          <Button onClick={clearFilters}>ОЧИСТИТЬ ФИЛЬТРЫ</Button>
+          <Button label="ОЧИСТИТЬ ФИЛЬТРЫ" icon="round_cross" onClick={clearFilters}/>
         </div>
 
         <div className={styles.row}>
-          <Button onClick={()=>addObjectModal(true)}>ДОБАВИТЬ ОБЪЕКТ</Button>
+          <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={()=>addObjectModal(true)}/>
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
         <ObjectsTable rowsData={serverState.objectsData?.data} onEdit={editObjectModal} onDelete={deleteObjectModal}/>
 
         <div {...{disabled: serverState.loading}} className={styles.row}>
-          <DropDown data={_pageSizes} onSelect={changePageSize} firstElement={FirstElement.FirstElement}/>
+          <DropDown data={_pageSizes} onSelect={changePageSize} firstElement="FirstElement"/>
           <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
         </div>
       </div>

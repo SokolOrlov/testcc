@@ -1,14 +1,19 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 70px;
-    position: relative;
-    border-bottom: 3px solid #556172;
+.header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  min-height: 70px;
+  position: relative;
+  border-bottom: 3px solid #556172;
 }
 
-.label{
-    color: rgba(0, 0, 0, 0.8);
-    font-weight: 500;
+.label {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+.header > svg {
+  width: 30px;
+  height: 30px;
 }

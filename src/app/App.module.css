@@ -20,14 +20,11 @@ div[disabled]
 }
 
 :root {
-  --success-color: #008000;
-  --primary-color: #528FCC;
-  --table-color: #556172;
-  --danger-color: #E2000F;
-  --gray-color: #869098;
-  --lightgray-color: #CCCCCC;
-  --yellow-color: #FFCC00;
-  --background-color: #f9f9fa;
-  --white-color: #fff;
-  --black-color: #000;
+  --background: #f9f9fa;
+  --white: #fff;
+  --black: #000;
+  --success: #008000;
+  --info: #528FCC;
+  --danger: #E2000F;
+  --default: #556172;
 }

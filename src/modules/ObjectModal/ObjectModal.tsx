@@ -1,12 +1,11 @@
 import React from "react";
 import Button from "../../UI/Button/Base/Button";
 import DropDown from "../../UI/DropDown/DropDown";
-import { FirstElement } from "../../UI/DropDown/types";
 import TextInput from "../../UI/Input/Text/TextInput";
 import Modal from "../../UI/Modal/Modal";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
-import styles from "./ObjectModal.module.css"
+import styles from "./ObjectModal.module.css";
 import { ObjectData } from "./types";
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
 };
 
 const ObjectModal = ({ show, data, onClose, callback }: Props) => {
-  const { clientState, serverState } = useObjectModal();
+  const { clientState, serverState } = useObjectModal(data);
 
   const changeObjectName = (name: string) => {
     clientState.dispatch({ type: actionType.CHANGE_OBJECT_NAME, payload: name });
@@ -34,10 +33,10 @@ const ObjectModal = ({ show, data, onClose, callback }: Props) => {
     clientState.dispatch({ type: actionType.CHANGE_SCOMPANY, payload: scompanyId });
   };
 
-  const saveObject = async ()=>{    
+  const saveObject = async () => {
     await serverState.saveObject();
-    if(callback) callback(1);
-  }
+    if (callback) callback(1);
+  };
 
   return (
     <Modal title="Добавление объекта" onClose={onClose} show={show}>
@@ -45,13 +44,13 @@ const ObjectModal = ({ show, data, onClose, callback }: Props) => {
         <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
         <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
         <div className={styles.border}>
-          <DropDown label="КОМПАНИЯ" data={serverState.domains} onSelect={selectCompany} firstElement={FirstElement.Text} emptyText={"Не выбрано"} filter={true} />
-          <DropDown label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={selectSCompany} firstElement={FirstElement.Empty} filter={true} />
+          <DropDown label="КОМПАНИЯ" data={serverState.domains} onSelect={selectCompany} firstElement="Text" emptyText={"Не выбрано"} filter={true} />
+          <DropDown label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={selectSCompany} firstElement="Empty" filter={true} />
         </div>
-        <div className={styles.footer}>
-        <Button onClick={onClose}>ОТМЕНА</Button>
-        <Button onClick={saveObject}>СОХРАНИТЬ</Button>
-        </div>
+      </div>
+      <div className={styles.footer}>
+        <Button label="ОТМЕНА" type="danger" onClick={onClose} />
+        <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
       </div>
     </Modal>
   );

@@ -1,15 +1,19 @@
 import React from "react";
+import Svg from "../../Svg";
 import styles from "./Button.module.css"
 
 type Props = {
-    children: React.ReactNode
+    label: string
+    icon?: string
+    type?: "success" | "danger" | "info"
     onClick: () => any
 }
 
-const Button  = ({onClick, children}: Props)=>{
+const Button  = ({label, icon, type, onClick}: Props)=>{
     return(
-        <button className={styles.button} onClick={onClick}>
-            <p className={styles.label}>{children}</p>
+        <button className={`${styles.button} ${type? styles[type] : ""}`} onClick={onClick}>
+            {icon && <Svg id={icon}/>}
+            <p className={styles.label}>{label}</p>
         </button>
     )
 }
