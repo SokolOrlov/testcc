@@ -63,14 +63,14 @@ const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter
       </ListItem>
     ));
 
-  const selectedNames = selected.length === 0 ? emptyText : data.filter((item) => selected.indexOf(item.Id) > -1).reduce((s, i) => `${s}, ${i.Name}`, "");
+  const selectedNames = selected.length === 0 ? 
+    emptyText : 
+    data.filter((item) => selected.indexOf(item.Id) > -1).map(item=>item.Name).join(", ");
 
   return (
     <div ref={test} className={`${cl.dropdown}`}>
       {label && <label>{label}</label>}
-      <ToggleButton expanded={open} toggleExpanded={onOpenClick}>
-        {selectedNames}
-      </ToggleButton>
+      <ToggleButton expanded={open} toggleExpanded={onOpenClick} label={selectedNames}/>
       <List expanded={open} scrollable={filteredList.length > 10}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
         {filteredList}

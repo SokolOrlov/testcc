@@ -85,9 +85,7 @@ const DropDown = ({ data = [], onSelect, label, filter = false, firstElement = "
   return (
     <div ref={test} className={`${cl.dropdown} `}>
       {label && <label>{label}</label>}
-      <ToggleButton expanded={open} toggleExpanded={onOpenClick}>
-        {item?.Name}
-      </ToggleButton>
+      <ToggleButton expanded={open} toggleExpanded={onOpenClick} label={item?.Name}/>
       <List expanded={open} scrollable={filteredList.length > 10}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
         {filteredList}

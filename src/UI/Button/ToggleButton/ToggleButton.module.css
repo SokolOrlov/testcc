@@ -28,6 +28,12 @@
   color: var(--default);
 }
 
+.label {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .open > svg {
   transform: rotate(180deg);
   transition: all 0.3s;

@@ -1,0 +1,15 @@
+.control{
+    background: transparent;
+    border: transparent;
+    cursor: pointer;
+}
+
+.control > svg{
+    width: 18px;
+    height: 18px;
+    color: var(--default);
+}
+
+.control > svg:hover{
+    color: var(--info);
+}

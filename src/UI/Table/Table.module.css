@@ -1,59 +1,59 @@
-
-table{
+table {
   border-collapse: separate;
   width: 100%;
   table-layout: fixed;
 }
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 
-   tbody tr:hover {
-    background-color: rgb(220, 218, 218);
-  }
-  
-   tbody tr:focus {
-    background-color: red;
-    outline: 0; 
-  }
-  
-  th{
-    height: 40px;
-    cursor: pointer;
-    line-height: 1.5;
-    text-transform: uppercase;
-    vertical-align: middle;
-    padding: 0 8px;
-    border-right: 1px solid #f9f9fa;
-    background-color: #556172;
-    color: #fff;
-    text-align: left;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: 'Glyphicons Halflings';
-  }
+tbody tr:hover {
+  background-color: rgb(220, 218, 218);
+}
 
-  tbody{
-    font-family: Verdana, Geneva, sans-serif;
-  }
+th {
+  height: 40px;
+  cursor: pointer;
+  line-height: 1.5;
+  text-transform: uppercase;
+  vertical-align: middle;
+  padding: 0 8px;
+  border-right: 1px solid #f9f9fa;
+  background-color: #556172;
+  color: #fff;
+  text-align: left;
+  font-weight: normal;
+  font-size: 12px;
+  font-family: "Glyphicons Halflings";
+}
 
-  tbody tr{
-    height: 30px;
-    font-size: 12px;
-    vertical-align: middle;
-    line-height: 14px;
-    color: rgba(0, 0, 0, 0.9);
-    background-color: #f9f9fa;
-    border-right: 1px solid #556172;
-    border-bottom: 1px solid #556172;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+tbody {
+  font-family: Verdana, Geneva, sans-serif;
+}
 
-  tbody tr td{
-    padding-left: 8px;
-  }
+tbody tr {
+  height: 30px;
+  font-size: 12px;
+  vertical-align: middle;
+  line-height: 14px;
+  color: rgba(0, 0, 0, 0.9);
+  border-right: 1px solid #556172;
+  border-bottom: 1px solid #556172;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
+tbody tr td {
+  padding-left: 8px;
+}
+
+td {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

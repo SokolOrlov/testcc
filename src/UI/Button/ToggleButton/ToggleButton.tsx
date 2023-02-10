@@ -4,14 +4,14 @@ import Svg from "../../Svg";
 
 type Props = {
   expanded: boolean;
+  label: string
   toggleExpanded: () => void;
-  children: React.ReactNode;
 };
 
-const ToggleButton = ({ expanded, toggleExpanded, children }: Props) => {
+const ToggleButton = ({ expanded, toggleExpanded, label }: Props) => {
   return (
     <button className={`${styles.toggle} ${expanded ? styles.open : ""}`} onClick={toggleExpanded}>
-      <p>{children}</p>
+      <p title={label} className={styles.label}>{label}</p>
       <Svg id="caret" />
     </button>
   );

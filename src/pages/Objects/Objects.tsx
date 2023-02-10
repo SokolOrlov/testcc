@@ -4,13 +4,13 @@ import styles from "./Objects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import ObjectsTable from "./ObjectsTable";
 import DropDown from "../../UI/DropDown/DropDown";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
 import ObjectModal from "../../modules/ObjectModal/ObjectModal";
 import Button from "../../UI/Button/Base/Button";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
 
  const Objects = () => {
   // console.log("Objects");
@@ -72,6 +72,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
   }
 
   const editObjectModal = (objectId: number) =>{
+console.log(objectId);
 
   }
 
