@@ -33,7 +33,7 @@ const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
             <TableCell title={row.ObjectName}>
               <ControlBox>
                 {row.ObjectName}
-                <div className={styles.test} style={{position:"absolute", left:"65%", display:"none"}}>
+                <div className={styles.controls} style={{position:"absolute", left:"65%", display:"none"}}>
                   <ControlButton icon="edit" onClick={() => onEdit(row.ObjectId)} />
                   <ControlButton icon="delete" onClick={() => onDelete(row.ObjectId)} />
                 </div>

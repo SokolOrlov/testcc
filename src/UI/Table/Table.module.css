@@ -51,6 +51,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   padding-left: 8px;
+  position: relative;
 }
 
 .row:hover {

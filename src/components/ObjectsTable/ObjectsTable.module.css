@@ -1,6 +1,6 @@
 .wrapper {
   max-height: 400px;
-  overflow-x: auto
+  overflow-x: auto;
 }
 
 .online {
@@ -15,10 +15,10 @@
   background-color: rgba(226, 0, 15, 0.2);
 }
 
-tr:hover > td > div > .test{
-  display: flex !important; 
+tr:hover > td > div > .controls {
+  display: flex !important;
 }
 
-.test > button{
+.controls > button {
   padding-left: 7px;
 }
