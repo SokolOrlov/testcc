@@ -1,8 +1,11 @@
 import React from "react";
+import AllObjects from "../pages/AllObjects/AllObjects";
+import DomainObject from "../pages/DomainObject/DomainObject";
 import Login from "../pages/Login/Login";
-import Objects from "../pages/Objects/Objects";
 
 
-export const privateRoutes = [{ path: "/allobjects", component: <Objects/>, exact: true }];
+export const privateRoutes = [
+    { path: "/", component: <AllObjects/> },
+    { path: "object/:id", component: <DomainObject/> }];
 
-export const publicRoutes = [{ path: "/login", component: <Login/>, exact: true }];
+export const publicRoutes = [{ path: "login", component: <Login/> }];

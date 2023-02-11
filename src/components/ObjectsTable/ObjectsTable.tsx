@@ -1,5 +1,6 @@
 import React from "react";
-import { ObjectData } from "../../pages/Objects/types";
+import { Link } from "react-router-dom";
+import { ObjectData } from "../../pages/AllObjects/types";
 import ControlButton from "../../UI/Button/Control/ControlButton";
 import Table, { TableCell, TableHeaderCell, TableRow } from "../../UI/Table/Table";
 import ControlBox from "../ControlBox/ControlBox";
@@ -32,7 +33,7 @@ const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
             <TableCell title={row.Domain}>{row.Domain}</TableCell>
             <TableCell title={row.ObjectName}>
               <ControlBox>
-                {row.ObjectName}
+              <Link className={styles.link} to={`/object/${row.ObjectId}`}>{row.ObjectName} </Link>                
                 <div className={styles.controls} style={{position:"absolute", left:"65%", display:"none"}}>
                   <ControlButton icon="edit" onClick={() => onEdit(row.ObjectId)} />
                   <ControlButton icon="delete" onClick={() => onDelete(row.ObjectId)} />

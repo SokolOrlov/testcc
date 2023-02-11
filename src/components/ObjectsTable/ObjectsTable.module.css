@@ -22,3 +22,8 @@ tr:hover > td > div > .controls {
 .controls > button {
   padding-left: 7px;
 }
+
+.link{
+  text-decoration: underline;
+  color: black !important;
+}

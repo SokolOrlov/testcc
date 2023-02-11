@@ -1,6 +1,6 @@
 import React from "react";
 import Pagination from "../../UI/Pagination/Pagination";
-import styles from "./Objects.module.css";
+import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
@@ -12,7 +12,7 @@ import Button from "../../UI/Button/Base/Button";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
 
- const Objects = () => {
+ const AllObjects = () => {
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
@@ -71,13 +71,15 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
     });
   }
 
+  //Модальное окно изменения объекта
   const editObjectModal = (objectId: number) =>{
-console.log(objectId);
+    console.log(objectId);
 
   }
 
+  //Модальное окно удаления объекта
   const deleteObjectModal = (objectId: number) =>{
-
+    console.log(objectId);
   }
 
   //Очистить фильтры
@@ -118,4 +120,4 @@ console.log(objectId);
   );
 };
 
-export default Objects;
+export default AllObjects;
