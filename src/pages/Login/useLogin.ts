@@ -1,27 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Hook/useAuth";
 import { authService } from "./service";
 
 export const uselogin = () => {
-    const [login, setLogin] = useState<string>("superadmin@test.ru");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {login} = useAuth();
+
+  const fromPage = location.state?.from?.pathname || "/";
+
+    const [email, setLogin] = useState<string>("superadmin@test.ru");
     const [passw, setPassw] = useState<string>(")P(O8i&U");
-    const authContext = useContext(AuthContext);
   
     const { isFetching, refetch } = useQuery({
-      queryKey: ["login", login, passw],
-      queryFn : () =>{ return authService.login(login, passw)},
+      queryKey: ["login", email, passw],
+      queryFn : () =>{ return authService.login(email, passw)},
       refetchOnWindowFocus: false ,
       retry: false,
       enabled: false,
       onSuccess:data=>{
-        // console.log('data',data);
         if (data.status === 401) {
           console.log("неправильные логин/пароль");        
         }
         else{
-          localStorage.setItem("auth",null);
-          authContext.setIsAuth(true);
+          login("user", ()=>navigate(fromPage, {replace: true}));
         }
   
       },
@@ -29,15 +33,13 @@ export const uselogin = () => {
         console.log('error',error);      
       }
     });
-    // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
-  
+    
     return {
       clientState:{
-        login,
+        login: email,
         passw,
         setLogin,
         setPassw,
-        setIsAuth: authContext.setIsAuth
       },
       serverState:{
         refetch,

@@ -1,33 +1,39 @@
-import React, { useContext } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { AuthContext } from "../context";
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AllObjects from "../pages/AllObjects/AllObjects";
-import { privateRoutes, publicRoutes } from "../routes";
-import Breadcrumbs from "./Breadcrumbs/Breadcrumbs";
-import TopBar from "./TopBar/TopBar";
+import DomainObject from "../pages/DomainObject/DomainObject";
+import Login from "../pages/Login/Login";
+import { RequireAuth } from "./Hoc/RequireAuth";
+import Layout from "./Layout/Layout";
 
 const AppRouter = () => {
-  const { isAuth } = useContext(AuthContext);
-  //console.log(isAuth)
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <RequireAuth>
+          <Layout />
+        </RequireAuth>
+      ),
+      //  errorElement:<Login />,
+      children: [
+        {
+          index: true,
+          element: <AllObjects />,
+        },
+        {
+          path: "object/:id",
+          element: <DomainObject />,
+        },
+      ],
+    },
+    {
+      path: "login",
+      element: <Login />,
+    },
+  ]);
 
-  const location = useLocation(); 
-  
-  return isAuth ? (
-    <>
-      <TopBar>
-        <Breadcrumbs path={location.pathname} state={location.state} />
-      </TopBar>
-      <Routes>
-        {privateRoutes.map((route) => (<Route element={route.component} path={route.path} key={route.path} />))}
-        <Route path="*" element={<Navigate replace to="/" />} />
-      </Routes>
-    </>
-  ) : (
-    <Routes>
-      {publicRoutes.map((route) => (<Route element={route.component} path={route.path} key={route.path} />))}
-      <Route path="*" element={<Navigate replace to="/login" />} />
-    </Routes>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default AppRouter;
