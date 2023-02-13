@@ -15,15 +15,17 @@ const AppRouter = () => {
           <Layout />
         </RequireAuth>
       ),
-      //  errorElement:<Login />,
+      loader:()=>{return { label: "ГЛАВНАЯ", icon: "home" }},
       children: [
         {
           index: true,
           element: <AllObjects />,
+          // loader:()=>{return { label: "ГЛАВНАЯ", icon: "home" }},
         },
         {
           path: "object/:id",
           element: <DomainObject />,
+          loader:()=>{return { label: "ОБЪЕКТ", icon: "company" }},
         },
       ],
     },
