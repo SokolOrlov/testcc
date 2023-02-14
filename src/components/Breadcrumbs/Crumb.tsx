@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Svg from "../../UI/Svg";
 import styles from "./Breadcrumbs.module.css";

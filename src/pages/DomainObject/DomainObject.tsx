@@ -1,15 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
+const DomainObject = () => {
+  let { id } = useParams();
 
-const DomainObject=()=>{
-    let { id } = useParams();
-    return(
-        <>
-        <div>DomainObject</div>
-        <p>{id}</p>
-        </>
-    )
-}
+  return (
+    <>
+      <div>DomainObject</div>
+      <p>{id}</p>
+      <Link to={`device/2`} state={{ name: "device1" }}>
+        do device
+      </Link>
+    </>
+  );
+};
 
 export default DomainObject;
