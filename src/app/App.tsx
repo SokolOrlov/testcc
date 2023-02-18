@@ -4,14 +4,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "../components/Hoc/AuthProvider";
 
 import "./App.module.css";
+import ToastContainer from "../components/toast/Toast";
 
 const App = () => {
   return (
+    <>
     <QueryClientProvider client={new QueryClient()}>
       <AuthProvider>
         <AppRouter />
       </AuthProvider>
     </QueryClientProvider>
+    <ToastContainer />
+    </>
   );
 };
 

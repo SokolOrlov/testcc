@@ -8,6 +8,16 @@ const API_URL = "https://test.cloud-control.ru/api/api/";
  * @returns Данные
  */
 export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) => {
+  // return await fetch(`${API_URL}${API_URN}`, {
+  //   method: rmethod,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //   },
+  //   body: JSON.stringify(rbody),
+  // });
+
+
   return await fetch(`${API_URL}${API_URN}`, {
     method: rmethod,
     headers: {
@@ -15,7 +25,7 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) =
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
     body: JSON.stringify(rbody),
-  }).then((res) => {
+  }).then((res) => {     
     // если придет 401 - разлогинимся
     if (res.status === 401) {     
       localStorage.removeItem("user");
