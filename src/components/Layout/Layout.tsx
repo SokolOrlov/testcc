@@ -4,6 +4,7 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import TopBar from "../TopBar/TopBar";
 
 const Layout = () => {
+  // console.log("Layout");
   return (
     <>
       <header>

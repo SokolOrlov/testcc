@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, useMatches } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css";
 import Crumb from "./Crumb";
@@ -11,22 +11,29 @@ type CrumbData = {
 };
 
 const Breadcrumbs = ({}: Props) => {
-const [crumbss, setCrumbs] = useState([]);
+  // console.log("Breadcrumbs");
+
+  const {current: labels} = useRef(new Map<string, string>());
 
   const location = useLocation();
   const matches = useMatches();
+  const last = matches.slice(-1)[0];
+
+  if (location.state) {
+    labels.set(last.id, location.state.name);
+  }
+
+  // console.log(labels.current);
 
   let crumbs = matches
     .filter((match) => match.data)
     .map((match, i) => {
-      const isLast = i === matches.filter((match) => match.data).length - 1;
       return <Crumb 
         key={match.id} 
-        // label={location.state ? location.state.name : (match.data as CrumbData).label} 
-        label={isLast && i !== 0 ? location.state?.name : (match.data as CrumbData).label} 
+        label={labels.has(match.id) ? labels.get(match.id) : (match.data as CrumbData).label} 
         icon={(match.data as CrumbData).icon} 
         path={match.pathname} 
-        last={isLast} />;
+        last={last.id === match.id} />;
     });
 
   return <div className={styles.crumbs}>{crumbs}</div>;

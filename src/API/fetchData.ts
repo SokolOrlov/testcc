@@ -18,10 +18,9 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) =
   }).then((res) => {
     // если придет 401 - разлогинимся
     if (res.status === 401) {     
-      // localStorage.removeItem("user");
-      // localStorage.removeItem("accessToken");
-
-      return res;
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
+      location.href = '/'; 
     }
     return res.json();
   });

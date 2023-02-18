@@ -9,6 +9,8 @@ import { RequireAuth } from "./Hoc/RequireAuth";
 import Layout from "./Layout/Layout";
 
 const AppRouter = () => {
+  // console.log("AppRouter");
+  
   const router = createBrowserRouter([
     {
       id:"home",
