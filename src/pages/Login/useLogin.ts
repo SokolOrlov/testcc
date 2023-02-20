@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useToast } from "../../components/toast/Toast";
+import { useToast } from "../../components/Toast/Toast";
 import { useAuth } from "../../Hook/useAuth";
-import { authService } from "./service";
+import { service } from "./service";
 
 export const uselogin = () => {
   const navigate = useNavigate();
@@ -17,20 +17,17 @@ export const uselogin = () => {
   const { isFetching, refetch } = useQuery({
     queryKey: ["login", email, passw],
     queryFn: () => {
-      return authService.login(email, passw);
+      return service.login(email, passw);
     },
     refetchOnWindowFocus: false,
     retry: false,
     enabled: false,
-    onSuccess: (data) => {
-      toast({ label: "неправильные логин/пароль", type: "error" });
-      if (data.status === 401) {
-        
-
-        console.log("неправильные логин/пароль");
-      } else {
+    onSuccess: (res) => {
+      if (res.ok) {
         const fromPage = location.state?.from?.pathname || "/";
         login("user", () => navigate(fromPage, { replace: true }));
+      } else {
+        toast({ label: res.message, type: "error" });
       }
     },
     onError: (error) => {

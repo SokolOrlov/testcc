@@ -7,31 +7,33 @@ const API_URL = "https://test.cloud-control.ru/api/api/";
  * @param rbody Данные запроса
  * @returns Данные
  */
+
+const headers = () => {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  };
+};
+
 export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) => {
-  // return await fetch(`${API_URL}${API_URN}`, {
-  //   method: rmethod,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //   },
-  //   body: JSON.stringify(rbody),
-  // });
-
-
-  return await fetch(`${API_URL}${API_URN}`, {
+  const rParams = {
     method: rmethod,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
+    headers: headers(),
     body: JSON.stringify(rbody),
-  }).then((res) => {     
-    // если придет 401 - разлогинимся
-    if (res.status === 401) {     
+  };
+
+  try {
+    const res = await fetch(`${API_URL}${API_URN}`, rParams);
+
+    if (!res.ok) {
       localStorage.removeItem("user");
       localStorage.removeItem("accessToken");
-      location.href = '/'; 
+      location.href = "/";
+      return;
     }
+
     return res.json();
-  });
+  } catch (error) {
+    console.log("error", error);
+  }
 };

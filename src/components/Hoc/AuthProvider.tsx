@@ -5,6 +5,12 @@ type Props = {
   children: React.ReactNode;
 };
 
+export type AuthProps = {
+  user:string
+  login: (user: any, cb: () => void) => void
+  logout: (cb: () => void) => void
+}
+
 export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState(false);
 

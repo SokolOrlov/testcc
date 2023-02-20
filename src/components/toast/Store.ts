@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export interface ToastMessage {
   label: string;
-  type: "none" | "info" | "success" | "error";
+  type: "none" | "info" | "success" | "error" | "warning";
 }
 
 export interface ToastMessageEx extends ToastMessage {
@@ -16,7 +16,7 @@ type Props = {
   remove: (id: number) => void
 };
 
-const Store = create<Props>((set) => ({
+const useStore = create<Props>((set) => ({
   message: null,
   list: [],
   toast: ({ label, type }: ToastMessage) => set((state)=>{
@@ -25,4 +25,4 @@ const Store = create<Props>((set) => ({
   remove: (id: number) => set((state) => ({ list: state.list.filter((i) => i.id !== id) })),
 }));
 
-export default Store;
+export default useStore;

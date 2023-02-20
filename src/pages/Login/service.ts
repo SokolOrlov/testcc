@@ -1,12 +1,20 @@
 import Api from "./api";
 
-export const authService = Object.freeze({
-    async login(user:string, passw: string):Promise<any>{        
-        const result = await Api.login(user, passw);
-        if (result.Content?.Value?.accessToken) {
-            localStorage.setItem('accessToken', result.Content.Value.accessToken);
-        }            
+interface LoginResult {
+  ok: boolean;
+  message: string;
+}
 
-        return result;
+export const service = Object.freeze({
+  async login(user: string, passw: string): Promise<LoginResult> {
+    const result = await Api.login(user, passw);
+    console.log(result);
+
+    if (result && result.Content?.Value?.accessToken) {
+      localStorage.setItem("accessToken", result.Content.Value.accessToken);
+      return { ok: true, message: "" };
+    } else {
+      return { ok: false, message: "Неправильный логин или пароль." };
     }
-})
+  },
+});
