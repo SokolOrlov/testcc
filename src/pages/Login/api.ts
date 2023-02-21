@@ -11,7 +11,7 @@ export default class Api {
   }
 }
 
-const fetchLogin = async ( data: any) => {
+const fetchLogin = async (data: any) => {
   const headers = {
     "Content-Type": "application/json",
   };
@@ -21,21 +21,14 @@ const fetchLogin = async ( data: any) => {
     headers: headers,
     body: JSON.stringify(data),
   };
-  
+
   const API_URL = "https://test.cloud-control.ru/api/api/";
   const API_URN = "account/login";
 
   try {
     const res = await fetch(`${API_URL}${API_URN}`, params);
-
-    if(res.ok)
-      return res.json()
-    // else
-    //   return {
-        
-    //   }
+    if (res.ok) return res.json();
   } catch (error) {
     console.log("error", error);
   }
- 
 };

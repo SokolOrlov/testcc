@@ -7,7 +7,7 @@ import { actionType } from "./reducer";
 import DropDown from "../../UI/DropDown/DropDown";
 import FilterInput from "../../UI/Input/Filter/FilterInput";
 import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
-import ObjectModal from "../../modules/ObjectModal/ObjectModal";
+import ObjectModal from "../../components/ObjectModal/ObjectModal";
 import Button from "../../UI/Button/Base/Button";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
@@ -16,6 +16,8 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
+  const {objectModal} = useObjectModal();
+  const {actionModal} = actionModal();
 
   //Изменить страницу
   const changePage = (selectedPageId: number) => {
@@ -64,22 +66,23 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
   };
 
   //Добавить объект
-  const addObjectModal = (show: boolean) =>{
-    clientState.dispatch({
-      type: actionType.SHOW_MODAL,
-      payload: show
-    });
+  const addObjectModal = () =>{
+    objectModal.add();
   }
 
   //Модальное окно изменения объекта
   const editObjectModal = (objectId: number) =>{
-    console.log(objectId);
-
+    objectModal.edit({id: objectId});
   }
 
   //Модальное окно удаления объекта
   const deleteObjectModal = (objectId: number) =>{
-    console.log(objectId);
+    actionModal.show({
+      type: "delete",
+      tytle: "Удаление объекта",
+      body: "Вы уверены, что хотите удалить объект?",
+      onSuccess:()=>{}
+    });
   }
 
   //Очистить фильтры
@@ -103,7 +106,7 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
         </div>
 
         <div className={styles.row}>
-          <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={()=>addObjectModal(true)}/>
+          <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={addObjectModal}/>
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 
@@ -115,7 +118,7 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
         </div>
       </div>
       
-      <ObjectModal onClose={() => addObjectModal(false)} callback={()=>{addObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/>
+      {/* <ObjectModal onClose={() => addObjectModal(false)} callback={()=>{addObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/> */}
     </>
   );
 };

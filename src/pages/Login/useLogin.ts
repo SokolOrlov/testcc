@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useToast } from "../../components/Toast/Toast";
+import { useToast } from "../../components/Toast/ToastContainer";
 import { useAuth } from "../../Hook/useAuth";
 import { service } from "./service";
 
