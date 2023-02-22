@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import Svg from "../../UI/Svg";
+import React from "react";
+import { Link } from "react-router-dom"; 
+import { Svg } from "../../UI";
 import styles from "./Breadcrumbs.module.css";
 
 type Props = {

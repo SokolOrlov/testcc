@@ -7,7 +7,7 @@ type Props = {
   rows: React.ReactNode;
 };
 
-const Table = ({ header, colgroup, rows }: Props) => {
+export const Table = ({ header, colgroup, rows }: Props) => {
   return (
     <table className={styles.table}>
       <thead className={styles.header}>{header}</thead>
@@ -15,9 +15,7 @@ const Table = ({ header, colgroup, rows }: Props) => {
       <tbody className={styles.body}>{rows}</tbody>
     </table>
   );
-};
-
-export default Table;
+}; 
 
 type TableCellProps = {
   children: React.ReactNode;

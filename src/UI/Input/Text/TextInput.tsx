@@ -7,7 +7,7 @@ type Props = {
   label: string;
 };
 
-const TextInput = ({ label, value, onChange }: Props) => {
+export const TextInput = ({ label, value, onChange }: Props) => {
   const changeValue = (event: any) => {
     onChange(event.target.value);
   };
@@ -19,5 +19,4 @@ const TextInput = ({ label, value, onChange }: Props) => {
     </div>
   );
 };
-
-export default TextInput;
+ 

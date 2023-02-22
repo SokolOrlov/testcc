@@ -1,10 +1,8 @@
 import React from "react";
 
 
-const Device = ()=>{
+export const Device = ()=>{
     return(
         <div>device</div>
     )
 }
-
-export default Device;

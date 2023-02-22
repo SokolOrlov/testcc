@@ -5,7 +5,7 @@ type Props = {
   children: JSX.Element;
 };
 
-const RequireAuth = ({ children }: Props) => {
+export const RequireAuth = ({ children }: Props) => {
   const location = useLocation();
 
   const final = localStorage.getItem("user") && localStorage.getItem("accessToken") ? localStorage.getItem("user") : null;
@@ -16,5 +16,3 @@ const RequireAuth = ({ children }: Props) => {
 
   return children;
 };
-
-export { RequireAuth };

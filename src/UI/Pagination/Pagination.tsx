@@ -1,5 +1,5 @@
 import React from "react"; 
-import PageButton from "./PageButton";
+import {PageButton} from "./PageButton";
 import cl from "./Pagination.module.css";
 
 type Props = {
@@ -21,7 +21,7 @@ const getPagesArray = (totalPages: number) => {
   return result;
 }
 
-const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: Props) => {
+export const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: Props) => {
   //console.log("Pagination");
 
   const totalPages = getPageCount(totalCount, pageSize);
@@ -65,5 +65,3 @@ const Pagination = ({pageNumber = 1, totalCount = 0, pageSize = 0, onChange,}: P
       </div>
     );
 };
-
-export default Pagination;

@@ -5,8 +5,6 @@ type Props = {
   children: React.ReactNode;
 };
 
-const TopBar = ({ children }: Props) => {
+export const TopBar = ({ children }: Props) => {
   return <div className={styles.topbar}>{children}</div>;
 };
-
-export default TopBar;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ControlBox } from "..";
 import { ObjectData } from "../../pages/AllObjects/types";
-import ControlButton from "../../UI/Button/Control/ControlButton";
-import Table, { TableCell, TableHeaderCell, TableRow } from "../../UI/Table/Table";
-import ControlBox from "../ControlBox/ControlBox";
+import { ControlButton, Table, TableCell, TableHeaderCell, TableRow } from "../../UI";
+
 import styles from "./ObjectsTable.module.css";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 
 const headers = ["Domain", "ObjectName", "ObjectAddress", "ServiceCompany", "DeviceGatewayName", "AlarmsCount"];
 
-const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
+export const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
   const header = (
     <TableRow>
       {headers.map((h) => (
@@ -59,5 +59,3 @@ const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
     </div>
   );
 };
-
-export default ObjectsTable;

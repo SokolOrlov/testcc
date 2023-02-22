@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useLocation, useMatches } from "react-router-dom";
-import styles from "./Breadcrumbs.module.css";
 import Crumb from "./Crumb";
+import styles from "./Breadcrumbs.module.css"; 
 
 type Props = {};
 
@@ -10,7 +10,7 @@ type CrumbData = {
   icon: string;
 };
 
-const Breadcrumbs = ({}: Props) => {
+export const Breadcrumbs = ({}: Props) => {
   // console.log("Breadcrumbs");
 
   const {current: labels} = useRef(new Map<string, string>());
@@ -38,5 +38,3 @@ const Breadcrumbs = ({}: Props) => {
 
   return <div className={styles.crumbs}>{crumbs}</div>;
 };
-
-export default Breadcrumbs;

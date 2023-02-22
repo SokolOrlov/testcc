@@ -1,5 +1,5 @@
 import React from "react";
-import Svg from "../../Svg";
+import { Svg } from "../..";
 import styles from "./Button.module.css"
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
     onClick: () => any
 }
 
-const Button  = ({label, icon, type, onClick}: Props)=>{
+export const Button  = ({label, icon, type, onClick}: Props)=>{
     return(
         <button className={`${styles.button} ${type? styles[type] : ""}`} onClick={onClick}>
             {icon && <Svg id={icon}/>}
@@ -17,5 +17,3 @@ const Button  = ({label, icon, type, onClick}: Props)=>{
         </button>
     )
 }
-
-export default Button;

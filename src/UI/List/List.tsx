@@ -7,10 +7,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-const List = ({ expanded, scrollable, children }: Props) => {
+export const List = ({ expanded, scrollable, children }: Props) => {
   if (!expanded) return null;
 
   return <ul className={`${cl.list} ${scrollable ? cl.list_scrollable : ""}`}>{children}</ul>;
-};
-
-export default List;
+}; 

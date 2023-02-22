@@ -2,7 +2,7 @@ import React from "react";
 import cl from "./Login.module.css";
 import { uselogin } from "./useLogin";
 
-const Login = () => {
+export const Login = () => {
   const {clientState, serverState} = uselogin();
 
   const loginRequest = (event: any) => {
@@ -27,6 +27,4 @@ const Login = () => {
       </div>
     </>
   );
-};
-
-export default Login;
+}; 

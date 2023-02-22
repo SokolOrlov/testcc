@@ -6,13 +6,11 @@ type Props = {
     handleClick:() => void
 }
 
-const ListItem = ({handleClick, children}:Props)=>{
+export const ListItem = ({handleClick, children}:Props)=>{
 
  return(
     <li className={cl.li} onClick={handleClick}>
         {children}
     </li>
  )   
-}
-
-export default ListItem;
+} 

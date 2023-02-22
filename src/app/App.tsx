@@ -1,10 +1,7 @@
 import React from "react";
-import AppRouter from "../components/AppRouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthProvider } from "../components/Hoc/AuthProvider";
-
+import { AppRouter, AuthProvider, ToastContainer } from "../components";
 import "./App.module.css";
-import ToastContainer from "../components/Toast/ToastContainer";
 
 const App = () => {
   return (

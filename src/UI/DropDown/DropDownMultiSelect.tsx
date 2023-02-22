@@ -1,12 +1,8 @@
 import React, { useState } from "react";
+import { Checkbox, FilterInput, List, ListItem, ToggleButton } from "..";
 import cl from "./DropDown.module.css";
-import { DropDownItem } from "./types";
-import FilterInput from "../Input/Filter/FilterInput";
-import ToggleButton from "../Button/ToggleButton/ToggleButton";
-import useMousedownEvent from "./useMousedownEvent";
-import List from "../List/List";
-import ListItem from "../List/ListItem";
-import Checkbox from "../Checkbox/Checkbox";
+import { DropDownItem } from "./types"; 
+import useMousedownEvent from "./useMousedownEvent"; 
 
 type Props = {
   label?: string;
@@ -22,7 +18,7 @@ type Props = {
  * @param param0
  * @returns
  */
-const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter = false, emptyText = "" }: Props) => {
+export const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter = false, emptyText = "" }: Props) => {
   // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
@@ -78,5 +74,3 @@ const DropDownMultiSelect = ({ label, data = [], selected = [], onSelect, filter
     </div>
   );
 };
-
-export default DropDownMultiSelect;

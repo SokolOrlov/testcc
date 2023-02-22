@@ -1,12 +1,13 @@
 import React from "react";
+import { Svg } from "../..";
 import styles from "./FilterInput.module.css";
-import Svg from "../../Svg";
+
 type Props = {
   onChange: (arg0: any) => void;
   value: string;
 };
 
-const FilterInput = ({ value, onChange }: Props) => {
+export const FilterInput = ({ value, onChange }: Props) => {
   //console.log("FindInput");
   const changeFilter = (event: any) => {
     onChange(event.target.value);
@@ -18,6 +19,4 @@ const FilterInput = ({ value, onChange }: Props) => {
       <Svg id="search"/>
     </div>
   );
-};
-
-export default FilterInput;
+}; 

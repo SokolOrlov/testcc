@@ -1,6 +1,6 @@
 import React from "react";
+import { Svg } from "../..";
 import styles from "./ToggleButton.module.css";
-import Svg from "../../Svg";
 
 type Props = {
   expanded: boolean;
@@ -8,7 +8,7 @@ type Props = {
   toggleExpanded: () => void;
 };
 
-const ToggleButton = ({ expanded, toggleExpanded, label }: Props) => {
+export const ToggleButton = ({ expanded, toggleExpanded, label }: Props) => {
   return (
     <button className={`${styles.toggle} ${expanded ? styles.open : ""}`} onClick={toggleExpanded}>
       <p title={label} className={styles.label}>{label}</p>
@@ -16,5 +16,3 @@ const ToggleButton = ({ expanded, toggleExpanded, label }: Props) => {
     </button>
   );
 };
-
-export default ToggleButton;

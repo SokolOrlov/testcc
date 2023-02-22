@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-const DomainObject = () => {
+export const DomainObject = () => {
   let { id } = useParams();
 
   return (
@@ -13,6 +13,4 @@ const DomainObject = () => {
       </Link>
     </>
   );
-};
-
-export default DomainObject;
+}; 

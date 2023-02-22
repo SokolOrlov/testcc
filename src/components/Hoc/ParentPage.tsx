@@ -6,12 +6,10 @@ type Props = {
   id: string;
 };
 
-const ParentPage = ({ children, id }: Props) => {
+export const ParentPage = ({ children, id }: Props) => {
   const matches = useMatches();
   
   if (matches.slice(-1)[0].id !== id) return <Outlet />;
 
   return children;
 };
-
-export default ParentPage;

@@ -1,9 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
-import TopBar from "../TopBar/TopBar";
+import { Breadcrumbs, TopBar } from "..";
 
-const Layout = () => {
+export const Layout = () => {
   // console.log("Layout");
   return (
     <>
@@ -19,5 +18,3 @@ const Layout = () => {
     </>
   );
 };
-
-export default Layout;

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"; 
-import useStore from "./Store";
+import React, { useEffect } from "react";
+import ToastStore from "./Store";
 import styles from "./Toast.module.css";
 
 const remove = (id: number, remove: any) => {
@@ -9,9 +9,9 @@ const remove = (id: number, remove: any) => {
 };
 
 const ToastList = () => {
-  const m = useStore((state) => state.message);
-  const l = useStore((state) => state.list);
-  const r = useStore((state) => state.remove);
+  const m = ToastStore((state) => state.message);
+  const l = ToastStore((state) => state.list);
+  const r = ToastStore((state) => state.remove);
 
   useEffect(() => {
     if (m) {

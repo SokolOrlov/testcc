@@ -16,7 +16,7 @@ type Props = {
   remove: (id: number) => void
 };
 
-const useStore = create<Props>((set) => ({
+const ToastStore = create<Props>((set) => ({
   message: null,
   list: [],
   toast: ({ label, type }: ToastMessage) => set((state)=>{
@@ -25,4 +25,4 @@ const useStore = create<Props>((set) => ({
   remove: (id: number) => set((state) => ({ list: state.list.filter((i) => i.id !== id) })),
 }));
 
-export default useStore;
+export default ToastStore;

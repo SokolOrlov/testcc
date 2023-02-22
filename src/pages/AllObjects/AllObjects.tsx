@@ -1,23 +1,18 @@
 import React from "react";
-import Pagination from "../../UI/Pagination/Pagination";
 import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import DropDown from "../../UI/DropDown/DropDown";
-import FilterInput from "../../UI/Input/Filter/FilterInput";
-import DropDownMultiSelect from "../../UI/DropDown/DropDownMultiSelect";
-import ObjectModal from "../../components/ObjectModal/ObjectModal";
-import Button from "../../UI/Button/Base/Button";
-import PageHeader from "../../components/PageHeader/PageHeader";
-import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
+import { ObjectsTable, PageHeader } from "../../components";
+import { ObjectModalContainer, useObjectsModal } from "../../modules/ObjectModal";
+import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "../../UI";
 
- const AllObjects = () => {
+export const AllObjects = () => {
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
-  const {objectModal} = useObjectModal();
-  const {actionModal} = actionModal();
+  const objectModal = useObjectsModal();
+  // const {actionModal} = actionModal();
 
   //Изменить страницу
   const changePage = (selectedPageId: number) => {
@@ -67,22 +62,22 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
 
   //Добавить объект
   const addObjectModal = () =>{
-    objectModal.add();
+    objectModal.add(()=> serverState.refetch());
   }
 
   //Модальное окно изменения объекта
   const editObjectModal = (objectId: number) =>{
-    objectModal.edit({id: objectId});
+    // objectModal.edit({id: objectId});
   }
 
   //Модальное окно удаления объекта
   const deleteObjectModal = (objectId: number) =>{
-    actionModal.show({
-      type: "delete",
-      tytle: "Удаление объекта",
-      body: "Вы уверены, что хотите удалить объект?",
-      onSuccess:()=>{}
-    });
+    // actionModal.show({
+    //   type: "delete",
+    //   tytle: "Удаление объекта",
+    //   body: "Вы уверены, что хотите удалить объект?",
+    //   onSuccess:()=>{}
+    // });
   }
 
   //Очистить фильтры
@@ -118,9 +113,7 @@ import ObjectsTable from "../../components/ObjectsTable/ObjectsTable";
         </div>
       </div>
       
-      {/* <ObjectModal onClose={() => addObjectModal(false)} callback={()=>{addObjectModal(false); serverState.refetch()}} show={clientState.state.showObjectModal}/> */}
+      <ObjectModalContainer/>
     </>
   );
 };
-
-export default AllObjects;

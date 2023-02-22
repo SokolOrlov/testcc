@@ -1,12 +1,11 @@
 import React from "react";
-import Button from "../../UI/Button/Base/Button";
-import DropDown from "../../UI/DropDown/DropDown";
-import TextInput from "../../UI/Input/Text/TextInput";
-import Modal from "../../UI/Modal/Modal";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
 import styles from "./ObjectModal.module.css";
 import { ObjectData } from "./types";
+import ObjectModalStore from "./Store";
+import { useObjectsModal } from "./Container";
+import { Button, DropDown, Modal, TextInput } from "../../UI";
 
 type Props = {
   show: boolean;
@@ -15,8 +14,14 @@ type Props = {
   onClose: () => void;
 };
 
-const ObjectModal = ({ show, data, onClose, callback }: Props) => {
-  const { clientState, serverState } = useObjectModal(data);
+const ObjectModal = () => {
+  const { clientState, serverState } = useObjectModal();
+
+  const objectModal = useObjectsModal();
+  const show = ObjectModalStore(store=>store.show)
+console.log(show);
+
+
 
   const changeObjectName = (name: string) => {
     clientState.dispatch({ type: actionType.CHANGE_OBJECT_NAME, payload: name });
@@ -35,11 +40,16 @@ const ObjectModal = ({ show, data, onClose, callback }: Props) => {
 
   const saveObject = async () => {
     await serverState.saveObject();
-    if (callback) callback(1);
+    objectModal.callback();
+    objectModal.close();
   };
 
+  const close = ()=>{
+    objectModal.close();
+  }
+
   return (
-    <Modal title="Добавление объекта" onClose={onClose} show={show}>
+    <Modal title="Добавление объекта" onClose={close} show={show}>
       <div className={styles.body}>
         <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
         <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
@@ -49,7 +59,7 @@ const ObjectModal = ({ show, data, onClose, callback }: Props) => {
         </div>
       </div>
       <div className={styles.footer}>
-        <Button label="ОТМЕНА" type="danger" onClick={onClose} />
+        <Button label="ОТМЕНА" type="danger" onClick={close} />
         <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
       </div>
     </Modal>
