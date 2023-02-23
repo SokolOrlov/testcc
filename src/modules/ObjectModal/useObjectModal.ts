@@ -4,8 +4,6 @@ import reducer, { actionType, initialState } from "./reducer";
 import service from "./service"; 
 
 const useObjectModal = (id?: number) => {
-  console.log("onjectid", id);
-  
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const objectQeury = useQuery({
@@ -14,7 +12,6 @@ const useObjectModal = (id?: number) => {
       return service.getObject(id);
     },
     onSuccess:(data)=>{
-      console.log("onSuccess",data);
       dispatch({
         type:actionType.LOAD_OBJECT_DATA,
         payload: {

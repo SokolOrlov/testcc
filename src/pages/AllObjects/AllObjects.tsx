@@ -65,12 +65,12 @@ export const AllObjects = () => {
     objectModal.add(()=> serverState.refetch());
   }
 
-  //Модальное окно изменения объекта
+  //Изменить объект
   const editObjectModal = (objectId: number) =>{
     objectModal.edit(objectId, ()=> serverState.refetch());
   }
 
-  //Модальное окно удаления объекта
+  //Удалить объект
   const deleteObjectModal = (objectId: number) =>{
     // actionModal.show({
     //   type: "delete",

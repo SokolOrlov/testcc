@@ -11,7 +11,7 @@ const App = () => {
         <AppRouter />
       </AuthProvider>
     </QueryClientProvider>
-    <ToastContainer />
+    <ToastContainer />    
     </>
   );
 };

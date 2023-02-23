@@ -9,7 +9,6 @@ import { Button, DropDown, Modal, TextInput } from "../../UI";
 const ObjectModal = () => {
   const show = ObjectModalStore((store) => store.show);
   const objectId = ObjectModalStore((store) => store.id);
-
   const { clientState, serverState } = useObjectModal(objectId);
   const objectModal = useObjectsModal();
 
@@ -47,17 +46,19 @@ const ObjectModal = () => {
 
   return (
     <Modal title={objectId?"Редактирование объекта":"Добавление объекта"} onClose={close} show={show}>
-      <div className={styles.body}>
-        <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
-        <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
-        <div className={styles.border}>
-          <DropDown label="КОМПАНИЯ" data={serverState.domains} selectedId={clientState.state.companyId} onSelect={selectCompany} firstElement="Text" emptyText={"Не выбрано"} filter={true} />
-          <DropDown label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={selectSCompany} firstElement="Empty" filter={true} />
+      <div {...{disabled: serverState.loading}}>
+        <div className={styles.body}>
+          <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
+          <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
+          <div className={styles.border}>
+            <DropDown label="КОМПАНИЯ" data={serverState.domains} selectedId={clientState.state.companyId} onSelect={selectCompany} firstElement="Text" emptyText={"Не выбрано"} filter={true} />
+            <DropDown label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={selectSCompany} firstElement="Empty" filter={true} />
+          </div>
         </div>
-      </div>
-      <div className={styles.footer}>
-        <Button label="ОТМЕНА" type="danger" onClick={close} />
-        <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
+        <div className={styles.footer}>
+          <Button label="ОТМЕНА" type="danger" onClick={close} />
+          <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
+        </div>
       </div>
     </Modal>
   );
