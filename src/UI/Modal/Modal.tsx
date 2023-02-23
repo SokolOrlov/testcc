@@ -26,7 +26,7 @@ export const Modal = ({ title, children, show, onClose }: Props) => {
 
   if (!show) return null;
 
-  return ReactDOM.createPortal(
+  return(
     <div className={styles.background}>
       <div className={styles.modal}>
         <header className={styles.header}>
@@ -37,7 +37,5 @@ export const Modal = ({ title, children, show, onClose }: Props) => {
         </header>
         {children}
       </div>
-    </div>,
-    document.getElementById("modal")
-  );
+    </div>);
 };

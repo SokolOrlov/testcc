@@ -46,7 +46,7 @@ const ObjectModal = () => {
 
   return (
     <Modal title={objectId?"Редактирование объекта":"Добавление объекта"} onClose={close} show={show}>
-      <div {...{disabled: serverState.loading}}>
+      <div {...{disabled: objectId && serverState.loading}}>
         <div className={styles.body}>
           <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
           <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
