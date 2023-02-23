@@ -67,7 +67,7 @@ export const AllObjects = () => {
 
   //Модальное окно изменения объекта
   const editObjectModal = (objectId: number) =>{
-    // objectModal.edit({id: objectId});
+    objectModal.edit(objectId, ()=> serverState.refetch());
   }
 
   //Модальное окно удаления объекта

@@ -9,7 +9,7 @@ export const ObjectModalContainer = React.memo(() => {
 
 type Props = {
   add: (callback: () => void) => void;
-  edit: (id: number) => void;
+  edit: (id: number, callback: () => void) => void;
   close: () => void;
   callback: () => void;
 };

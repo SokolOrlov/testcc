@@ -1,11 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import { useReducer } from "react";
-import reducer, { initialState } from "./reducer";
-import service from "./service";
-import { ObjectData } from "./types";
+import reducer, { actionType, initialState } from "./reducer";
+import service from "./service"; 
 
-const useObjectModal = (data?: ObjectData) => {
+const useObjectModal = (id?: number) => {
+  console.log("onjectid", id);
+  
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const objectQeury = useQuery({
+    queryKey: ["objectData",id],
+    queryFn: () => {
+      return service.getObject(id);
+    },
+    onSuccess:(data)=>{
+      console.log("onSuccess",data);
+      dispatch({
+        type:actionType.LOAD_OBJECT_DATA,
+        payload: {
+          Id: data.Id,
+          objectName: data.Name,
+          identificator: data.ExternalCode,
+          companyId: data.DomainId,
+          // scompanyId?: data.,
+        }
+      });
+    },
+    refetchOnWindowFocus: false,
+    // retry: false,
+    // keepPreviousData: true,
+    enabled: id != null
+  });
 
   const domainsQeury = useQuery({
     queryKey: ["domains"],
@@ -30,7 +55,7 @@ const useObjectModal = (data?: ObjectData) => {
   });
 
   const saveObject = async () => {
-    await service.saveObject(state.objectName, state.identificator, state.companyId, state.scompanyId);
+    await service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
   };
 
   return {
@@ -39,10 +64,11 @@ const useObjectModal = (data?: ObjectData) => {
       dispatch,
     },
     serverState: {
+      object: objectQeury.data,
       domains: domainsQeury.data,
       scompanies: scompaniesQeury.data,
       saveObject,
-      loading: domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching,
+      loading: objectQeury.isLoading || objectQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching,
     },
   };
 };

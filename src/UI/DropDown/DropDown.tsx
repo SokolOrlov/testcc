@@ -47,7 +47,7 @@ export const DropDown = ({ data = [], onSelect, label, filter = false, firstElem
       }
 
     setSelectedItem(selectedItem);
-  }, [data]);
+  }, [data, selectedId]);
 
   //Раскрыть(скрыть) список
   const onOpenClick = () => {

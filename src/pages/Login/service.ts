@@ -7,8 +7,8 @@ interface LoginResult {
 
 export const service = Object.freeze({
   async login(user: string, passw: string): Promise<LoginResult> {
+    
     const result = await Api.login(user, passw);
-    console.log(result);
 
     if (result && result.Content?.Value?.accessToken) {
       localStorage.setItem("accessToken", result.Content.Value.accessToken);

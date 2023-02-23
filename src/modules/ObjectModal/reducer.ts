@@ -3,9 +3,11 @@ export enum actionType {
   CHANGE_IDENTIFICATOR = 2,
   CHANGE_COMPANY = 3,
   CHANGE_SCOMPANY = 4,
+  LOAD_OBJECT_DATA = 5
 }
 
 type State = {
+  Id?: number;
   objectName: string;
   identificator: string;
   companyId?: number;
@@ -14,10 +16,13 @@ type State = {
 
 type Action = {
   type: actionType;
-  payload: string | number;
+  payload: string | number | State;
 };
 
 export const initialState: State = {
+  Id: null,
+  companyId: null,
+  scompanyId: null,
   objectName: "",
   identificator: ""
 }
@@ -32,6 +37,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, companyId: action.payload as number };
     case actionType.CHANGE_SCOMPANY:
       return { ...state, scompanyId: action.payload as number };
+    case actionType.LOAD_OBJECT_DATA:
+      return { ...state, ...action.payload as State };
     default:
       throw new Error();
   }

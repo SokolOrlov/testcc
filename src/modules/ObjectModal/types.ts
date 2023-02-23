@@ -10,9 +10,31 @@ export interface SCompany {
   Name: string;
 }
 
+interface GatewayType {
+  Value: number;
+  Name: string;
+  Text: string;
+}
+
 export interface ObjectData {
-  name: string;
-  identificator: string;
-  companyId: number;
-  scompanyId?: number;
+  Id: number;
+  Description?: string;
+  DomainId: number;
+  DomainName: string;
+  Name: string;
+  Locality?: string;
+  Country?: string;
+  Address?: string;
+  Coordinates?: string;
+  Type: number;
+  CustomerType: number;
+  HasCoolDevices: boolean;
+  HasHeatDevices: boolean;
+  HasVltDevices: boolean;
+  HasSmartHeat: boolean;
+  DefaultDeviceGatewayType: number;
+  DeviceGatewayTypes: GatewayType[];
+  ExternalCode: string;
+  HasVpnDevicePoller: string;
+  FullAddress?: string;
 }
