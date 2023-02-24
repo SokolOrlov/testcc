@@ -5,12 +5,14 @@ import styles from "./ObjectModal.module.css";
 import ObjectModalStore from "./Store";
 import { useObjectsModal } from "./Container";
 import { Button, DropDown, Modal, TextInput } from "../../UI";
+import { useToast } from "../../components";
 
 const ObjectModal = () => {
   const show = ObjectModalStore((store) => store.show);
   const objectId = ObjectModalStore((store) => store.id);
   const { clientState, serverState } = useObjectModal(objectId);
   const objectModal = useObjectsModal();
+  const toast = useToast();
 
   //Изменить имя объекта
   const changeObjectName = (name: string) => {
@@ -34,9 +36,18 @@ const ObjectModal = () => {
 
   //Сохранить изменения
   const saveObject = async () => {
-    await serverState.saveObject();
-    objectModal.callback();
-    objectModal.close();
+    toast({label: "Сохранение объекта", type:"info"});
+    const res = await serverState.saveObject();
+
+    if (res.ok) {
+      toast({label: "Успех", type:"info"});
+      objectModal.callback();
+      objectModal.close();
+    }
+    else{
+      toast({label:res.message, type:"error"});
+    }
+
   };
 
   //закрыть модальное окно

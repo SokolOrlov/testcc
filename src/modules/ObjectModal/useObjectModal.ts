@@ -52,7 +52,7 @@ const useObjectModal = (id?: number) => {
   });
 
   const saveObject = async () => {
-    await service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
+    return await service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
   };
 
   return {

@@ -4,7 +4,7 @@ import ToastStore from "./Store";
 
 import ToastList from "./ToastList";
 
-export const ToastContainer = () => {
+export const ToastContainer = () => {  
   return ReactDOM.createPortal(<ToastList />, document.getElementById("toast"));
 };
 

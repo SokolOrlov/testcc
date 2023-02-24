@@ -25,7 +25,7 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) =
   try {
     const res = await fetch(`${API_URL}${API_URN}`, rParams);
 
-    if (!res.ok) {      
+    if (res.status === 401) {      
       localStorage.removeItem("user");
       localStorage.removeItem("accessToken");
       location.href = "/";

@@ -38,3 +38,8 @@ export interface ObjectData {
   HasVpnDevicePoller: string;
   FullAddress?: string;
 }
+
+export interface Responce {
+  ok: boolean;
+  message: string;
+}
