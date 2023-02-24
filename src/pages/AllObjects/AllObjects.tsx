@@ -3,16 +3,18 @@ import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import { ObjectsTable, PageHeader } from "../../components";
+import { ObjectsTable, PageHeader, useToast } from "../../components";
 import { ObjectModalContainer, useObjectsModal } from "../../modules/ObjectModal";
 import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "../../UI";
+import { useActionModal } from "../../components/ActionModal/Container";
 
 export const AllObjects = () => {
   // console.log("Objects");
 
   const {clientState, serverState} = useObjects();
   const objectModal = useObjectsModal();
-  // const {actionModal} = actionModal();
+  const actionModal = useActionModal();
+  const toast = useToast();
 
   //Изменить страницу
   const changePage = (selectedPageId: number) => {
@@ -72,12 +74,24 @@ export const AllObjects = () => {
 
   //Удалить объект
   const deleteObjectModal = (objectId: number) =>{
-    // actionModal.show({
-    //   type: "delete",
-    //   tytle: "Удаление объекта",
-    //   body: "Вы уверены, что хотите удалить объект?",
-    //   onSuccess:()=>{}
-    // });
+    actionModal.open(
+      "Удаление объекта", 
+      "Вы уверены, что хотите удалить объект?", 
+      async ()=> {
+        toast({label:"Удаление объекта", type:"info"});
+        const res = await serverState.deleteObject(objectId)
+        console.log(res);
+
+        if (res.ok) {          
+          toast({label:"Объект удален", type:"success"});
+        }
+        else{
+          toast({label:"Ошбика удаления", type:"error"}); 
+        }
+
+        actionModal.close();
+        serverState.refetch();    
+      });
   }
 
   //Очистить фильтры

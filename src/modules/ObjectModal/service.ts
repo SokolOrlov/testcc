@@ -1,5 +1,6 @@
+import { Responce } from "../../API/types";
 import Api from "./Api";
-import { Domain, ObjectData, Responce, SCompany } from "./types";
+import { Domain, ObjectData, SCompany } from "./types";
 
 export default class Service {
   /**Сохранить объект */

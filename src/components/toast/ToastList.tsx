@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import ToastStore from "./Store";
+import Toast from "./Toast";
 import styles from "./Toast.module.css";
 
 const remove = (id: number, remove: any) => {
   setTimeout(() => {
     remove(id);
-  }, 3000);
+  }, 333000);
 };
 
 const ToastList = () => {
@@ -21,15 +22,7 @@ const ToastList = () => {
 
   return (
     <div className={styles.container}>
-      {l.map((item) => {
-        return (
-          <div key={item.id} className={styles.toast}>
-            <p>{item.label}</p>
-            <br />
-            <p>{item.type}</p>
-          </div>
-        );
-      })}
+      {l.map((item) => <Toast key={item.id} label={item.label} type={item.type} onClose={()=>r(item.id)}/>)}
     </div>
   );
 };

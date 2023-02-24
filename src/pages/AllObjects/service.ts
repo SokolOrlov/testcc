@@ -1,3 +1,4 @@
+import { Responce } from "../../API/types";
 import Api from "./api";
 import { Domain, ObjectsResult, SCompany } from "./types";
 
@@ -40,4 +41,11 @@ export default class service {
   static async getSCompanies(): Promise<SCompany[]>{
     return Api.getSCompanies();
   }
+
+    /**Получить список сервисных компаний */
+    static async deleteObject(id: number): Promise<Responce>{
+      return Api.deleteObject(id)
+        .then(data=>{return { ok: true, message: "" }})
+        .catch(err=>{return { ok: false, message: err }})
+    }
 }

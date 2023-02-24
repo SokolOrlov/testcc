@@ -1,6 +1,6 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AppRouter, AuthProvider, ToastContainer } from "../components";
+import { ActionModalContainer, AppRouter, AuthProvider, ToastContainer } from "../components";
 import "./App.module.css";
 
 const App = () => {
@@ -11,7 +11,8 @@ const App = () => {
         <AppRouter />
       </AuthProvider>
     </QueryClientProvider>
-    <ToastContainer />    
+    <ToastContainer /> 
+    <ActionModalContainer/>   
     </>
   );
 };

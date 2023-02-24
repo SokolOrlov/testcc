@@ -1,13 +1,5 @@
 const API_URL = "https://test.cloud-control.ru/api/api/";
 
-/**
- * Отправить запрос
- * @param urn Метод API
- * @param rmethod Метод запроса
- * @param rbody Данные запроса
- * @returns Данные
- */
-
 const headers = () => {
   return {
     "Content-Type": "application/json",
@@ -32,7 +24,8 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: any) =
       return;
     }
 
-    return res.json();
+    return res.json().then(data=>data).catch(err=>err);
+
   } catch (error) {
     console.log("error", error);
   }

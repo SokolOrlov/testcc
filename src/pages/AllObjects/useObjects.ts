@@ -40,12 +40,17 @@ export const useObjects = ()=>{
           
     // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);   
   
+    const deleteObject = async (id: number) => {
+      return await service.deleteObject(id);
+    };
+
     return {
       clientState:{
         state,
         dispatch
       },
       serverState:{
+        deleteObject,
         refetch: objectsQeury.refetch,
         objectsData: objectsQeury.data,
         domains: domainsQeury.data,

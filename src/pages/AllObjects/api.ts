@@ -23,4 +23,9 @@ export default class Api {
   static async getSCompanies() {
     return await fetchData("serviceCompanies/getListOfServiceCompanies", "GET");
   }
+
+    //Удалить объект
+    static async deleteObject(id: number) {
+      return await fetchData("objects/delete", "POST", {Id: id});
+    }
 }
