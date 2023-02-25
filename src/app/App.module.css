@@ -25,6 +25,7 @@ div[disabled]
   --black: #000;
   --success: #008000;
   --info: #528FCC;
-  --danger: #E2000F;
+  --error: #E2000F;
   --default: #556172;
+  --warning: #FFCC00;
 }

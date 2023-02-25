@@ -79,15 +79,13 @@ export const AllObjects = () => {
       "Вы уверены, что хотите удалить объект?", 
       async ()=> {
         toast({label:"Удаление объекта", type:"info"});
-
         const res = await serverState.deleteObject(objectId);
-        console.log(res);
 
         if (res.ok)        
           toast({label:"Объект удален", type:"success"});
         else
-          toast({label:res.message, type:"error"}); 
-        
+          toast({label:res.message, type:"error"});   
+                
         actionModal.close();
         serverState.refetch();    
       });
