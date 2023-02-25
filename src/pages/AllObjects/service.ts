@@ -4,7 +4,6 @@ import { Domain, ObjectsResult, SCompany } from "./types";
 
 /**Сервис страницы "Все объекты" */
 export default class service {
-
   /**Получить список объектов с гейтвеями
    * @param pageSize Размер страницы
    * @param pageNumber Номер страницы
@@ -13,39 +12,28 @@ export default class service {
    * @param domains фильтр по компаниям
    * @returns Список объектов с гейтвеями
    */
-  static async getObjects(
-    pageSize: number, 
-    pageNumber: number, 
-    filter: string, 
-    objectState: string, 
-    domains: number[], 
-    scompanies: number[]): Promise<ObjectsResult> {
-    const result = await Api.getObjects(pageSize, pageNumber, filter, objectState, domains, scompanies);
-    
-    return {
-      total: result.iTotalDisplayRecords,
-      data: result.aaData 
-    }
-  }
-
-  static async addObject(): Promise<any>{
-    return null;
+  static async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string, domains: number[], scompanies: number[]): Promise<ObjectsResult> {
+    const res = await Api.getObjects(pageSize, pageNumber, filter, objectState, domains, scompanies);
+    return res.ok ? { data: res.data.aaData, total: res.data.iTotalDisplayRecords } : null;
   }
 
   /**Получить список компаний */
-  static async getDomains(): Promise<Domain[]>{
-    return await Api.getDomains();
+  static async getDomains(): Promise<Domain[]> {
+    const res = await Api.getDomains();
+    return res.ok ? res.data : [];
   }
 
   /**Получить список сервисных компаний */
-  static async getSCompanies(): Promise<SCompany[]>{
-    return Api.getSCompanies();
+  static async getSCompanies(): Promise<SCompany[]> {
+    const res = await Api.getSCompanies();
+    return res.ok ? res.data : [];
   }
 
-    /**Получить список сервисных компаний */
-    static async deleteObject(id: number): Promise<Responce>{
-      return Api.deleteObject(id)
-        .then(data=>{return { ok: true, message: "" }})
-        .catch(err=>{return { ok: false, message: err }})
-    }
+  /**Получить список сервисных компаний */
+  static async deleteObject(id: number): Promise<Responce> {
+    const res = await Api.deleteObject(id);
+    return res.ok ? 
+      { ok: true, message: "" } : 
+      { ok: false, message: res.data.Message };
+  }
 }

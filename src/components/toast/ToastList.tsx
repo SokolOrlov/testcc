@@ -6,7 +6,7 @@ import styles from "./Toast.module.css";
 const remove = (id: number, remove: any) => {
   setTimeout(() => {
     remove(id);
-  }, 333000);
+  }, 5000);
 };
 
 const ToastList = () => {

@@ -1,9 +1,10 @@
 import { fetchData } from "../../API/fetchData";
+import { Responce } from "../../API/types";
 import { AllObjectsTableData } from "./types";
 
 export default class Api {
   //Получить Объекты для страницы "Все объекты"
-  static async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string, domains: number[], scompanies: number[]): Promise<AllObjectsTableData> {
+  static async getObjects(pageSize: number, pageNumber: number, filter: string, objectState: string, domains: number[], scompanies: number[]): Promise<Responce> {
     const data = {
       iDisplayStart: pageNumber === 1 ? 0 : pageSize * (pageNumber - 1),
       iDisplayLength: pageSize,
@@ -24,8 +25,8 @@ export default class Api {
     return await fetchData("serviceCompanies/getListOfServiceCompanies", "GET");
   }
 
-    //Удалить объект
-    static async deleteObject(id: number) {
-      return await fetchData("objects/delete", "POST", {Id: id});
-    }
+  //Удалить объект
+  static async deleteObject(id: number) {
+    return await fetchData("objects/delete", "POST", { Id: id });
+  }
 }

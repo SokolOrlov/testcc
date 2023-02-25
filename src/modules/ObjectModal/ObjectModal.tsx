@@ -40,7 +40,7 @@ const ObjectModal = () => {
     const res = await serverState.saveObject();
 
     if (res.ok) {
-      toast({label: "Успех", type:"info"});
+      toast({label: "Успех", type:"success"});
       objectModal.callback();
       objectModal.close();
     }

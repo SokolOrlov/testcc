@@ -8,19 +8,20 @@ type Props = {
     onClose: ()=>void
 }
 
-const getSvg = (type: "none" | "info" | "success" | "error" | "warning" )=>{
-    
-    // return "search"
-    return "big_round_check"
-    
+const getSvg = (type: "none" | "info" | "success" | "error" | "warning" )=>{  
     switch (type) {
-        case "info":{return "big_round_check"}    
+        case "error":{return "round_cross"}   
+        case "success":{return "big_round_check"} 
+        case "info":{return "big_info"} 
+        case "warning":{return "warning"} 
         default:
             break;
     }
 }
 
 const Toast = ({label, type, onClose}: Props)=>{
+    console.log();
+    
     return(
         <div className={styles.toast}>
             <Svg id={getSvg(type)}/>

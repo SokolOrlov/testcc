@@ -15,16 +15,19 @@ export default class Service {
 
   /**Получить список компаний */
   static async getDomains(): Promise<Domain[]> {
-    return await Api.getDomains();
+    const res = await Api.getDomains();
+    return res.ok ? res.data : []; 
   }
 
   /**Получить список сервисных компаний */
   static async getSCompanies(): Promise<SCompany[]> {
-    return Api.getSCompanies();
+    const res = await Api.getSCompanies();
+    return res.ok ? res.data : [];
   }
 
   /**Получить инфорцию по объекту ObjectData*/
   static async getObject(id?: number): Promise<ObjectData> {
-    if (id) return Api.getObject(id);
+    const res = await Api.getObject(id);
+    return res.ok ? res.data : null;
   }
 }

@@ -4,58 +4,61 @@ import { _pageSizes } from "../../assets/data/data";
 import { initialState, reducer } from "./reducer";
 import service from "./service";
 
-export const useObjects = ()=>{
-    const [state, dispatch] = useReducer(reducer, {
-      ...initialState,
-      pageSize: _pageSizes[0].value
-    });
-  
-    // console.log('clientState', state);
-    
-    const objectsQeury = useQuery({
+export const useObjects = () => {
+  const [state, dispatch] = useReducer(reducer, { ...initialState, pageSize: _pageSizes[0].value });
+
+  // console.log('clientState', state);
+
+  const objectsQeury = useQuery({
     queryKey: ["allObjects", state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies],
-    queryFn : () =>{ return service.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies)},
-    refetchOnWindowFocus: false ,
+    queryFn: () => {
+      return service.getObjects(state.pageSize, state.pageNumber, state.filter, state.objectState, state.selectedDomains, state.selectedSCompanies);
+    },
+    refetchOnWindowFocus: false,
     retry: false,
-    keepPreviousData: true
-    });
+    keepPreviousData: true,
+  });
 
-    const domainsQeury = useQuery({
-      queryKey: ["domains"],
-      queryFn : () =>{ return service.getDomains()},
-      refetchOnWindowFocus: false ,
-      retry: false,
-      keepPreviousData: true,
-      initialData:[]
-    });
+  const domainsQeury = useQuery({
+    queryKey: ["domains"],
+    queryFn: () => {
+      return service.getDomains();
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+    keepPreviousData: true,
+    initialData: [],
+  });
 
-    const scompaniesQeury = useQuery({
-      queryKey: ["scompanies"],
-      queryFn : () =>{ return service.getSCompanies()},
-      refetchOnWindowFocus: false ,
-      retry: false,
-      keepPreviousData: true,
-      initialData:[]
-    });
-          
-    // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);   
-  
-    const deleteObject = async (id: number) => {
-      return await service.deleteObject(id);
-    };
+  const scompaniesQeury = useQuery({
+    queryKey: ["scompanies"],
+    queryFn: () => {
+      return service.getSCompanies();
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+    keepPreviousData: true,
+    initialData: [],
+  });
 
-    return {
-      clientState:{
-        state,
-        dispatch
-      },
-      serverState:{
-        deleteObject,
-        refetch: objectsQeury.refetch,
-        objectsData: objectsQeury.data,
-        domains: domainsQeury.data,
-        scompanies: scompaniesQeury.data,
-        loading: objectsQeury.isLoading || objectsQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching
-      }
-    }
-  }
+  // console.log("serverState", `\ndata: ${data}`, `\nisLoading: ${isLoading}`, `\nisFetching: ${isFetching}`, `\nstatus: ${status}`);
+
+  const deleteObject = async (id: number) => {
+    return await service.deleteObject(id);
+  };
+
+  return {
+    clientState: {
+      state,
+      dispatch,
+    },
+    serverState: {
+      deleteObject,
+      refetch: objectsQeury.refetch,
+      objectsData: objectsQeury.data,
+      domains: domainsQeury.data,
+      scompanies: scompaniesQeury.data,
+      loading: objectsQeury.isLoading || objectsQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching,
+    },
+  };
+};
