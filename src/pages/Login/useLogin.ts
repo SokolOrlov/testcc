@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useToast } from "../../components/Toast/Container";
+import { useToast } from "../../components/Toast/Container";  
 import { useAuth } from "../../Hook/useAuth";
 import { service } from "./service";
 
 export const uselogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const auth = useAuth();
   const toast = useToast();
 
   const [email, setLogin] = useState<string>("superadmin@test.ru");
@@ -43,8 +43,8 @@ export const uselogin = () => {
     retry: false,
     enabled: false,
     onSuccess: (res) => {
-      const fromPage = location.state?.from?.pathname || "/";
-      login(JSON.stringify(res), () => navigate(fromPage, { replace: true }));
+      const fromPage = location.state?.from?.pathname || "/";      
+      auth.signin(res, () => navigate(fromPage, { replace: true }));
     },
     onError: (error) => {
       console.log("error", error);

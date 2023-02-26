@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import { AuthProps } from "../components/Hoc/AuthProvider";
+import React from "react";
 import { AuthContext } from "../context";
 
 export function useAuth() {
-  return useContext<AuthProps>(AuthContext);
+  return React.useContext(AuthContext);
 }

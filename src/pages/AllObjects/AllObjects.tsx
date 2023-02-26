@@ -14,7 +14,7 @@ export const AllObjects = () => {
   const {clientState, serverState} = useObjects();
   const objectModal = useObjectsModal();
   const actionModal = useActionModal();
-  const toast = useToast();
+  const toast = useToast();  
 
   //Изменить страницу
   const changePage = (selectedPageId: number) => {

@@ -1,31 +1,22 @@
-import React, { useState } from "react";
-import { AuthContext } from "../../context";
+import React from "react";
+import { AuthContext, User } from "../../context";
+import useCallbackState from "../../Utils/useCallbackState";
 
-type Props = {
-  children: React.ReactNode;
-};
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  let [user, setUser] = useCallbackState(null!);
 
-export type AuthProps = {
-  user:string
-  login: (user: any, cb: () => void) => void
-  logout: (cb: () => void) => void
-}
-
-export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState(false);
-
-  const login = (user: any, cb: () => void) => {
-    localStorage.setItem("user", user);
-    setUser(user);
-    cb();
+  let signin = (newUser: User, callback: VoidFunction) => {
+    localStorage.setItem("user", JSON.stringify(newUser));
+    setUser(newUser, callback);
   };
 
-  const logout = (cb: () => void) => {
+  let signout = (callback: VoidFunction) => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
-    setUser(null);
-    cb();
+    setUser(null, callback);
   };
 
-  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
-};
+  let value = { user: JSON.parse(localStorage.getItem("user")) as User, signin, signout };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
