@@ -9,27 +9,6 @@ const headers = () => {
   };
 };
 
-// export async function fetchData2<T>(url: string, method: string, body: any): Promise<Responce<T>>{
-//   const headers ={
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-//   };
-
-//   const params = {
-//     method: method,
-//     headers: headers,
-//     body: JSON.stringify(body),
-//   };
-
-//     const result = await fetch(`${API_URL}${url}`, params)
-//     const responce = await result.json()
-
-//     if (result.ok)
-//       return {ok:result.ok, data: responce  as T}
-//     else
-//       return {ok:result.ok, message: responce as string} 
-// }
-
 export const fetchData = async (API_URN: string, rmethod: string, rbody?: any): Promise<Responce> => {
   const rParams = {
     method: rmethod,

@@ -24,11 +24,27 @@ export const uselogin = () => {
     enabled: false,
     onSuccess: (res) => {
       if (res.ok) {
-        const fromPage = location.state?.from?.pathname || "/";
-        login("user", () => navigate(fromPage, { replace: true }));
+        userDetails.refetch();
       } else {
         toast({ label: res.message, type: "error" });
       }
+    },
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
+
+  const userDetails = useQuery({
+    queryKey: ["getUserDetails"],
+    queryFn: () => {
+      return service.getUserDetails();
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+    enabled: false,
+    onSuccess: (res) => {
+      const fromPage = location.state?.from?.pathname || "/";
+      login(JSON.stringify(res), () => navigate(fromPage, { replace: true }));
     },
     onError: (error) => {
       console.log("error", error);
