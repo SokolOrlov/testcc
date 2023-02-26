@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type Props = {
   show: boolean;
-  id: number;
+  id: number | null;
   add: (callback: () => void) => void;
   edit: (id: number, callback: () => void) => void;
   close: () => void;
@@ -12,7 +12,6 @@ type Props = {
 const ObjectModalStore = create<Props>((set) => ({
   show: false,
   id: null,
-  test: false,
   add: (callback: () => void) =>
     set(() => {
       return { show: true, id: null, callback: callback };

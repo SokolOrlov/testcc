@@ -7,7 +7,7 @@ const useObjectModal = (id?: number) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const objectQeury = useQuery({
-    queryKey: ["objectData",id],
+    queryKey: ["objectData", id],
     queryFn: () => {
       return service.getObject(id);
     },
@@ -55,10 +55,18 @@ const useObjectModal = (id?: number) => {
     return await service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
   };
 
+  const clear = ()=>{
+    dispatch({
+      type:actionType.CLEAR,
+      payload: null
+    });
+  }
+
   return {
     clientState: {
       state,
       dispatch,
+      clear
     },
     serverState: {
       object: objectQeury.data,

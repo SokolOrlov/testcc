@@ -3,7 +3,8 @@ export enum actionType {
   CHANGE_IDENTIFICATOR = 2,
   CHANGE_COMPANY = 3,
   CHANGE_SCOMPANY = 4,
-  LOAD_OBJECT_DATA = 5
+  LOAD_OBJECT_DATA = 5,
+  CLEAR = 6
 }
 
 type State = {
@@ -38,7 +39,11 @@ const reducer = (state: State, action: Action): State => {
     case actionType.CHANGE_SCOMPANY:
       return { ...state, scompanyId: action.payload as number };
     case actionType.LOAD_OBJECT_DATA:
+      console.log("LOAD_OBJECT_DATA");
+      
       return { ...state, ...action.payload as State };
+      case actionType.CLEAR:
+        return { ...initialState };
     default:
       throw new Error();
   }

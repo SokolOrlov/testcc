@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
 import styles from "./ObjectModal.module.css";
@@ -13,6 +13,12 @@ const ObjectModal = () => {
   const { clientState, serverState } = useObjectModal(objectId);
   const objectModal = useObjectsModal();
   const toast = useToast();
+
+  useEffect(()=>{
+    if (show && objectId === null) {
+      clientState.clear();
+    }
+  }, [show]);
 
   //Изменить имя объекта
   const changeObjectName = (name: string) => {
@@ -42,7 +48,7 @@ const ObjectModal = () => {
     if (res.ok) {
       toast({label: "Успех", type:"success"});
       objectModal.callback();
-      objectModal.close();
+      close();      
     }
     else{
       toast({label:res.message, type:"error"});
