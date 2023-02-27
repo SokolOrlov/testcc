@@ -1,15 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
-import { useReducer } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useReducer } from "react";
+import { useToast } from "../../components";
 import reducer, { actionType, initialState } from "./reducer";
 import service from "./service"; 
+import ObjectModalStore from "./Store";
 
-const useObjectModal = (id?: number) => {
+const useObjectModal = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const objectModalStore = ObjectModalStore((store) => store);
+  const toast = useToast();
+
+  useEffect(()=>{
+    if (objectModalStore.show && objectModalStore.id === null) {
+      dispatch({type:actionType.CLEAR, payload: null});
+    }
+  }, [objectModalStore.show]);
 
   const objectQeury = useQuery({
-    queryKey: ["objectData", id],
+    queryKey: ["objectData", objectModalStore.id],
     queryFn: () => {
-      return service.getObject(id);
+      return service.getObject(objectModalStore.id);
     },
     onSuccess:(data)=>{
       dispatch({
@@ -26,7 +36,7 @@ const useObjectModal = (id?: number) => {
     refetchOnWindowFocus: false,
     // retry: false,
     // keepPreviousData: true,
-    enabled: id != null
+    enabled: objectModalStore.id != null
   });
 
   const domainsQeury = useQuery({
@@ -51,29 +61,43 @@ const useObjectModal = (id?: number) => {
     initialData: [],
   });
 
-  const saveObject = async () => {
-    return await service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
+  const saveObject = () => {
+    fetchSaveObject.mutate();
   };
 
-  const clear = ()=>{
-    dispatch({
-      type:actionType.CLEAR,
-      payload: null
-    });
-  }
+  const fetchSaveObject = useMutation({
+    mutationFn: () => {
+      toast({label: "Сохранение объекта", type:"info"});
+      return service.saveObject(state.Id, state.objectName, state.identificator, state.companyId, state.scompanyId);
+    },
+    onSuccess:(data)=>{
+      if(data.ok){
+        toast({label: "Успех", type:"success"});
+        objectModalStore.callback();
+        objectModalStore.close();    
+      }
+      else{
+        toast({label:data.message, type:"error"});
+      }
+    }
+  })
+
 
   return {
     clientState: {
       state,
       dispatch,
-      clear
+      title: objectModalStore.id ? "Редактирование объекта" : "Добавление объекта",
+      show: objectModalStore.show,
+      close: objectModalStore.close
     },
     serverState: {
       object: objectQeury.data,
       domains: domainsQeury.data,
       scompanies: scompaniesQeury.data,
       saveObject,
-      loading: objectQeury.isLoading || objectQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching,
+      loading: objectQeury.isFetching || domainsQeury.isFetching || scompaniesQeury.isFetching || fetchSaveObject.isLoading,
+       
     },
   };
 };

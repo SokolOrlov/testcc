@@ -1,24 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
 import styles from "./ObjectModal.module.css";
-import ObjectModalStore from "./Store";
-import { useObjectsModal } from "./Container";
 import { Button, DropDown, Modal, TextInput } from "../../UI";
-import { useToast } from "../../components";
 
 const ObjectModal = () => {
-  const show = ObjectModalStore((store) => store.show);
-  const objectId = ObjectModalStore((store) => store.id);
-  const { clientState, serverState } = useObjectModal(objectId);
-  const objectModal = useObjectsModal();
-  const toast = useToast();
-
-  useEffect(()=>{
-    if (show && objectId === null) {
-      clientState.clear();
-    }
-  }, [show]);
+  const { clientState, serverState } = useObjectModal();
+// console.log(serverState.loading);
 
   //Изменить имя объекта
   const changeObjectName = (name: string) => {
@@ -41,29 +29,13 @@ const ObjectModal = () => {
   };
 
   //Сохранить изменения
-  const saveObject = async () => {
-    toast({label: "Сохранение объекта", type:"info"});
-    const res = await serverState.saveObject();
-
-    if (res.ok) {
-      toast({label: "Успех", type:"success"});
-      objectModal.callback();
-      close();      
-    }
-    else{
-      toast({label:res.message, type:"error"});
-    }
-
-  };
-
-  //закрыть модальное окно
-  const close = () => {
-    objectModal.close();
+  const saveObject = () => {
+    serverState.saveObject();
   };
 
   return (
-    <Modal title={objectId?"Редактирование объекта":"Добавление объекта"} onClose={close} show={show}>
-      <div {...{disabled: objectId && serverState.loading}}>
+    <Modal title={clientState.title} onClose={clientState.close} show={clientState.show}>
+      <div {...{disabled: serverState.loading}}>
         <div className={styles.body}>
           <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
           <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />

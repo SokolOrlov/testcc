@@ -38,7 +38,7 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, companyId: action.payload as number };
     case actionType.CHANGE_SCOMPANY:
       return { ...state, scompanyId: action.payload as number };
-    case actionType.LOAD_OBJECT_DATA:      
+    case actionType.LOAD_OBJECT_DATA:
       return { ...state, ...action.payload as State };
     case actionType.CLEAR:
       return { ...initialState };

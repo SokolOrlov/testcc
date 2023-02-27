@@ -1,38 +1,34 @@
-import React from "react";  
-import { Button, DropDown, Modal, TextInput } from "../../UI";
-import { useToast } from "..";
-import { useActionModal } from "./Container";
+import React, { useState } from "react";  
+import { Button, Modal } from "../../UI";
 import ActionModalStore from "./Store";
 import styles from './ActionModal.module.css'
 
 export const ActionModal = () => {
-  const show = ActionModalStore((store) => store.show); 
-  const actionModal = useActionModal();
-  const toast = useToast();
+  const actionModalStore = ActionModalStore((store) => store); 
+  const [loading, setLoading] = useState(false); 
 
 
   //Сохранить изменения
   const saveObject = async () => {
-    actionModal.action();
+    setLoading(true);
+    await actionModalStore.action();
+    setLoading(false);
   };
 
   //закрыть модальное окно
   const close = () => {
-    actionModal.close();
+    actionModalStore.close();
   };
 
   return (
-    <Modal title={actionModal.title} onClose={close} show={show}>
-      {/* <div {...{disabled: objectId && serverState.loading}}> */}
-      <div>
+    <Modal title={actionModalStore.title} onClose={close} show={actionModalStore.show}>
         <div className={styles.body}>
-          <p>{actionModal.body}</p>
+          <p>{actionModalStore.body}</p>
         </div>
-        <div className={styles.footer}>
+        <div className={styles.footer} {...{disabled: loading}}>
           <Button label="ОТМЕНА" type="danger" onClick={close} />
           <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
         </div>
-      </div>
     </Modal>
   );
 };

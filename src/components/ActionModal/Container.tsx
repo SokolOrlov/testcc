@@ -10,9 +10,8 @@ export const ActionModalContainer = () => {
 type Props = {
   title: string;
   body: string;
-  open: (title: string, body: string, callback: () => void) => void;
+  open: (title: string, body: string, action: () => Promise<unknown>) => void;
   close: () => void;
-  action: () => any;
 };
 
 export const useActionModal = (): Props => {

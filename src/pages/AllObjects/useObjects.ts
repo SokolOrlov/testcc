@@ -58,7 +58,7 @@ export const useObjects = () => {
       objectsData: objectsQeury.data,
       domains: domainsQeury.data,
       scompanies: scompaniesQeury.data,
-      loading: objectsQeury.isLoading || objectsQeury.isFetching || domainsQeury.isLoading || domainsQeury.isFetching || scompaniesQeury.isLoading || scompaniesQeury.isFetching,
+      loading: objectsQeury.isFetching || domainsQeury.isFetching || scompaniesQeury.isFetching,
     },
   };
 };

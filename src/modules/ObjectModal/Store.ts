@@ -12,18 +12,9 @@ type Props = {
 const ObjectModalStore = create<Props>((set) => ({
   show: false,
   id: null,
-  add: (callback: () => void) =>
-    set(() => {
-      return { show: true, id: null, callback: callback };
-    }),
-  edit: (id: number, callback: () => void) =>
-    set(() => {
-      return { show: true, id: id, callback: callback };
-    }),
-  close: () =>
-    set(() => {
-      return { show: false };
-    }),
+  add: (callback: () => void) =>set(() => {return { show: true, id: null, callback: callback };}),
+  edit: (id: number, callback: () => void) =>set(() => {return { show: true, id: id, callback: callback };}),
+  close: () =>set(() => {return { show: false };}),
   callback: () => {},
 }));
 
