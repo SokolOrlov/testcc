@@ -9,7 +9,7 @@ const headers = () => {
   };
 };
 
-export const fetchData = async (API_URN: string, rmethod: string, rbody?: any): Promise<Responce> => {
+export const fetchData = async (API_URN: string, rmethod: string, rbody?: unknown): Promise<Responce> => {
   const rParams = {
     method: rmethod,
     headers: headers(),
@@ -19,7 +19,7 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: any): 
   try {
     const res = await fetch(`${API_URL}${API_URN}`, rParams);
 
-    if (res.status === 401) {      
+    if (res.status === 401) {            
       localStorage.removeItem("user");
       localStorage.removeItem("accessToken");
       location.href = "/";

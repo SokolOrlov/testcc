@@ -3,14 +3,12 @@ import { useLocation, useMatches } from "react-router-dom";
 import Crumb from "./Crumb";
 import styles from "./Breadcrumbs.module.css"; 
 
-type Props = {};
-
 type CrumbData = {
   label: string;
   icon: string;
 };
 
-export const Breadcrumbs = ({}: Props) => {
+export const Breadcrumbs = () => {
   // console.log("Breadcrumbs");
 
   const {current: labels} = useRef(new Map<string, string>());
@@ -23,11 +21,9 @@ export const Breadcrumbs = ({}: Props) => {
     labels.set(last.id, location.state.name);
   }
 
-  // console.log(labels.current);
-
-  let crumbs = matches
+  const crumbs = matches
     .filter((match) => match.data)
-    .map((match, i) => {
+    .map((match) => {
       return <Crumb 
         key={match.id} 
         label={labels.has(match.id) ? labels.get(match.id) : (match.data as CrumbData).label} 

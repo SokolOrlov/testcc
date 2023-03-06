@@ -10,11 +10,11 @@ export const AppRouter = () => {
   const router = createBrowserRouter([
     {
       id:"home",
-      path: "/",
       element: (<RequireAuth><Layout /></RequireAuth>),
       loader:()=>{return { label: "ГЛАВНАЯ", icon: "home" }},
       children: [
-        {
+        { 
+          id:"allobjects",
           index: true,
           element: <AllObjects /> ,
         },
