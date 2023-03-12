@@ -3,10 +3,10 @@ import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import { ObjectsTable, PageHeader, RequireRight, useToast } from "../../components";
-import { ObjectModalContainer, useObjectsModal } from "../../modules/ObjectModal";
+import { ObjectsTable, PageHeader, RequireRight } from "../../components";
+
 import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "../../UI";
-import { useActionModal } from "../../components/ActionModal/Container";
+import { ObjectModalContainer, useActionModal, useObjectsModal, useToast } from "../../modals";
 
 export const AllObjects = () => {
   // console.log("Objects");
