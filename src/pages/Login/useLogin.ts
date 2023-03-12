@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
+import { useToast } from "modals";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useToast } from "../../modals/Toast/Container";  
 import { useAuth } from "../../Hook/useAuth";
 import { service } from "./service";
 

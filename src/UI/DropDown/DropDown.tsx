@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FilterInput, List, ListItem, ToggleButton } from "..";
+import { FilterInput, List, ListItem, ToggleButton } from "ui";
 import cl from "./DropDown.module.css";
 import { DropDownItem } from "./types";  
 import useMousedownEvent from "./useMousedownEvent"; 

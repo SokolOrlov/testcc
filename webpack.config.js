@@ -44,6 +44,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      modals: path.resolve(__dirname, 'src/modals/'),
+      components: path.resolve(__dirname, 'src/components/'),
+      ui: path.resolve(__dirname, 'src/ui/'),
+    },
+    
   },
   devServer: {
     static: './dist',

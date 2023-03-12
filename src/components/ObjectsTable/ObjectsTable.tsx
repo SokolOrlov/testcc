@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ControlBox, RequireRight } from "..";
 import { ObjectData } from "../../pages/AllObjects/types";
-import { ControlButton, Table, TableCell, TableHeaderCell, TableRow } from "../../UI";
+import { ControlButton, Table, TableCell, TableHeaderCell, TableRow } from "ui";
 
 import styles from "./ObjectsTable.module.css";
 

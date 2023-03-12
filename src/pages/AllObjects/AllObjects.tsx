@@ -3,10 +3,9 @@ import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import { ObjectsTable, PageHeader, RequireRight } from "../../components";
-
-import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "../../UI";
-import { ObjectModalContainer, useActionModal, useObjectsModal, useToast } from "../../modals";
+import { ObjectModalContainer, useActionModal, useObjectsModal, useToast } from "modals";
+import { ObjectsTable, PageHeader, RequireRight } from "components";
+import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "ui";
 
 export const AllObjects = () => {
   // console.log("Objects");

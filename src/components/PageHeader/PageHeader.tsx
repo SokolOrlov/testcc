@@ -1,5 +1,5 @@
 import React from "react";
-import { Svg } from "../../UI";
+import { Svg } from "ui";
 import styles from "./PageHeader.module.css";
 
 type Props = {

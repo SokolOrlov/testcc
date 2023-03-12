@@ -8,6 +8,12 @@
       "allowJs": true,
       "moduleResolution": "node",
       "allowSyntheticDefaultImports": true,
-      "plugins": [{ "name": "typescript-plugin-css-modules" }]
+      "plugins": [{ "name": "typescript-plugin-css-modules" }],
+      "baseUrl": ".",
+      "paths": {
+        "modals":["src/modals"],
+        "components":["src/components"],
+        "ui":["src/UI"]
+      }
     }
   }

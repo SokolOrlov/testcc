@@ -2,7 +2,7 @@ import React from "react";
 import { actionType } from "./reducer";
 import useObjectModal from "./useObjectModal";
 import styles from "./ObjectModal.module.css";
-import { Button, DropDown, Modal, TextInput } from "../../UI";
+import { Button, DropDown, Modal, TextInput } from "ui";
 
 const ObjectModal = () => {
   const { clientState, serverState } = useObjectModal();

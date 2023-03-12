@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; 
-import { Svg } from "../../UI";
+import { Svg } from "ui";
 import styles from "./Breadcrumbs.module.css";
 
 type Props = {

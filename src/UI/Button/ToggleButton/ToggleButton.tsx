@@ -1,5 +1,5 @@
 import React from "react";
-import { Svg } from "../..";
+import { Svg } from "ui";
 import styles from "./ToggleButton.module.css";
 
 type Props = {

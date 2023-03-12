@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Svg } from "..";
 import styles from "./Modal.module.css";
 

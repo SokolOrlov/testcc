@@ -1,5 +1,5 @@
 import React, { useState } from "react";  
-import { Button, Modal } from "../../UI";
+import { Button, Modal } from "ui";
 import ActionModalStore from "./Store";
 import styles from './ActionModal.module.css'
 
