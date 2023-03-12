@@ -45,7 +45,7 @@ const ObjectModal = () => {
           </div>
         </div>
         <div className={styles.footer}>
-          <Button label="ОТМЕНА" type="danger" onClick={close} />
+          <Button label="ОТМЕНА" type="danger" onClick={clientState.close} />
           <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
         </div>
       </div>

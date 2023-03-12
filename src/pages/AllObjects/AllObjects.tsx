@@ -3,7 +3,7 @@ import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
 import { actionType } from "./reducer";
-import { ObjectsTable, PageHeader, useToast } from "../../components";
+import { ObjectsTable, PageHeader, RequireRight, useToast } from "../../components";
 import { ObjectModalContainer, useObjectsModal } from "../../modules/ObjectModal";
 import { Button, DropDown, DropDownMultiSelect, FilterInput, Pagination } from "../../UI";
 import { useActionModal } from "../../components/ActionModal/Container";
@@ -112,7 +112,9 @@ export const AllObjects = () => {
         </div>
 
         <div className={styles.row}>
-          <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={addObjectModal}/>
+          <RequireRight>
+            <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={addObjectModal}/>
+          </RequireRight>
           <FilterInput value={clientState.state.filter} onChange={changeFilter} />
         </div>
 

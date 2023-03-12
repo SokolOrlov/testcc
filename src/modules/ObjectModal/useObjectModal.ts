@@ -73,7 +73,7 @@ const useObjectModal = () => {
     onSuccess:(data)=>{
       if(data.ok){
         toast({label: "Успех", type:"success"});
-        objectModalStore.callback();
+        objectModalStore.callback();        
         objectModalStore.close();    
       }
       else{
