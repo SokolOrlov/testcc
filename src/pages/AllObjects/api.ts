@@ -1,6 +1,5 @@
 import { fetchData } from "../../API/fetchData";
 import { Responce } from "../../API/types";
-import { AllObjectsTableData } from "./types";
 
 export default class Api {
   //Получить Объекты для страницы "Все объекты"

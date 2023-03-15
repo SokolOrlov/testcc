@@ -32,7 +32,7 @@ export const ObjectsTable = ({ rowsData, onEdit, onDelete }: Props) => {
           <TableRow style={coloredState} key={`${row.DomainId}_${row.ObjectId}_${row.DeviceGatewayId}`}>
             <TableCell title={row.Domain}>{row.Domain}</TableCell>
             <TableCell title={row.ObjectName}>
-            <Link className={styles.link} to={`/object/${row.ObjectId}`} state={{name:row.ObjectName}}>{row.ObjectName} </Link>
+            <Link className={styles.link} to={`/object/${row.ObjectId}`}>{row.ObjectName} </Link>
               <RequireRight>
                 <ControlBox>
                   <div className={styles.controls} style={{position:"absolute", left:"65%", display:"none"}}>

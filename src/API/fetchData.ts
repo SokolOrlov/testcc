@@ -17,18 +17,18 @@ export const fetchData = async (API_URN: string, rmethod: string, rbody?: unknow
   };
 
   try {
-    const res = await fetch(`${API_URL}${API_URN}`, rParams);
+    const responce = await fetch(`${API_URL}${API_URN}`, rParams);
 
-    if (res.status === 401) {            
+    if (responce.status === 401) {            
       localStorage.removeItem("user");
       localStorage.removeItem("accessToken");
       location.href = "/";
       return ;
     }
 
-    return res.json()
-      .then(data=>{ return {ok: res.ok, data: data}})
-      .catch(err=>{ return {ok: res.ok, message: err}});
+    return responce.json()
+      .then(data=>{ return {ok: responce.ok, data: data}})
+      .catch(err=>{ return {ok: responce.ok, message: err}});
 
   } catch (error) {
     return {ok: false, message: error}

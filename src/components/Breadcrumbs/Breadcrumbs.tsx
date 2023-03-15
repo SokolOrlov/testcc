@@ -4,7 +4,7 @@ import Crumb from "./Crumb";
 import styles from "./Breadcrumbs.module.css"; 
 
 type CrumbData = {
-  label: string;
+  Name: string;
   icon: string;
 };
 
@@ -26,7 +26,7 @@ export const Breadcrumbs = () => {
     .map((match) => {
       return <Crumb 
         key={match.id} 
-        label={labels.has(match.id) ? labels.get(match.id) : (match.data as CrumbData).label} 
+        label={labels.has(match.id) ? labels.get(match.id) : (match.data as CrumbData).Name} 
         icon={(match.data as CrumbData).icon} 
         path={match.pathname} 
         last={last.id === match.id} />;
