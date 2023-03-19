@@ -1,21 +1,23 @@
+import { GatewayContainer, PageHeader } from "components";
 import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { ObjectInfo } from "./types";
 import { useDevices } from "./useDevices";
 
-export const ObjectDevices = () => {
-  const {clientState, serverState} = useDevices();
-  console.log("serverState",serverState);
-  
+import styles from './ObjectDevices.module.css'
 
-  const albums = useLoaderData();
-  console.log("objectInfo",albums);
+export const ObjectDevices = () => {
+  const { clientState, serverState } = useDevices();
+  console.log("serverState", serverState);
+
+  const objectInfo = useLoaderData() as ObjectInfo;
+  console.log("objectInfo", objectInfo);
   return (
     <>
-      <div>DomainObject</div>
-      {/* <p>{id}</p> */}
-      <Link to={`device/2`} state={{ name: "device1" }}>
-        do device
-      </Link>
+      <PageHeader icon="big_object" label={objectInfo.Name} />
+      <div className={styles.wrapper}>
+        <GatewayContainer gateways={serverState.gateways} />
+      </div>
     </>
   );
-}; 
+};

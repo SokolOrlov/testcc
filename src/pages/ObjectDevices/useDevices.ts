@@ -4,7 +4,8 @@ import { service } from "./service";
 
 export function useDevices(){
     const { id } = useParams();
-
+  // console.log('id',id);
+  
 
     const devicesQeury = useQuery({
         queryKey: ["devicesQeury", id],
@@ -14,6 +15,7 @@ export function useDevices(){
         refetchOnWindowFocus: false,
         retry: false,
         keepPreviousData: true,
+        initialData:[]
       });
 
 
@@ -21,7 +23,7 @@ export function useDevices(){
         clientState : {}, 
         serverState: {
             loading: devicesQeury.isFetching,
-            devices: devicesQeury.data
+            gateways: devicesQeury.data
         }
     }
 }

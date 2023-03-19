@@ -101,7 +101,7 @@ export const AllObjects = () => {
   return (
     <>
       <div className={styles.content}>
-        <PageHeader label="Главная"/>
+        <PageHeader icon="big_home" label="Главная"/>
 
         <div className={styles.row}>
           <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement="FirstElement"/>

@@ -28,9 +28,9 @@ export type Gateway = {
   IsOnline: boolean;
   LastDisconnect: string;
   LastDisconnectString: string;
-  LastLogin: string;
+  LastLogin: string | null;
   AlarmedDeviceCount: number;
-  SyncDate: string;
+  SyncDate: string | null;
   SyncDateString: string;
   SoftwareVersion: string;
   StatusHistoryTask: unknown;
@@ -39,37 +39,8 @@ export type Gateway = {
   LastSyncDateValueHistoryString: string;
   ChangeDateHistoryStatusEpoch: number;
   FirmwareStatus: unknown;
-  CorrectionDate: string;
+  CorrectionDate: string | null;
   CorrectionDateString: string;
   HasDemountedDevices: boolean;
   Devices: Device[];
-};
-
-type DeviceGatewayType = {
-  Value: number;
-  Name: string;
-  Text: string;
-};
-
-export type ObjectInfo = {
-  Id: number;
-  Description: string;
-  DomainId: number;
-  DomainName: string;
-  Name: string;
-  Locality: string;
-  Country: string;
-  Address: string;
-  Coordinates: string;
-  Type: number;
-  CustomerType: number;
-  HasCoolDevices: boolean;
-  HasHeatDevices: boolean;
-  HasVltDevices: boolean;
-  HasSmartHeat: boolean;
-  DefaultDeviceGatewayType: number;
-  DeviceGatewayTypes: DeviceGatewayType;
-  ExternalCode: string;
-  HasVpnDevicePoller: boolean;
-  FullAddress: string;
 };

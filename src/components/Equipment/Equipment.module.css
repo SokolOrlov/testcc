@@ -1,0 +1,119 @@
+.equipment {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 10px;
+}
+
+.equipment:hover {
+  /* border: 1px solid rgba(0,0,0,0.2); */
+  box-shadow: 1px 1px 5px 0px rgba(35, 44, 58, 0.34);
+}
+
+/*--gateway-----------------------------------------------------------------------------*/
+
+.gateway_card {
+  display: flex;
+  padding: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.gateway_card_name {
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 7px;
+}
+
+.gateway_card_icon {
+  width: 50px;
+  height: 50px;
+}
+
+.gateway_card_data {
+  padding-left: 10px;
+}
+
+.gateway_card_info {
+  line-height: 14px;
+  font-size: 12px;
+}
+
+.gateway_card_expand_icon {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+}
+
+.gateway_card_collapsed {
+  transform: rotate(90deg);
+  width: 20px;
+  height: 20px;
+  transition: all 0.1s;
+}
+
+.gateway_card_expanded {
+  width: 20px;
+  height: 20px;
+  transition: all 0.1s;
+}
+
+.gateway_card_online {
+  color: var(--success);
+}
+
+.gateway_card_offline {
+  color: var(--default);
+}
+
+.gateway_card_alarm {
+  color: var(--error);
+}
+
+/*--device-----------------------------------------------------------------------------*/
+
+.device_card {
+  display: flex;
+  padding: 5px;
+  cursor: pointer;
+  flex-direction: column;
+  border: solid 1px var(--default);
+  border-radius: 3px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.device_card_content {
+  padding-left: 11px;
+}
+
+.device_card_name {
+  font-size: 16px;
+  line-height: 16px;
+  margin-bottom: 7px;
+}
+
+.device_card_info {
+  line-height: 14px;
+  font-size: 12px;
+}
+
+.device_card_status {
+  height: 100%;
+  position: absolute;
+  width: 10px;
+  top: 0%;
+  left: 0%;
+}
+.device_card_online {
+  background: var(--success);
+}
+
+.device_card_offline {
+  background: var(--default);
+}
+
+.device_card_alarm {
+  background: var(--error);
+}
