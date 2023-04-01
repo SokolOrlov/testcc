@@ -18,12 +18,12 @@ export const ModemCard = ({ dispatch }: Props) => {
   };
 
   useEffect(() => {
-    dispatch({ data: { IMEINumber: imei, PhoneNumber: phone }, type: "modem" });
+    dispatch({ data: { IMEINumber: imei, PhoneNumber: phone, hasError: imei.trim().length==0 }, type: "modem" });
   }, [imei, phone]);
 
   return (
     <>
-      <TextInput label="IMEI" value={imei} onChange={changeImei} />
+      <TextInput label="IMEI" value={imei} onChange={changeImei} validationMessage={"Укажите IMEI модема"} />
       <TextInput label="НОМЕР ТЕЛЕФОНА СИМ-КАРТЫ" value={phone} onChange={changePhone} />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextInput } from "ui";
 
 type Props = {
@@ -10,12 +10,13 @@ export const Ecl4Card = ({ dispatch }: Props) => {
   
   const changeSerial = (data: string) => { 
     setSerial(data);
-    dispatch({ data: { SerialNumber: data }, type: "ecl4" });
+    dispatch({ data: { SerialNumber: data, hasError: data.trim().length == 0 }, type: "ecl4" });
   };
 
+ 
   return (
     <>
-      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeSerial} />
+      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} validationMessage="Укажите серийный номер" onChange={changeSerial} />
     </>
   );
 };

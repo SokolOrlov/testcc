@@ -8,9 +8,15 @@ type Props = {
 
 export const DigitalHeatCard = ({ dispatch }: Props) => {
     const [data, setData] = useState();
+
+    const changeData = () => { 
+      // setData(data);
+      dispatch({ data: { file: "" }, type: "smartheat" });
+    };
+
   return (
     <>
-      <Button label="ВЫБРАТЬ МОНТАЖНУЮ КАРТУ" icon="download" onClick={null} />
+      <Button label="ВЫБРАТЬ МОНТАЖНУЮ КАРТУ" icon="download" onClick={changeData} />
     </>
   );
 };

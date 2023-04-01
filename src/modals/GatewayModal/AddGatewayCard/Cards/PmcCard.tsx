@@ -10,12 +10,12 @@ export const PmcCard = ({ dispatch }: Props) => {
   
   const changeSerial = (data: string) => { 
     setSerial(data);
-    dispatch({ data: { SerialNumber: data }, type: "pmc" });
+    dispatch({ data: { SerialNumber: data, hasError: data.trim().length == 0  }, type: "pmc" });
   };
 
   return (
     <>
-      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeSerial} />
+      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeSerial} validationMessage="Укажите серийный номер" />
     </>
   );
 };

@@ -10,13 +10,13 @@ export const SmdCard = ({ dispatch }: Props) => {
 
   const changeData = (data: string) => {
     setData(data);
-    dispatch({ data: { SerialNumber: serial }, type: "smd" });
+    dispatch({ data: { SerialNumber: data, hasError: data.trim().length == 0 }, type: "smd" });
   };
 
 
   return (
     <>
-      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeData} />
+      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeData} validationMessage="Укажите серийный номер" />
     </>
   );
 };

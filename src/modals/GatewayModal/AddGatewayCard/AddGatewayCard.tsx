@@ -38,6 +38,7 @@ const AddGatewayCard = () => {
   const saveGateway = () => {
     serverState.saveGateway(clientState.state);
   };
+// console.log(clientState);
 
   return (
     <div {...{ disabled: serverState.loading }} className={styles.body}>
@@ -46,7 +47,7 @@ const AddGatewayCard = () => {
 
       <div className={styles.footer}>
         <Button label="ОТМЕНА" type="danger" onClick={clientState.close} />
-        <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveGateway} />
+        <Button label="СОХРАНИТЬ" type="success" icon="round_ok" disabled={clientState.hasError} onClick={saveGateway} />
       </div>
     </div>
   );

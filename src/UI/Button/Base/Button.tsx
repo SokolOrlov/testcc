@@ -6,12 +6,13 @@ type Props = {
     label: string
     icon?: string
     type?: "success" | "danger" | "info"
+    disabled?: boolean
     onClick: () => any
 }
 
-export const Button  = ({label, icon, type, onClick}: Props)=>{
+export const Button  = ({label, icon, type, onClick, disabled}: Props)=>{
     return(
-        <button className={`${styles.button} ${type? styles[type] : ""}`} onClick={onClick}>
+        <button {...{ disabled: disabled }} className={`${styles.button} ${type? styles[type] : ""}`} onClick={onClick}>
             {icon && <Svg id={icon}/>}
             <p className={styles.label}>{label}</p>
         </button>

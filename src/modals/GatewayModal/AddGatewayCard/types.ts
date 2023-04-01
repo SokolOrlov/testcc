@@ -1,4 +1,4 @@
 export interface IGatewayData {
-    api: string
-    data: any
+  api: string;
+  data: any;
 }

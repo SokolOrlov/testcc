@@ -24,12 +24,12 @@ export const MonitorUnitCard = ({ dispatch }: Props) => {
   };
 
   useEffect(() => {
-    dispatch({ data: { Ip: ip, User: user, Password: passw, UseVpn: vpn }, type: "monitorunit" });
+    dispatch({ data: { Ip: ip, User: user, Password: passw, UseVpn: vpn, hasError: ip.trim().length == 0 }, type: "monitorunit" });
   }, [ip, user, passw, vpn]);
 
   return (
     <>
-      <TextInput label="IP-АДРЕС" value={ip} onChange={changeIp} />
+      <TextInput label="IP-АДРЕС" value={ip} onChange={changeIp} validationMessage="Укажите Ip-адрес" />
       <TextInput label="ПОЛЬЗОВАТЕЛЬ" value={user} onChange={changeUser} />
       <TextInput label="ПАРОЛЬ" value={passw} onChange={changePassw} />
     </>

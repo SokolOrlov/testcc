@@ -24,3 +24,11 @@
 .label{
     margin: 0 0 5px 0;
 }
+
+.validationMessage { 
+    padding: 7px 0 6px;
+    margin: 0px;
+    color: var(--error);
+    font-size: 14px;
+    font-style: italic;
+}

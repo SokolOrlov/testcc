@@ -36,6 +36,8 @@ export const useAddGatewayCard = () => {
       state,
       dispatch,
       close: gatewayModalStore.close,
+      hasError: state?.hasError
+      
     },
     serverState:{
       loading: fetchSaveGateway.isLoading,
