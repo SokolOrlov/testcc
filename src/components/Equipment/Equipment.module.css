@@ -70,6 +70,10 @@
   color: var(--error);
 }
 
+.controls > button {
+  padding-left: 7px;
+}
+
 /*--device-----------------------------------------------------------------------------*/
 
 .device_card {

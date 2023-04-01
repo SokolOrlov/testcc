@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Svg } from "ui";
+import { ControlButton, Svg } from "ui";
 import { Gateway } from "../types";
 import { DeviceContainer } from "../../Device/DeviceContainer";
 
@@ -7,9 +7,11 @@ import styles from "../../Equipment.module.css";
 
 type Props = {
   data: Gateway;
+  onDelete: (arg: number) => void;
+  onEdit: (arg: number) => void;
 };
 
-export const MonitorUnit: React.FC<Props> = ({ data }) => {
+export const MonitorUnit: React.FC<Props> = ({ data, onDelete, onEdit }) => {
   const [isExpanded, setExpand] = useState(false);
 
   return (
@@ -26,6 +28,10 @@ export const MonitorUnit: React.FC<Props> = ({ data }) => {
           </div>
         </div>
         <Svg id="caret_small" className={`${styles.gateway_card_expand_icon} ${isExpanded ? styles.gateway_card_expanded : styles.gateway_card_collapsed}`} />
+        <div className={styles.controls} style={{ position: "absolute", right: "0%", bottom: "0%" }}>
+          <ControlButton icon="edit" onClick={() => onEdit(data.Id)} />
+          <ControlButton icon="delete" onClick={() => onDelete(data.Id)} />
+        </div>
       </div>
       <DeviceContainer devices={data.Devices} visible={isExpanded} />
     </div>

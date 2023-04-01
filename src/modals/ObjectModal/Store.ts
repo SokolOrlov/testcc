@@ -15,6 +15,7 @@ const ObjectModalStore = create<Props>((set) => ({
   add: (callback: () => void) =>set(() => {return { show: true, id: null, callback: callback };}),
   edit: (id: number, callback: () => void) =>set(() => {return { show: true, id: id, callback: callback };}),
   close: () =>set(() => {return { show: false };}),
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   callback: () => {},
 }));
 

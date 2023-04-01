@@ -9,7 +9,7 @@ type Props = {
 
 export const ControlButton = ({icon, onClick}:Props) => {
   return (
-  <button onClick={onClick} className={styles.control}>
+  <button onClick={(e)=>{onClick(); e.stopPropagation();}} className={styles.control}>
     <Svg id={icon}/>  
   </button>
   );
