@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FilterInput, List, ListItem, ToggleButton } from "ui";
-import cl from "./DropDown.module.css";
+import styles from "./DropDown.module.css";
 import { DropDownItem } from "./types";  
 import useMousedownEvent from "./useMousedownEvent"; 
 
@@ -12,6 +12,7 @@ type Props = {
   selectedId?: number;
   firstElement?: "Empty" | "Text" | "FirstElement";
   emptyText?: string;
+  validationMessage?: string
 };
 
 /**
@@ -19,7 +20,7 @@ type Props = {
  * @param param0 props
  * @returns
  */
-export const DropDown = ({ data = [], onSelect, label, filter = false, firstElement = "Empty", emptyText = "", selectedId }: Props) => {
+export const DropDown = ({ data = [], onSelect, label, filter = false, firstElement = "Empty", emptyText = "", selectedId, validationMessage="" }: Props) => {
   // console.log("DropDown");
 
   const [open, setOpen] = useState(false);
@@ -79,14 +80,17 @@ export const DropDown = ({ data = [], onSelect, label, filter = false, firstElem
       </ListItem>
     ));
 
+  const displayError = validationMessage.length>0 && firstElement=="Text" && item?.Id==-1 ? "visible": "hidden";
+
   return (
-    <div ref={test} className={`${cl.dropdown} `}>
+    <div ref={test} className={`${styles.dropdown} `}>
       {label && <label>{label}</label>}
       <ToggleButton expanded={open} toggleExpanded={onOpenClick} label={item?.Name}/>
       <List expanded={open} scrollable={filteredList.length > 10}>
         {filter && <FilterInput value={filterText} onChange={filterData} />}
         {filteredList}
       </List>
+      <span className={styles.validationMessage} style={{visibility: displayError }}>{validationMessage}</span>
     </div>
   );
 };

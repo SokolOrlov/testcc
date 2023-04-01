@@ -7,7 +7,7 @@ import { service } from "./service";
 import { IGatewayData } from "./types";
 
 export const useAddGatewayCard = () => {
-  const [state, dispatch] = useReducer(reducer, null);
+  const [state, dispatch] = useReducer(reducer, {data: null, api:"", hasError: true});
   const gatewayModalStore = GatewayModalStore((store) => store);
   const toast = useToast();
 

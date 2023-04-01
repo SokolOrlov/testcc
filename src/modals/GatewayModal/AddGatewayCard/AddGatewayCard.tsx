@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DropDown, TextInput } from "ui";
+import { Button, DropDown } from "ui";
 import { useAddGatewayCard } from "./useAddGatewayCard";
 import styles from "../GatewayModal.module.css";
 import { DigitalHeatCard, Ecl4Card, ModemCard, MonitorUnitCard, PmcCard, SmdCard } from "./Cards"; 
@@ -42,7 +42,13 @@ const AddGatewayCard = () => {
 
   return (
     <div {...{ disabled: serverState.loading }} className={styles.body}>
-      <DropDown label="ТИП КОММУНИКАЦИОННОГО УСТРОЙСТВА" data={_gatewayTypes} onSelect={selectGatewayType} firstElement="Text" emptyText={"Не выбрано"} />
+      <DropDown 
+      label="ТИП КОММУНИКАЦИОННОГО УСТРОЙСТВА" 
+      data={_gatewayTypes} 
+      onSelect={selectGatewayType} 
+      firstElement="Text" 
+      emptyText={"Не выбрано"} 
+      validationMessage="Укажите тип коммуникационного устройства"/>
       {makeCard(gType, clientState.dispatch)}
 
       <div className={styles.footer}>
