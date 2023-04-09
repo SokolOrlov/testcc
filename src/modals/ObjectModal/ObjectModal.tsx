@@ -37,16 +37,16 @@ const ObjectModal = () => {
     <Modal title={clientState.title} onClose={clientState.close} show={clientState.show}>
       <div {...{disabled: serverState.loading}}>
         <div className={styles.body}>
-          <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} />
+          <TextInput label="ИМЯ" value={clientState.state.objectName} onChange={changeObjectName} validationMessage="Введите имя объекта" />
           <TextInput label="ИДЕНТИФИКАТОР" value={clientState.state.identificator} onChange={changeIdentificator} />
           <div className={styles.border}>
-            <DropDown label="КОМПАНИЯ" data={serverState.domains} selectedId={clientState.state.companyId} onSelect={selectCompany} firstElement="Text" emptyText={"Не выбрано"} filter={true} />
+            <DropDown label="КОМПАНИЯ" data={serverState.domains} selectedId={clientState.state.companyId} onSelect={selectCompany} firstElement="Text" emptyText={"Не выбрано"} filter={true}  validationMessage="Выберите компанию"/>
             <DropDown label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={selectSCompany} firstElement="Empty" filter={true} />
           </div>
         </div>
         <div className={styles.footer}>
           <Button label="ОТМЕНА" type="danger" onClick={clientState.close} />
-          <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} />
+          <Button label="СОХРАНИТЬ" type="success" icon="round_ok" onClick={saveObject} disabled={clientState.hasErrors} />
         </div>
       </div>
     </Modal>

@@ -89,7 +89,8 @@ const useObjectModal = () => {
       dispatch,
       title: objectModalStore.id ? "Редактирование объекта" : "Добавление объекта",
       show: objectModalStore.show,
-      close: objectModalStore.close
+      close: objectModalStore.close,
+      hasErrors: state.objectName.length == 0 || state.companyId == null
     },
     serverState: {
       object: objectQeury.data,

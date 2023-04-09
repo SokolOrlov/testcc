@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Gateway } from "./types";
 import styles from "./GatewayContainer.module.css";
 import { useActionModal, useToast } from "modals";
