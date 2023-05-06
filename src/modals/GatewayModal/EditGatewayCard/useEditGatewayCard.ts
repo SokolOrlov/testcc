@@ -1,18 +1,47 @@
-import { useToast } from "../../Toast/Container";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "modals";
+import { useReducer } from "react";
 import GatewayModalStore from "../Store";
+import reducer from "./reducer";
+import { service } from "../service";
+import { IGatewayData } from "../types";
 
-export const useEditGatewayCard = ()=>{
-    const gatewayModalStore = GatewayModalStore((store) => store);
-    const toast = useToast();
+export const useEditGatewayCard = () => {
+  const [state, dispatch] = useReducer(reducer, {data: null, api:"", hasError: true});
+  const gatewayModalStore = GatewayModalStore((store) => store);
+  const toast = useToast();
 
-    
+  const saveGateway = (data: IGatewayData) => {
+    fetchSaveGateway.mutate({data: {...data.data, ObjectId: gatewayModalStore.objectId}, api: data.api});
+  };
 
-    return {
-        clientState: {
-            close: gatewayModalStore.close
-        },
-        serverState: {
-            loading: false
-        }
-    }
-}
+  const fetchSaveGateway = useMutation({
+    mutationFn: (data: IGatewayData) => {
+      toast({ label: "Сохранение гейтвея", type: "info" });
+      return service.editModem(data);
+    },
+    onSuccess: (data) => {
+      if (data.ok) {
+        toast({ label: "Успех", type: "success" });
+        gatewayModalStore.callback();
+        gatewayModalStore.close();
+      } else {
+        toast({ label: data.message, type: "error" });
+      }
+    },
+  });
+
+  return {
+    clientState:{
+      state,
+      dispatch,
+      close: gatewayModalStore.close,
+      hasError: state?.hasError
+      
+    },
+    serverState:{
+      loading: fetchSaveGateway.isLoading,
+      saveGateway,
+    data: null as any}
+  };
+};

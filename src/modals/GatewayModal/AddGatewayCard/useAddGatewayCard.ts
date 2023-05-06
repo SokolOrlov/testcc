@@ -3,8 +3,8 @@ import { useToast } from "modals";
 import { useReducer } from "react";
 import GatewayModalStore from "../Store";
 import reducer from "./reducer";
-import { service } from "./service";
-import { IGatewayData } from "./types";
+import { service } from "../service";
+import { IGatewayData } from "../types";
 
 export const useAddGatewayCard = () => {
   const [state, dispatch] = useReducer(reducer, {data: null, api:"", hasError: true});
