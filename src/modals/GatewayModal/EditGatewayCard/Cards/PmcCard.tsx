@@ -14,6 +14,7 @@ type PMCData = {
   SoftwareVersion: string;
   FirmwareStatus?: FStatus;
   CreatedDate: string;
+  ObjectId: number;
 };
 
 const defaultValues = {
@@ -21,6 +22,7 @@ const defaultValues = {
   Model: "",
   SoftwareVersion: "",
   CreatedDate: "",
+  ObjectId: 0
 };
 
 type Props = {

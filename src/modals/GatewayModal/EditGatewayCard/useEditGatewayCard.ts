@@ -15,7 +15,8 @@ export const useEditGatewayCard = () => {
     queryKey: ["gatewaydata", gatewayModalStore.gatewayId],
     queryFn: () =>{
         return service.getModemData(gatewayModalStore.gatewayId, gatewayModalStore.gatewayType)
-    }
+    },
+    cacheTime:0
   });
 
   const fetchSaveGateway = useMutation({
@@ -35,7 +36,7 @@ export const useEditGatewayCard = () => {
   });
 
   const saveGateway = (data: IGatewayData) => {
-    fetchSaveGateway.mutate({ data: {...data.data, ObjectId: gatewayModalStore.objectId}, api: gatewayModalStore.gatewayType});
+    fetchSaveGateway.mutate({ data: {...data.data}, api: data.api});
   };
 
   return {
@@ -49,7 +50,8 @@ export const useEditGatewayCard = () => {
     },
     serverState:{
       data: fetchGetGatewayData.data?.data,
-      loading: fetchSaveGateway.isLoading || fetchGetGatewayData.isLoading,
+      dataLoading: fetchGetGatewayData.isLoading,
+      saveLoading: fetchSaveGateway.isLoading,
       saveGateway
     }
   };

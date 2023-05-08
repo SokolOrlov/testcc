@@ -8,6 +8,7 @@ type EclData = {
   Model: string;
   SerialNumber: string;
   SoftwareVersion: string;
+  ObjectId: number
 };
 
 type Props = {
@@ -21,6 +22,7 @@ const defaultValues = {
   Model: "",
   SerialNumber: "",
   SoftwareVersion: "",
+  ObjectId: 0
 };
 
 export const Ecl4Card = ({ data = defaultValues, dispatch }: Props) => {

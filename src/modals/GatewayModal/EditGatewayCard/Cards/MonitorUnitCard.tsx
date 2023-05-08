@@ -8,6 +8,7 @@ type MUData = {
   SoftwareVersion: string;
   UseVpn: boolean;
   CreatedDate: string;
+  ObjectId: number;
 };
 
 type Props = {
@@ -22,6 +23,7 @@ const defaultValues = {
   SoftwareVersion: "",
   UseVpn: false,
   CreatedDate: "",
+  ObjectId: 0
 };
 
 export const MonitorUnitCard = ({ data = defaultValues, dispatch }: Props) => {
@@ -43,7 +45,7 @@ export const MonitorUnitCard = ({ data = defaultValues, dispatch }: Props) => {
   };
 
   useEffect(() => {
-    dispatch({ data: { Ip: ip, User: user, Password: passw, UseVpn: vpn, hasError: ip.trim().length == 0 }, type: "monitorunit" });
+    dispatch({ data: { ...data, Ip: ip, User: user, Password: passw, UseVpn: vpn, hasError: ip.trim().length == 0 }, type: "monitorunit" });
   }, [ip, user, passw, vpn]);
 
   return (

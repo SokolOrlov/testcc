@@ -14,6 +14,7 @@ type SMDData = {
   SoftwareVersion: string;
   FirmwareStatus?: FStatus;
   CreatedDate: string;
+  ObjectId: number;
 };
 
 type Props = {
@@ -26,6 +27,7 @@ const defaultValues = {
   Model: "",
   SoftwareVersion: "",
   CreatedDate: "",
+  ObjectId: 0
 };
 
 export const SmdCard = ({ data = defaultValues, dispatch }: Props) => {

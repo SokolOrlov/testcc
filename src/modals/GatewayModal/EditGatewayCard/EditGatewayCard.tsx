@@ -31,13 +31,9 @@ const EditGatewayCard = () => {
     serverState.saveGateway(clientState.state);
   };
 
-  console.log("loading",serverState.loading);
-  console.log("data",serverState.data);
-  
-
   return (
-    <div {...{ disabled: serverState.loading }} className={styles.body}>
-      { !serverState.loading && makeCard(clientState.gatewayType, serverState.data, clientState.dispatch)}
+    <div {...{ disabled: serverState.saveLoading }} className={styles.body}>
+      { !serverState.dataLoading && makeCard(clientState.gatewayType, serverState.data, clientState.dispatch)}
 
       <div className={styles.footer}>
         <Button label="ОТМЕНА" type="danger" onClick={clientState.close} />

@@ -6,7 +6,7 @@ export const useGatewayModal = () => {
   return {
     clientState: {
       isAdd: gatewayModalStore.gatewayId == null,
-      title: gatewayModalStore.gatewayId ? "Редактирование гейтвея" : "Добавление гейтвея",
+      title: gatewayModalStore.gatewayId ? `Редактирование ${gatewayModalStore.gatewayType}` : "Добавление гейтвея",
       show: gatewayModalStore.show,
       close: gatewayModalStore.close,
     },

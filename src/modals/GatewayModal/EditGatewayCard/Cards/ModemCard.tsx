@@ -6,6 +6,7 @@ type ModemData = {
   IMEINumber: string;
   PhoneNumber: string;
   SoftwareVersion: string;
+  ObjectId: number;
 };
 
 type Props = {
@@ -18,6 +19,7 @@ const defaultValues = {
   IMEINumber: "",
   PhoneNumber: "",
   SoftwareVersion: "",
+  ObjectId: 0
 };
 
 export const ModemCard = ({ data = defaultValues, dispatch }: Props) => {
@@ -28,7 +30,7 @@ export const ModemCard = ({ data = defaultValues, dispatch }: Props) => {
   };
 
   useEffect(() => {
-    dispatch({ data: { PhoneNumber: phoneNumber, hasError: phoneNumber.trim().length == 0 }, type: "modem" });
+    dispatch({ data: { ...data, PhoneNumber: phoneNumber, hasError: phoneNumber.trim().length == 0 }, type: "modem" });
   }, [phoneNumber]);
 
   return (
