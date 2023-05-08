@@ -6,7 +6,7 @@ import { Ecl4, Modem, MonitorUnit, Pmc, SmartHeat, Smd } from ".";
 type Props = {
   gateways: Gateway[];
   deleteGateway: (id: number)=>void
-  editGateway: (id: number)=>void
+  editGateway: (id: number, type: string)=>void
 };
 
 export const GatewayContainer: React.FC<Props> = ({ gateways, deleteGateway, editGateway }) => {
@@ -16,7 +16,7 @@ export const GatewayContainer: React.FC<Props> = ({ gateways, deleteGateway, edi
   return <div className={styles.container}>{gatewayCards}</div>;
 };
 
-function makeGatewayCard(g: Gateway, del: (id: number)=>void, edit: (id: number)=>void): React.ReactNode {
+function makeGatewayCard(g: Gateway, del: (id: number)=>void, edit: (id: number, type: string)=>void): React.ReactNode {
   switch (g.DeviceGatewayType.toLowerCase()) {
     case "modem": return <Modem key={g.Id} data={g} onDelete={del} onEdit={edit} />;
     case "ecl4": return <Ecl4 key={g.Id} data={g} onDelete={del} onEdit={edit}/>;

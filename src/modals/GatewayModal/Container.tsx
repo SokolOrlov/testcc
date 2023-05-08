@@ -10,7 +10,7 @@ export const GatewayModalContainer = React.memo(() => {
 
 type Props = {
   add: (obcjectId: number, callback: () => void) => void;
-  edit: (gatewayId: number, callback: () => void) => void;
+  edit: (gatewayId: number, gatewayType: string, callback: () => void) => void;
   close: () => void;
   callback: () => void;
 };

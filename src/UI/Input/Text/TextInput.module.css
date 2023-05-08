@@ -32,3 +32,9 @@
     font-size: 14px;
     font-style: italic;
 }
+
+input[disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
+}

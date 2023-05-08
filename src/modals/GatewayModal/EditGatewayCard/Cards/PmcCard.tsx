@@ -1,21 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextInput } from "ui";
 
+type FStatus = {
+  serialNumber: string;
+  changeDate: string;
+  status: number;
+  StatusString: string;
+};
+
+type PMCData = {
+  SerialNumber: string;
+  Model: string;
+  SoftwareVersion: string;
+  FirmwareStatus?: FStatus;
+  CreatedDate: string;
+};
+
+const defaultValues = {
+  SerialNumber: "",
+  Model: "",
+  SoftwareVersion: "",
+  CreatedDate: "",
+};
+
 type Props = {
+  data: PMCData;
   dispatch: (action: { type: string; data: any }) => void;
 };
 
-export const PmcCard = ({ dispatch }: Props) => {
-  const [serial, setSerial] = useState("");
-  
-  const changeSerial = (data: string) => { 
-    setSerial(data);
-    dispatch({ data: { SerialNumber: data, hasError: data.trim().length == 0  }, type: "pmc" });
-  };
-
+export const PmcCard = ({ data = defaultValues, dispatch }: Props) => {
   return (
     <>
-      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeSerial} validationMessage="Укажите серийный номер" />
+      <TextInput disabled label="МОДЕЛЬ" value={data.Model} />
+      <TextInput disabled label="СЕРИЙНЫЙ НОМЕР" value={data.SerialNumber} />
+      <TextInput disabled label="ВЕРСИЯ ПО" value={data.SoftwareVersion} />
     </>
   );
 };

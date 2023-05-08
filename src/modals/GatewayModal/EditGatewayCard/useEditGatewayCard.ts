@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useToast } from "modals";
 import { useReducer } from "react";
 import GatewayModalStore from "../Store";
@@ -11,14 +11,17 @@ export const useEditGatewayCard = () => {
   const gatewayModalStore = GatewayModalStore((store) => store);
   const toast = useToast();
 
-  const saveGateway = (data: IGatewayData) => {
-    fetchSaveGateway.mutate({data: {...data.data, ObjectId: gatewayModalStore.objectId}, api: data.api});
-  };
+  const fetchGetGatewayData = useQuery({
+    queryKey: ["gatewaydata", gatewayModalStore.gatewayId],
+    queryFn: () =>{
+        return service.getModemData(gatewayModalStore.gatewayId, gatewayModalStore.gatewayType)
+    }
+  });
 
   const fetchSaveGateway = useMutation({
     mutationFn: (data: IGatewayData) => {
       toast({ label: "Сохранение гейтвея", type: "info" });
-      return service.editModem(data);
+      return service.editModem(gatewayModalStore.gatewayId, data);
     },
     onSuccess: (data) => {
       if (data.ok) {
@@ -31,17 +34,23 @@ export const useEditGatewayCard = () => {
     },
   });
 
+  const saveGateway = (data: IGatewayData) => {
+    fetchSaveGateway.mutate({ data: {...data.data, ObjectId: gatewayModalStore.objectId}, api: gatewayModalStore.gatewayType});
+  };
+
   return {
     clientState:{
       state,
       dispatch,
       close: gatewayModalStore.close,
-      hasError: state?.hasError
+      hasError: state?.hasError,
+      gatewayType: gatewayModalStore.gatewayType
       
     },
     serverState:{
-      loading: fetchSaveGateway.isLoading,
-      saveGateway,
-    data: null as any}
+      data: fetchGetGatewayData.data?.data,
+      loading: fetchSaveGateway.isLoading || fetchGetGatewayData.isLoading,
+      saveGateway
+    }
   };
 };

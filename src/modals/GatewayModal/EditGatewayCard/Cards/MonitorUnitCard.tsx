@@ -1,15 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { TextInput } from "ui";
 
+type MUData = {
+  Ip: string;
+  User: string;
+  Password: string;
+  SoftwareVersion: string;
+  UseVpn: boolean;
+  CreatedDate: string;
+};
+
 type Props = {
+  data: MUData;
   dispatch: (action: { type: string; data: any }) => void;
 };
 
-export const MonitorUnitCard = ({ dispatch }: Props) => {
-  const [ip, setIp] = useState("");
-  const [user, setUser] = useState("");
-  const [passw, setPassw] = useState("");
-  const [vpn, setVpn] = useState(false);
+const defaultValues = {
+  Ip: "",
+  User: "",
+  Password: "",
+  SoftwareVersion: "",
+  UseVpn: false,
+  CreatedDate: "",
+};
+
+export const MonitorUnitCard = ({ data = defaultValues, dispatch }: Props) => {
+  const [ip, setIp] = useState(data.Ip == null? "": data.Ip);
+  const [user, setUser] = useState(data.User == null? "": data.User);
+  const [passw, setPassw] = useState(data.Password== null? "": data.Password);
+  const [vpn, setVpn] = useState(data.UseVpn);
 
   const changeIp = (data: string) => {
     setIp(data);
@@ -32,6 +51,8 @@ export const MonitorUnitCard = ({ dispatch }: Props) => {
       <TextInput label="IP-АДРЕС" value={ip} onChange={changeIp} validationMessage="Укажите Ip-адрес" />
       <TextInput label="ПОЛЬЗОВАТЕЛЬ" value={user} onChange={changeUser} />
       <TextInput label="ПАРОЛЬ" value={passw} onChange={changePassw} />
+      <TextInput disabled label="ВЕРСИЯ ПО" value={data.SoftwareVersion} />
+      <TextInput disabled label="ДАТА СОЗДАНИЯ" value={data.CreatedDate} />
     </>
   );
 };

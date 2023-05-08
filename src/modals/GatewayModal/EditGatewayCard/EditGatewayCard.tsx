@@ -2,16 +2,22 @@ import React from "react";
 import { Button } from "ui";
 import { useEditGatewayCard } from "./useEditGatewayCard";
 import styles from "../GatewayModal.module.css";
-import { DigitalHeatCard, Ecl4Card, ModemCard, MonitorUnitCard, PmcCard, SmdCard } from "./Cards"; 
+import { DigitalHeatCard, Ecl4Card, ModemCard, MonitorUnitCard, PmcCard, SmdCard } from "./Cards";
 
-const makeCard = (type: string, dispatch: (action: {type: string, data: any})=>void) => {
+const makeCard = (type: string, data: any, dispatch: (action: { type: string; data: any }) => void) => {
   switch (type?.toLowerCase()) {
-    case "modem": return <ModemCard dispatch={dispatch}/>;
-    case "ecl4": return <Ecl4Card dispatch={dispatch}/>;
-    case "smd": return <SmdCard dispatch={dispatch}/>;
-    case "pmc": return <PmcCard dispatch={dispatch}/>;
-    case "monitorunit": return <MonitorUnitCard dispatch={dispatch}/>
-    case "smartheat": return <DigitalHeatCard dispatch={dispatch}/>;
+    case "modem":
+      return <ModemCard data={data} dispatch={dispatch} />;
+    case "ecl4":
+      return <Ecl4Card data={data} dispatch={dispatch} />;
+    case "smd":
+      return <SmdCard data={data} dispatch={dispatch} />;
+    case "pmc":
+      return <PmcCard data={data} dispatch={dispatch} />;
+    case "monitorunit":
+      return <MonitorUnitCard data={data} dispatch={dispatch} />;
+    case "smartheat":
+      return <DigitalHeatCard dispatch={dispatch} />;
 
     default:
       return null;
@@ -19,15 +25,19 @@ const makeCard = (type: string, dispatch: (action: {type: string, data: any})=>v
 };
 
 const EditGatewayCard = () => {
-  const {clientState, serverState} = useEditGatewayCard();
+  const { clientState, serverState } = useEditGatewayCard();
 
   const saveGateway = () => {
     serverState.saveGateway(clientState.state);
   };
 
+  console.log("loading",serverState.loading);
+  console.log("data",serverState.data);
+  
+
   return (
     <div {...{ disabled: serverState.loading }} className={styles.body}>
-      {makeCard(serverState.data, clientState.dispatch)}
+      { !serverState.loading && makeCard(clientState.gatewayType, serverState.data, clientState.dispatch)}
 
       <div className={styles.footer}>
         <Button label="ОТМЕНА" type="danger" onClick={clientState.close} />

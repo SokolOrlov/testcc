@@ -20,8 +20,8 @@ export const ObjectDevices = () => {
     gatewayModal.add(serverState.objectId, serverState.refetch);
   }
 
-  const editGateway = (id: number)=>{
-    gatewayModal.edit(id, serverState.refetch);
+  const editGateway = (id: number, type: string)=>{
+    gatewayModal.edit(id, type, serverState.refetch);
   }
 
   const deleteGateway =(id: number)=>{

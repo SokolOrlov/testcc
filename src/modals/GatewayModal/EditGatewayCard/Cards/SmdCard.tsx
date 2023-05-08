@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextInput } from "ui";
 
+type FStatus = {
+  serialNumber: string;
+  changeDate: string;
+  status: number;
+  StatusString: string;
+};
+
+type SMDData = {
+  SerialNumber: string;
+  Model: string;
+  SoftwareVersion: string;
+  FirmwareStatus?: FStatus;
+  CreatedDate: string;
+};
+
 type Props = {
+  data: SMDData;
   dispatch: (action: { type: string; data: any }) => void;
 };
 
-export const SmdCard = ({ dispatch }: Props) => {
-  const [serial, setData] = useState("");
+const defaultValues = {
+  SerialNumber: "",
+  Model: "",
+  SoftwareVersion: "",
+  CreatedDate: "",
+};
 
-  const changeData = (data: string) => {
-    setData(data);
-    dispatch({ data: { SerialNumber: data, hasError: data.trim().length == 0 }, type: "smd" });
-  };
-
-
+export const SmdCard = ({ data = defaultValues, dispatch }: Props) => {
   return (
     <>
-      <TextInput label="СЕРИЙНЫЙ НОМЕР" value={serial} onChange={changeData} validationMessage="Укажите серийный номер" />
+      <TextInput disabled label="МОДЕЛЬ" value={data.Model} />
+      <TextInput disabled label="СЕРИЙНЫЙ НОМЕР" value={data.SerialNumber} />
+      <TextInput disabled label="ВЕРСИЯ ПО" value={data.SoftwareVersion} />
+      <TextInput disabled label="ДАТА СОЗДАНИЯ" value={data.CreatedDate} />
     </>
   );
 };
