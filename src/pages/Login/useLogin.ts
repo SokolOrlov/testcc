@@ -12,8 +12,8 @@ export const uselogin = () => {
   const auth = useAuth();
   const toast = useToast();
 
-  const [email, setLogin] = useState<string>("superadmin@test.ru");
-  const [passw, setPassw] = useState<string>(")P(O8i&U");
+  const [email, setLogin] = useState<string>("");
+  const [passw, setPassw] = useState<string>("");
 
   const { isFetching, refetch } = useQuery({
     queryKey: ["login", email, passw],
