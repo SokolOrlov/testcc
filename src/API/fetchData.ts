@@ -1,6 +1,6 @@
 import { Responce } from "./types";
 
-const API_URL = "https://test.cloud-control.ru/api/api/";
+const API_URL = "";
 
 const headers = () => {
   return {
