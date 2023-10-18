@@ -1,5 +1,5 @@
 import { Responce } from "../../API/types";
-import Api from "./Api";
+import Api from "./api";
 import { Domain, ObjectData, SCompany } from "./types";
 
 export default class Service {

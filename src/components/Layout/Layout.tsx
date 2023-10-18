@@ -14,7 +14,7 @@ export const Layout = () => {
       <main>
         <Outlet />
       </main>
-      <footer>2023</footer>
+      <footer style={{margin:"75px", textAlign:"center"}}>2023</footer>
     </>
   );
 };
