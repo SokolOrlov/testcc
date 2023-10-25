@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./AllObjects.module.css";
 import { useObjects } from "./useObjects"; 
 import { _objectStates, _pageSizes } from "../../assets/data/data";
@@ -98,15 +98,23 @@ export const AllObjects = () => {
     });
   }
 
+  const _filter = useMemo(() => <FilterInput value={clientState.state.filter} onChange={changeFilter} />, []);
+  const _dropdown_states = useMemo(() => <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement="FirstElement"/>, []);
+  const _dropdown_domains = useMemo(() => <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domains} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>, [serverState.domains, clientState.state.selectedDomains]);
+  const _dropdown_scompanies = useMemo(() => <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />, [serverState.scompanies, clientState.state.selectedSCompanies]);
+  const _table = useMemo(() => <ObjectsTable rowsData={serverState.objectsData?.data} onEdit={editObjectModal} onDelete={deleteObjectModal}/>,[serverState.objectsData?.data]);
+  const _pagination = useMemo(() => <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>,[clientState.state.pageNumber, serverState.objectsData?.total, clientState.state.pageSize]);
+  const _dropdown_limits = useMemo(() => <DropDown data={_pageSizes} onSelect={changePageSize} firstElement="FirstElement"/>, []);
+
   return (
     <>
       <div className={styles.content}>
         <PageHeader icon="big_home" label="Главная"/>
 
         <div className={styles.row}>
-          <DropDown label="СОСТОЯНИЕ" data={_objectStates} onSelect={filterByState} firstElement="FirstElement"/>
-          <DropDownMultiSelect label="КОМПАНИЯ" data={serverState.domains} onSelect={filterByDomains} selected={clientState.state.selectedDomains} filter={true} emptyText={"Все"}/>
-          <DropDownMultiSelect label="СЕРВИСНАЯ КОМПАНИЯ" data={serverState.scompanies} onSelect={filetBySCompanies} selected={clientState.state.selectedSCompanies} filter={true} emptyText={"Все"} />   
+          {_dropdown_states}
+          {_dropdown_domains}
+          {_dropdown_scompanies}
           <Button label="ОЧИСТИТЬ ФИЛЬТРЫ" icon="round_cross" onClick={clearFilters}/>
         </div>
 
@@ -114,14 +122,14 @@ export const AllObjects = () => {
           <RequireRight>
             <Button label="ДОБАВИТЬ ОБЪЕКТ" icon="round_plus" type="info" onClick={addObjectModal}/>
           </RequireRight>
-          <FilterInput value={clientState.state.filter} onChange={changeFilter} />
+          {_filter}
         </div>
 
-        <ObjectsTable rowsData={serverState.objectsData?.data} onEdit={editObjectModal} onDelete={deleteObjectModal}/>
+        {_table}
 
         <div {...{disabled: serverState.loading}} className={styles.row}>
-          <DropDown data={_pageSizes} onSelect={changePageSize} firstElement="FirstElement"/>
-          <Pagination pageNumber={clientState.state.pageNumber} totalCount={serverState.objectsData?.total} pageSize={clientState.state.pageSize} onChange={changePage}/>
+          {_dropdown_limits}
+          {_pagination}
         </div>
       </div>
       
